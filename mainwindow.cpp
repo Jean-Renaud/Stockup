@@ -1,11 +1,25 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "database.h"
+#include <QMessageBox>
+#include <QDebug>
+#include <QSqlQuery>
+#include <QtSql/QSqlDatabase>
+#include <QSqlError>
+#include <QtSql/QtSql>
+
+using namespace std;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+
+
     QMenu *menuFile = menuBar()->addMenu("&Fichier");
 
     QAction *actionLogout = new QAction("&Deconnexion", this);
@@ -35,7 +49,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction *actionDeleteUser = new QAction("&Supprimer un utilisateur", this);
     menuUsers->addAction(actionDeleteUser);
 
-
 }
 
 MainWindow::~MainWindow()
@@ -43,5 +56,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+bool database::openDatabase()
+{
+    QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
+    stockup.setDatabaseName(QApplication::applicationDirPath() + "/stockup.db");
 
 
+}
+
+void database::closeDatabase()
+
+{
+    stockup.close();
+}
+
+void MainWindow::on_button_Create_clicked()
+{
+
+    QString reference,date_creation,emplacement, quantite,etat,dluo,lot;
+    reference=ui->reference_Product->text();
+    date_creation=ui->date_creation->text();
+    emplacement=ui->location->text();
+    quantite=ui->quantity->text();
+    etat=ui->state->text();
+    dluo=ui->dluo->text();
+    lot=ui->pattern->text();
+    database connectToDatabase;
+    QSqlQuery Insert_Product;
+    Insert_Product.exec("INSERT INTO Product (reference,creation_date,location,quantity,stat,DLUO,pattern)" "VALUES (:reference,:date_creation,:emplacement,:quantite,:etat,:dluo,:lot)");
+
+    if(!Insert_Product.exec())
+
+         QMessageBox::critical(this,tr("Erreur"),tr("Il y a eu un problème avec la création du nouveau produit."));
+
+
+    else
+         QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
+
+
+
+}

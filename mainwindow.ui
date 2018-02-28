@@ -90,7 +90,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Référence produit</string>
+     <string>Reference</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -132,16 +132,6 @@
      <string>DLUO</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="quantity">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>270</y>
-      <width>151</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
@@ -152,27 +142,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Quantité</string>
-    </property>
-   </widget>
-   <widget class="QDateEdit" name="date">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>370</y>
-      <width>110</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QFontComboBox" name="state">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>320</y>
-      <width>151</width>
-      <height>22</height>
-     </rect>
+     <string>Quantite</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -185,14 +155,67 @@
      </rect>
     </property>
     <property name="text">
-     <string>N° de Lot</string>
+     <string>Lot</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="pattern">
     <property name="geometry">
      <rect>
       <x>410</x>
       <y>420</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="state">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>320</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="quantity">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>270</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>130</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Date</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="date_creation">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>150</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="dluo">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>370</y>
       <width>113</width>
       <height>20</height>
      </rect>

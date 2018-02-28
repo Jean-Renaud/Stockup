@@ -1,5 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "mainwindow.h"
+#include <QApplication>
+#include <QtSql/QSql>
+#include <QtDebug>
 
 #include <QMainWindow>
 
@@ -15,10 +19,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void on_pushButton_clicked();
+public slots:
+    void on_button_Create_clicked();
 
-    void on_field_Login_textChanged(const QString &arg1);
+
+private slots:
+
+
 
 private:
     Ui::MainWindow *ui;
