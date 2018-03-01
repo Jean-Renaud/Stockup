@@ -201,7 +201,7 @@
      <string>Date</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="date_creation">
+   <widget class="QLineEdit" name="creation_date">
     <property name="geometry">
      <rect>
       <x>410</x>

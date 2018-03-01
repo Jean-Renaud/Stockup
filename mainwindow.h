@@ -6,6 +6,7 @@
 #include <QtDebug>
 
 #include <QMainWindow>
+#include <database.h>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H
