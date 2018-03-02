@@ -12,11 +12,11 @@ class database : public QMainWindow
         virtual ~database();
 
         void createTable();
-        void insertProductValue(QString reference);
+        void insertProductValue(QString reference, QString date, QString hour, QString location, QString packaging, QString quantity, QString state, QString dluo, QString lot, QString pattern);
 
         QString dbfile;
         QString fichierbdd;
-        bool insertProduit(std::string name, float reference, int quantity, std::string lot);
+       // bool insertProduit(std::string name, float reference, int quantity, std::string lot);
         bool deleteProduit(int id);
 
 

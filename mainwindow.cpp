@@ -60,7 +60,19 @@ MainWindow::~MainWindow()
 void MainWindow::on_button_Create_clicked()
 {
    QString reference = ui->reference_Product->text();
+   QString date = ui->date->text();
+   QString hour = ui->hour->text();
+   QString location = ui->location->text();
+   QString packaging = ui->packaging->text();
+   QString quantity = ui->quantity->text();
+   QString state = ui->state->currentText();
+   QString dluo = ui->dluo->text();
+   QString lot = ui->lot->text();
+   QString pattern = ui->pattern->currentText();
+
    database data;
-   data.insertProductValue(reference);
+   data.insertProductValue(reference, date, hour, location, packaging, quantity, state, dluo, lot, pattern);
+
+
 
 }
