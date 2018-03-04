@@ -19,37 +19,27 @@ void database::createTable()
 
     QSqlQuery createTable;
     QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/Stockup/stockup.db");
+    stockup.setDatabaseName("C:/STOCKUP/stockup.db");
     stockup.open();
     if(stockup.open())
     {
          QSqlQuery createTable(stockup);
 
 
-         /*createTable.exec("CREATE TABLE IF NOT EXISTS 'product' ("
-                                  "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                  "'date' TEXT NOT NULL,"
-                                  "'hour' TEXT NOT NULL,"
-                                  "'reference' TEXT NOT NULL,"
-                                  "'location' TEXT NOT NULL,"
-                                  "'quantity' REAL NOT NULL,"
-                                  "'state' TEXT NOT NULL,"
-                                  "'dluo' TEXT NOT NULL,"
-                                  "'lot' TEXT NOT NULL,"
-                                  "'pattern' TEXT"
-                                  ");");*/
 
-         /*createTable.exec("create table if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT,"
+
+         createTable.exec("create table if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT,"
                                        "'id_login' INTEGER NOT NULL,"
                                        " 'password' INTEGER NOT NULL,"
                                        "'name' TEXT NOT NULL,"
                                        "'first_name' TEXT NOT NULL,"
-                                       "'group' INTEGER NOT NULL"
-                                       ");");*/
+                                       "'userGroup' INTEGER NOT NULL"
+                                       ");");
 
 
         createTable.exec("CREATE TABLE product ("
-                         "reference PRIMARY KEY NOT NULL,"
+                         "id_Product INTEGER PRIMARY KEY AUTOINCREMENT,"
+                         "reference TEXT NOT NULL,"
                          "date TEXT NOT NULL,"
                          "hour TEXT NOT NULL,"
                          "location TEXT NOT NULL,"
@@ -93,6 +83,7 @@ void database::insertProductValue(QString reference, QString date, QString hour,
    }
 
  data.close();
+
 
 }
 
