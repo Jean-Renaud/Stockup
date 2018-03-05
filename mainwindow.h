@@ -28,6 +28,8 @@ private slots:
 
 
 
+    void on_search_Database_clicked();
+
 private:
     Ui::MainWindow *ui;
 

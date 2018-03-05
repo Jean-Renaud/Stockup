@@ -17,11 +17,7 @@ void database::createTable()
 {
     //Creation de la table
 
-    QSqlQuery createTable;
-    QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("C:/STOCKUP/stockup.db");
-    stockup.open();
-    if(stockup.open())
+    if(connOpen())
     {
          QSqlQuery createTable(stockup);
 
@@ -55,13 +51,13 @@ void database::createTable()
     {
          QMessageBox::information(this,tr("Erreur"),tr("La connexion avec la base de donnée à échouée."));
     }
+    connClose();
 
 }
 
 void database::insertProductValue(QString reference, QString date, QString hour, QString location, QString packaging, QString quantity, QString state, QString dluo, QString lot, QString pattern)
 {
-    QSqlDatabase data;
-    data.open();
+    connOpen();
     QSqlQuery Insert_Product;
     Insert_Product.prepare("INSERT INTO product (reference, date, hour, location, packaging, quantity, state, dluo, lot, pattern) VALUES (:reference, :date, :hour, :location, :packaging, :quantity, :state, :dluo, :lot, :pattern)");
     Insert_Product.bindValue(":reference",reference);
@@ -82,8 +78,10 @@ void database::insertProductValue(QString reference, QString date, QString hour,
 
    }
 
- data.close();
+ connClose();
 
 
 }
+
+
 

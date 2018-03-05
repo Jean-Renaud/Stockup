@@ -7,7 +7,8 @@
 #include <QtSql/QSqlDatabase>
 #include <QSqlError>
 #include <QtSql/QtSql>
-
+#include <QModelIndex>
+#include <QWidget>
 using namespace std;
 
 
@@ -76,4 +77,23 @@ void MainWindow::on_button_Create_clicked()
 
 
 
+}
+
+
+
+void MainWindow::on_search_Database_clicked()
+{
+
+    QSqlQueryModel * modal = new QSqlQueryModel();
+        database mabd;
+        mabd.connOpen();
+        QSqlQuery list;
+
+        QString searchRef = ui->searchRef->text();
+        list.prepare("SELECT * FROM product WHERE reference = :reference");
+        list.bindValue(":reference",searchRef);
+        list.exec();
+        modal->setQuery(list);
+        ui->listDatabase->setModel(modal);
+        mabd.connClose();
 }
