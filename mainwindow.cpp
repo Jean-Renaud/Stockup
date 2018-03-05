@@ -85,15 +85,34 @@ void MainWindow::on_search_Database_clicked()
 {
 
     QSqlQueryModel * modal = new QSqlQueryModel();
+    modal->clear();
         database mabd;
         mabd.connOpen();
-        QSqlQuery list;
-
+        QSqlQuery listRef;
         QString searchRef = ui->searchRef->text();
-        list.prepare("SELECT * FROM product WHERE reference = :reference");
-        list.bindValue(":reference",searchRef);
-        list.exec();
-        modal->setQuery(list);
+        listRef.prepare("SELECT * FROM product WHERE reference = :reference");
+        listRef.bindValue(":reference",searchRef);
+        listRef.exec();
+        modal->setQuery(listRef);
         ui->listDatabase->setModel(modal);
         mabd.connClose();
+}
+
+void MainWindow::on_search_Location_clicked()
+{
+
+    QSqlQueryModel * modal = new QSqlQueryModel();
+        database mabd;
+        mabd.connOpen();
+        QSqlQuery listLoc;
+
+        QString searchLocation = ui->searchLocation->text();
+        listLoc.prepare("SELECT * FROM product WHERE location = :location");
+        listLoc.bindValue(":location",searchLocation);
+        listLoc.exec();
+        modal->setQuery(listLoc);
+        ui->listDatabase->setModel(modal);
+        mabd.connClose();
+
+
 }

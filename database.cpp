@@ -79,8 +79,6 @@ void database::insertProductValue(QString reference, QString date, QString hour,
    }
 
  connClose();
-
-
 }
 
 
