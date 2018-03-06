@@ -116,3 +116,52 @@ void MainWindow::on_search_Location_clicked()
 
 
 }
+
+void MainWindow::on_listDatabase_activated(const QModelIndex &index)
+{
+    QString val = ui->listDatabase->model()->data(index).toString();
+    clearFocus();
+    database madb;
+        madb.connOpen();
+        QSqlQuery query;
+        query.prepare("SELECT id_Product,reference,date,location,packaging,quantity,state,dluo,lot,pattern FROM product where id_Product ='"+val+"'or reference='"+val+"' or date='"+val+"' or location ='"+val+"' or packaging='"+val+"' or quantity='"+val+"' or state ='"+val+"'or dluo='"+val+"' or lot='"+val+"' or pattern ='"+val+"'");
+        query.exec();
+
+        while(query.next())
+        {
+
+            ui->id->setText(query.value(0).toString());
+            ui->ref->setText(query.value(1).toString());
+            ui->date_2->setText(query.value(2).toString());
+            ui->emplacement->setText(query.value(3).toString());
+            ui->packaging_2->setText(query.value(4).toString());
+            ui->quantite->setText(query.value(5).toString());
+            ui->etat->setText(query.value(6).toString());
+            ui->dluo_2->setText(query.value(7).toString());
+            ui->lot_2->setText(query.value(8).toString());
+            ui->information->setText(query.value(9).toString());
+
+        }
+
+        madb.connClose();
+
+}
+
+void MainWindow::on_update_row_clicked()
+{
+    QString idProduct = ui->id->text();
+
+    QString ref = ui->ref->text();
+    QString date2 = ui->date_2->text();
+    QString loc = ui->emplacement->text();
+    QString pack = ui->packaging_2->text();
+    QString quant = ui->quantite->text();
+    QString state2 = ui->etat->text();
+    QString dluo2 = ui->dluo_2->text();
+    QString lot2 = ui->lot_2->text();
+    QString pattern2 = ui->information->text();
+
+    database data23;
+    data23.updateValues(idProduct, ref, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+
+}

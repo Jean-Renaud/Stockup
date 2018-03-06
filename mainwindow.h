@@ -32,6 +32,10 @@ private slots:
 
     void on_search_Location_clicked();
 
+    void on_listDatabase_activated(const QModelIndex &index);
+
+    void on_update_row_clicked();
+
 private:
     Ui::MainWindow *ui;
 

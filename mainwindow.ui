@@ -14,24 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>20</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Créer une nouvelle référence:</string>
-    </property>
-   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
+      <y>0</y>
       <width>1600</width>
       <height>800</height>
      </rect>
@@ -431,19 +418,6 @@
        <string>Créer</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_connect">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>470</y>
-        <width>101</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>connect</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">
@@ -580,19 +554,6 @@
         <string>Référence :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="geometry">
-        <rect>
-         <x>100</x>
-         <y>40</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
@@ -606,7 +567,7 @@
         <string>Date :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QLineEdit" name="date_2">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -632,7 +593,7 @@
         <string>Emplacement :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_3">
+      <widget class="QLineEdit" name="emplacement">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -658,7 +619,7 @@
         <string>Conditionnement :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_4">
+      <widget class="QLineEdit" name="packaging_2">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -684,7 +645,7 @@
         <string>Quantité :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_5">
+      <widget class="QLineEdit" name="quantite">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -710,7 +671,7 @@
         <string>Etat :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_6">
+      <widget class="QLineEdit" name="etat">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -736,7 +697,7 @@
         <string>DLUO :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_7">
+      <widget class="QLineEdit" name="dluo_2">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -762,7 +723,7 @@
         <string>Lot :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_8">
+      <widget class="QLineEdit" name="lot_2">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -788,7 +749,7 @@
         <string>Information :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_9">
+      <widget class="QLineEdit" name="information">
        <property name="geometry">
         <rect>
          <x>100</x>
@@ -801,6 +762,45 @@
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="update_row">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>330</y>
+         <width>111</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 153, 0);</string>
+       </property>
+       <property name="text">
+        <string>Mettre à jour</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="id">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>10</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLineEdit" name="ref">
+      <property name="geometry">
+       <rect>
+        <x>1210</x>
+        <y>20</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
      </widget>
     </widget>
    </widget>
