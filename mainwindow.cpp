@@ -60,19 +60,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_button_Create_clicked()
 {
-   QString reference = ui->reference_Product->text();
-   QString date = ui->date->text();
-   QString hour = ui->hour->text();
-   QString location = ui->location->text();
-   QString packaging = ui->packaging->text();
-   QString quantity = ui->quantity->text();
-   QString state = ui->state->currentText();
-   QString dluo = ui->dluo->text();
-   QString lot = ui->lot->text();
-   QString pattern = ui->pattern->currentText();
+   QString Reference = ui->reference_Product->text();
+   QString Nom = ui->nomProduit_2->text();
+   QString Date = ui->date->text();
+   QString Heure = ui->hour->text();
+   QString Emplacement = ui->location->text();
+   QString Emballage = ui->packaging->text();
+   QString Quantite = ui->quantity->text();
+   QString Etat = ui->state->currentText();
+   QString DLUO = ui->dluo->text();
+   QString Lot = ui->lot->text();
+   QString Information = ui->pattern->currentText();
 
    database data;
-   data.insertProductValue(reference, date, hour, location, packaging, quantity, state, dluo, lot, pattern);
+   data.insertProductValue(Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information);
 
 
 
@@ -90,7 +91,7 @@ void MainWindow::on_search_Database_clicked()
         mabd.connOpen();
         QSqlQuery listRef;
         QString searchRef = ui->searchRef->text();
-        listRef.prepare("SELECT * FROM product WHERE reference = :reference");
+        listRef.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :reference");
         listRef.bindValue(":reference",searchRef);
         listRef.exec();
         modal->setQuery(listRef);
@@ -107,7 +108,7 @@ void MainWindow::on_search_Location_clicked()
         QSqlQuery listLoc;
 
         QString searchLocation = ui->searchLocation->text();
-        listLoc.prepare("SELECT * FROM product WHERE location = :location");
+        listLoc.prepare("SELECT * FROM matieres_Premieres WHERE Emplacement = :location");
         listLoc.bindValue(":location",searchLocation);
         listLoc.exec();
         modal->setQuery(listLoc);
@@ -124,7 +125,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
     database madb;
         madb.connOpen();
         QSqlQuery query;
-        query.prepare("SELECT id_Product,reference,date,location,packaging,quantity,state,dluo,lot,pattern FROM product where id_Product ='"+val+"'or reference='"+val+"' or date='"+val+"' or location ='"+val+"' or packaging='"+val+"' or quantity='"+val+"' or state ='"+val+"'or dluo='"+val+"' or lot='"+val+"' or pattern ='"+val+"'");
+        query.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information FROM matieres_Premieres where id_Produit ='"+val+"'or Reference='"+val+"' or Nom ='"+val+"' or Date='"+val+"' or Emplacement ='"+val+"' or Emballage='"+val+"' or Quantite='"+val+"' or Etat ='"+val+"'or DLUO='"+val+"' or Lot='"+val+"' or Information ='"+val+"'");
         query.exec();
 
         while(query.next())
@@ -132,14 +133,15 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 
             ui->id->setText(query.value(0).toString());
             ui->ref->setText(query.value(1).toString());
-            ui->date_2->setText(query.value(2).toString());
-            ui->emplacement->setText(query.value(3).toString());
-            ui->packaging_2->setText(query.value(4).toString());
-            ui->quantite->setText(query.value(5).toString());
-            ui->etat->setText(query.value(6).toString());
-            ui->dluo_2->setText(query.value(7).toString());
-            ui->lot_2->setText(query.value(8).toString());
-            ui->information->setText(query.value(9).toString());
+            ui->nomProduit->setText(query.value(2).toString());
+            ui->date_2->setText(query.value(3).toString());
+            ui->emplacement->setText(query.value(4).toString());
+            ui->packaging_2->setText(query.value(5).toString());
+            ui->quantite->setText(query.value(6).toString());
+            ui->etat->setText(query.value(7).toString());
+            ui->dluo_2->setText(query.value(8).toString());
+            ui->lot_2->setText(query.value(9).toString());
+            ui->information->setText(query.value(10).toString());
 
         }
 
@@ -150,8 +152,8 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 void MainWindow::on_update_row_clicked()
 {
     QString rowid = ui->id->text();
-
     QString ref = ui->ref->text();
+    QString name =ui->nomProduit->text();
     QString date2 = ui->date_2->text();
     QString loc = ui->emplacement->text();
     QString pack = ui->packaging_2->text();
@@ -162,7 +164,7 @@ void MainWindow::on_update_row_clicked()
     QString pattern2 = ui->information->text();
 
     database data23;
-    data23.updateReference(rowid, ref, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+    data23.updateReference(rowid, ref, name, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
 
 }
 
@@ -182,5 +184,22 @@ void MainWindow::on_deleteProduct_clicked()
     QString patternDel = ui->information->text();*/
     database data25;
     data25.deleteReference(deleteP);
+
+}
+
+void MainWindow::on_searchNameProduct_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+        database mabd;
+        mabd.connOpen();
+        QSqlQuery listNom;
+
+        QString searchName = ui->searchByName->text();
+        listNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom");
+        listNom.bindValue(":chercheNom",searchName);
+        listNom.exec();
+        modal->setQuery(listNom);
+        ui->listDatabase->setModel(modal);
+        mabd.connClose();
 
 }

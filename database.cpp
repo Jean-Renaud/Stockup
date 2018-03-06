@@ -24,27 +24,28 @@ void database::createTable()
 
 
 
-         createTable.exec("create table if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                       "'id_login' INTEGER NOT NULL,"
-                                       " 'password' INTEGER NOT NULL,"
-                                       "'name' TEXT NOT NULL,"
-                                       "'first_name' TEXT NOT NULL,"
-                                       "'userGroup' INTEGER NOT NULL"
+         createTable.exec("create table if not exists 'Utilisateurs' ('id' INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                       "'id_Utilisateur' INTEGER NOT NULL,"
+                                       " 'Mot_de_Passe' INTEGER NOT NULL,"
+                                       "'Nom' TEXT NOT NULL,"
+                                       "'Prenom' TEXT NOT NULL,"
+                                       "'Groupe' INTEGER NOT NULL"
                                        ");");
 
 
-        createTable.exec("CREATE TABLE product ("
-                         "id_Product INTEGER PRIMARY KEY AUTOINCREMENT,"
-                         "reference TEXT NOT NULL,"
-                         "date TEXT NOT NULL,"
-                         "hour TEXT NOT NULL,"
-                         "location TEXT NOT NULL,"
-                         "packaging TEXT NOT NULL,"
-                         "quantity TEXT NOT NULL,"
-                         "state TEXT NOT NULL,"
-                         "dluo TEXT NOT NULL,"
-                         "lot TEXT NOT NULL,"
-                         "pattern TEXT NOT NULL"
+        createTable.exec("CREATE TABLE matieres_Premieres ("
+                         "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
+                         "Reference TEXT NOT NULL,"
+                         "Nom TEXT NOT NULL,"
+                         "Lot TEXT NOT NULL,"
+                         "Date TEXT NOT NULL,"
+                         "Heure TEXT NOT NULL,"
+                         "Emplacement TEXT NOT NULL,"
+                         "Emballage TEXT NOT NULL,"
+                         "Quantite TEXT NOT NULL,"
+                         "Etat TEXT NOT NULL,"
+                         "DLUO TEXT NOT NULL,"
+                         "Information TEXT NOT NULL"
                          ");");
     }
     else
@@ -55,26 +56,32 @@ void database::createTable()
 
 }
 
-void database::insertProductValue(QString reference, QString date, QString hour, QString location, QString packaging, QString quantity, QString state, QString dluo, QString lot, QString pattern)
+void database::insertProductValue(QString Reference, QString Nom, QString Date, QString Heure, QString Emplacement, QString Emballage, QString Quantite, QString Etat, QString DLUO, QString Lot, QString Information)
 {
     connOpen();
     QSqlQuery Insert_Product;
-    Insert_Product.prepare("INSERT INTO product (reference, date, hour, location, packaging, quantity, state, dluo, lot, pattern) VALUES (:reference, :date, :hour, :location, :packaging, :quantity, :state, :dluo, :lot, :pattern)");
-    Insert_Product.bindValue(":reference",reference);
-    Insert_Product.bindValue(":date",date);
-    Insert_Product.bindValue(":hour",hour);
-    Insert_Product.bindValue(":location",location);
-    Insert_Product.bindValue(":packaging",packaging);
-    Insert_Product.bindValue(":quantity",quantity);
-    Insert_Product.bindValue(":state",state);
-    Insert_Product.bindValue(":dluo",dluo);
-    Insert_Product.bindValue(":lot",lot);
-    Insert_Product.bindValue(":pattern",pattern);
+    Insert_Product.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information) VALUES (:Reference, :Nom, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Lot, :Information)");
+    Insert_Product.bindValue(":Reference", Reference);
+    Insert_Product.bindValue(":Nom", Nom);
+    Insert_Product.bindValue(":Date",Date);
+    Insert_Product.bindValue(":Heure",Heure);
+    Insert_Product.bindValue(":Emplacement",Emplacement);
+    Insert_Product.bindValue(":Emballage",Emballage);
+    Insert_Product.bindValue(":Quantite",Quantite);
+    Insert_Product.bindValue(":Etat",Etat);
+    Insert_Product.bindValue(":DLUO",DLUO);
+    Insert_Product.bindValue(":Lot",Lot);
+    Insert_Product.bindValue(":Information",Information);
 
    if(Insert_Product.exec())
    {
 
        QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
+
+   }
+   else
+   {
+       QMessageBox::critical(this,tr("Création échouée"),tr("Nope."));
 
    }
 
@@ -83,13 +90,13 @@ void database::insertProductValue(QString reference, QString date, QString hour,
 
 }
 
-void database::searchReference(QString searchRef)
+void database::searchReference(QString chercherReference)
 {
     connOpen();
-    QSqlQuery search;
-    search.prepare("SELECT * FROM product WHERE reference = :searchRef");
-    search.bindValue(":searchRef",searchRef);
-    if(!search.exec())
+    QSqlQuery rechercher;
+    rechercher.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :chercherReference");
+    rechercher.bindValue(":chercherReference",chercherReference);
+    if(!rechercher.exec())
     {
         qDebug() << ("Erreur");
     }
@@ -98,13 +105,13 @@ void database::searchReference(QString searchRef)
 
 
 }
-void database::updateReference(QString rowid, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2)
+void database::updateReference(QString rowid, QString ref, QString name, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2)
 
 {
 
     connOpen();
     QSqlQuery Update_Product;
-    Update_Product.prepare("UPDATE product SET rowid = '"+rowid+"', reference = '"+ref+"', date = '"+date2+"', location = '"+loc+"', packaging = '"+pack+"', quantity = '"+quant+"', state = '"+state2+"', dluo = '"+dluo2+"', lot = '"+lot2+"', pattern = '"+pattern2+"' WHERE rowid='"+rowid+"'");
+    Update_Product.prepare("UPDATE matieres_Premieres SET id_Produit = '"+rowid+"', Reference = '"+ref+"', Nom = '"+name+"', Date = '"+date2+"', Emplacement = '"+loc+"', Emballage = '"+pack+"', Quantite = '"+quant+"', Etat = '"+state2+"', DLUO = '"+dluo2+"', Lot = '"+lot2+"', Information = '"+pattern2+"' WHERE id_Produit='"+rowid+"'");
 
     if(!Update_Product.exec())
     {
@@ -123,9 +130,30 @@ connClose();
 void database::deleteReference(QString deleteP)
 {
 
-    database base30;
-    base30.connOpen();
+
+    connOpen();
     QSqlQuery Delete_Product;
-    Delete_Product.prepare("DELETE FROM product WHERE id_Product='"+deleteP+"'");
+    Delete_Product.prepare("DELETE FROM matieres_premieres WHERE id_Produit='"+deleteP+"'");
     Delete_Product.exec();
+    if(!Delete_Product.exec())
+    {
+        QMessageBox::critical(this,tr("Erreur"),tr("La suppression a échouée."));
+
+    }
+    else
+    {
+        QMessageBox::information(this,tr("Succès"),tr("La suppression du produit a bien été effectuée."));
+
+    }
+    connClose();
+}
+void database::searchProductName(QString searchName)
+{
+
+    connOpen();
+    QSqlQuery SearchbyName;
+    SearchbyName.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercherNom LIKE '%'");
+    SearchbyName.bindValue(":chercherNom", searchName);
+    SearchbyName.exec();
+    connClose();
 }

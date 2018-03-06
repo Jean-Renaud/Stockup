@@ -14,10 +14,11 @@ class database : public QMainWindow
         virtual ~database();
         QSqlDatabase stockup;
         void createTable();
-        void searchReference(QString searchRef);
+        void searchProductName(QString searchName);
+        void searchReference(QString chercherReference);
         void deleteReference(QString deleteP);
-        void updateReference(QString rowid, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
-        void insertProductValue(QString reference, QString date, QString hour, QString location, QString packaging, QString quantity, QString state, QString dluo, QString lot, QString pattern);
+        void updateReference(QString rowid, QString ref, QString name, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
+        void insertProductValue(QString Reference, QString Nom, QString Date, QString Heure, QString Emplacement, QString Emballage, QString Quantite, QString Etat, QString DLUO, QString Lot, QString Information);
         void connClose()
         {
             stockup.close();

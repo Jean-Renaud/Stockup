@@ -38,6 +38,8 @@ private slots:
 
     void on_deleteProduct_clicked();
 
+    void on_searchNameProduct_clicked();
+
 private:
     Ui::MainWindow *ui;
 
