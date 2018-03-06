@@ -98,30 +98,34 @@ void database::searchReference(QString searchRef)
 
 
 }
-void database::updateValues(QString idProduct, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2)
+void database::updateReference(QString rowid, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2)
 
 {
 
     connOpen();
     QSqlQuery Update_Product;
-    Update_Product.prepare("UPDATE product SET id_Product = '"+idProduct+"', reference = '"+ref+"', date = '"+date2+"', location = '"+loc+"', packaging = '"+pack+"', quantity = '"+quant+"', state = '"+state2+"', dluo = '"+dluo2+"', lot = '"+lot2+"', pattern = '"+pattern2+"' WHERE id_Product='"+idProduct+"'");
-    /*Update_Product.bindValue(":id",id);
-    Update_Product.bindValue(":ref",ref);
-    Update_Product.bindValue(":date_2",date2);
-    Update_Product.bindValue(":location",loc);
-    Update_Product.bindValue(":pack",pack);
-    Update_Product.bindValue(":quant",quant);
-    Update_Product.bindValue(":state2",state2);
-    Update_Product.bindValue(":dluo2",dluo2);
-    Update_Product.bindValue(":lot2",lot2);
-    Update_Product.bindValue(":pattern2",pattern2);*/
+    Update_Product.prepare("UPDATE product SET rowid = '"+rowid+"', reference = '"+ref+"', date = '"+date2+"', location = '"+loc+"', packaging = '"+pack+"', quantity = '"+quant+"', state = '"+state2+"', dluo = '"+dluo2+"', lot = '"+lot2+"', pattern = '"+pattern2+"' WHERE rowid='"+rowid+"'");
 
     if(!Update_Product.exec())
     {
-        QMessageBox::information(this,tr("ERREUR"),tr("ERREUR."));
+        QMessageBox::critical(this,tr("ERREUR"),tr("ERREUR."));
+
+    }
+    else
+    {
+        QMessageBox::information(this,tr("Succès"),tr("La modification du produit a bien été effectuée."));
 
     }
 connClose();
 
 
+}
+void database::deleteReference(QString deleteP)
+{
+
+    database base30;
+    base30.connOpen();
+    QSqlQuery Delete_Product;
+    Delete_Product.prepare("DELETE FROM product WHERE id_Product='"+deleteP+"'");
+    Delete_Product.exec();
 }

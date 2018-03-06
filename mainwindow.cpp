@@ -149,7 +149,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 
 void MainWindow::on_update_row_clicked()
 {
-    QString idProduct = ui->id->text();
+    QString rowid = ui->id->text();
 
     QString ref = ui->ref->text();
     QString date2 = ui->date_2->text();
@@ -162,6 +162,25 @@ void MainWindow::on_update_row_clicked()
     QString pattern2 = ui->information->text();
 
     database data23;
-    data23.updateValues(idProduct, ref, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+    data23.updateReference(rowid, ref, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+
+}
+
+void MainWindow::on_deleteProduct_clicked()
+{
+    QString deleteP = ui->id->text();
+
+
+    /*QString refDel = ui->ref->text();
+    QString dateDel = ui->date_2->text();
+    QString locDel = ui->emplacement->text();
+    QString packDel = ui->packaging_2->text();
+    QString quantDel = ui->quantite->text();
+    QString stateDel = ui->etat->text();
+    QString dluoDel = ui->dluo_2->text();
+    QString lotDel = ui->lot_2->text();
+    QString patternDel = ui->information->text();*/
+    database data25;
+    data25.deleteReference(deleteP);
 
 }

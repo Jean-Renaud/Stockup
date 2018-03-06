@@ -36,6 +36,8 @@ private slots:
 
     void on_update_row_clicked();
 
+    void on_deleteProduct_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -535,7 +535,7 @@
         <x>1130</x>
         <y>70</y>
         <width>311</width>
-        <height>391</height>
+        <height>421</height>
        </rect>
       </property>
       <property name="title">
@@ -570,7 +570,7 @@
       <widget class="QLineEdit" name="date_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>70</y>
          <width>113</width>
          <height>20</height>
@@ -596,7 +596,7 @@
       <widget class="QLineEdit" name="emplacement">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>100</y>
          <width>113</width>
          <height>20</height>
@@ -622,7 +622,7 @@
       <widget class="QLineEdit" name="packaging_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>130</y>
          <width>113</width>
          <height>20</height>
@@ -648,7 +648,7 @@
       <widget class="QLineEdit" name="quantite">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>160</y>
          <width>113</width>
          <height>20</height>
@@ -674,7 +674,7 @@
       <widget class="QLineEdit" name="etat">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>190</y>
          <width>113</width>
          <height>20</height>
@@ -700,7 +700,7 @@
       <widget class="QLineEdit" name="dluo_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>220</y>
          <width>113</width>
          <height>20</height>
@@ -726,7 +726,7 @@
       <widget class="QLineEdit" name="lot_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>250</y>
          <width>113</width>
          <height>20</height>
@@ -752,7 +752,7 @@
       <widget class="QLineEdit" name="information">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>120</x>
          <y>280</y>
          <width>113</width>
          <height>20</height>
@@ -765,8 +765,8 @@
       <widget class="QPushButton" name="update_row">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>330</y>
+         <x>120</x>
+         <y>320</y>
          <width>111</width>
          <height>31</height>
         </rect>
@@ -781,26 +781,58 @@
       <widget class="QLineEdit" name="id">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>120</x>
          <y>10</y>
          <width>113</width>
          <height>20</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
       </widget>
-     </widget>
-     <widget class="QLineEdit" name="ref">
-      <property name="geometry">
-       <rect>
-        <x>1210</x>
-        <y>20</y>
-        <width>113</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
-      </property>
+      <widget class="QLineEdit" name="ref">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>40</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>N° d'enregistrement : </string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="deleteProduct">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>380</y>
+         <width>111</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 153, 0);</string>
+       </property>
+       <property name="text">
+        <string>Supprimer</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>

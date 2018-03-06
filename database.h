@@ -15,7 +15,8 @@ class database : public QMainWindow
         QSqlDatabase stockup;
         void createTable();
         void searchReference(QString searchRef);
-        void updateValues(QString idProduct, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
+        void deleteReference(QString deleteP);
+        void updateReference(QString rowid, QString ref, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
         void insertProductValue(QString reference, QString date, QString hour, QString location, QString packaging, QString quantity, QString state, QString dluo, QString lot, QString pattern);
         void connClose()
         {
