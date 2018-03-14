@@ -1,4 +1,5 @@
 #include "database.h"
+#include "produits.h"
 #include <iostream>
 #include <QMessageBox>
 #include <QObject>
@@ -71,7 +72,7 @@ void database::createTable()
                          "Quantite TEXT NOT NULL,"
                          "Etat TEXT NOT NULL,"
                          "DLUO TEXT NOT NULL,"
-                         "Information TEXT NOT NULL"
+                         "Code_fournisseur TEXT NOT NULL"
                          ");");
 
         createTable.exec("CREATE TABLE IF NOT EXISTS fournisseurs ("
@@ -96,22 +97,22 @@ void database::createTable()
 
 }
 
-void database::insertProductValue(QString Reference, QString Nom, QString Date, QString Heure, QString Emplacement, QString Emballage, QString Quantite, QString Etat, QString DLUO, QString Lot, QString Information)
+void database::insertProductValue(Produits &produit)
 {
     connOpen();
     QSqlQuery Insert_Product;
-    Insert_Product.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information) VALUES (:Reference, :Nom, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Lot, :Information)");
-    Insert_Product.bindValue(":Reference", Reference);
-    Insert_Product.bindValue(":Nom", Nom);
-    Insert_Product.bindValue(":Date",Date);
-    Insert_Product.bindValue(":Heure",Heure);
-    Insert_Product.bindValue(":Emplacement",Emplacement);
-    Insert_Product.bindValue(":Emballage",Emballage);
-    Insert_Product.bindValue(":Quantite",Quantite);
-    Insert_Product.bindValue(":Etat",Etat);
-    Insert_Product.bindValue(":DLUO",DLUO);
-    Insert_Product.bindValue(":Lot",Lot);
-    Insert_Product.bindValue(":Information",Information);
+    Insert_Product.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Code_fournisseur) VALUES (:Reference, :Nom, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Lot, :Code_fournisseur)");
+    Insert_Product.bindValue(":Reference", produit.reference);
+    Insert_Product.bindValue(":Nom", produit.nom);
+    Insert_Product.bindValue(":Date",produit.date);
+    Insert_Product.bindValue(":Heure",produit.heure);
+    Insert_Product.bindValue(":Emplacement",produit.emplacement);
+    Insert_Product.bindValue(":Emballage",produit.emballage);
+    Insert_Product.bindValue(":Quantite",produit.quantite);
+    Insert_Product.bindValue(":Etat",produit.etat);
+    Insert_Product.bindValue(":DLUO",produit.dluo);
+    Insert_Product.bindValue(":Lot",produit.lot);
+    Insert_Product.bindValue(":Code_fournisseur",produit.codeFournisseur);
 
    if(Insert_Product.exec())
    {
@@ -151,7 +152,7 @@ void database::updateReference(QString rowid, QString ref, QString name, QString
 
     connOpen();
     QSqlQuery Update_Product;
-    Update_Product.prepare("UPDATE matieres_Premieres SET id_Produit = '"+rowid+"', Reference = '"+ref+"', Nom = '"+name+"', Date = '"+date2+"', Emplacement = '"+loc+"', Emballage = '"+pack+"', Quantite = '"+quant+"', Etat = '"+state2+"', DLUO = '"+dluo2+"', Lot = '"+lot2+"', Information = '"+pattern2+"' WHERE id_Produit='"+rowid+"'");
+    Update_Product.prepare("UPDATE matieres_Premieres SET id_Produit = '"+rowid+"', Reference = '"+ref+"', Nom = '"+name+"', Date = '"+date2+"', Emplacement = '"+loc+"', Emballage = '"+pack+"', Quantite = '"+quant+"', Etat = '"+state2+"', DLUO = '"+dluo2+"', Lot = '"+lot2+"', Code_fournisseur = '"+pattern2+"' WHERE id_Produit='"+rowid+"'");
 
     if(!Update_Product.exec())
     {
@@ -224,3 +225,39 @@ void database::createUser(Utilisateur &employe)
   connClose();
 
 }
+void database::createProvider(Fournisseur &livreur)
+{
+
+    connOpen();
+    QSqlQuery creerFournisseur;
+    creerFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, :telephone, :siret, :ape)");
+    creerFournisseur.bindValue(":code", livreur.codeDuFournisseur);
+    creerFournisseur.bindValue(":nom", livreur.nomSociete);
+    creerFournisseur.bindValue(":forme_juridique", livreur.formeJuridique);
+    creerFournisseur.bindValue(":adresse", livreur.adresse);
+    creerFournisseur.bindValue(":code_postal", livreur.codePostal);
+    creerFournisseur.bindValue(":pays", livreur.pays);
+    creerFournisseur.bindValue(":ville", livreur.ville);
+    creerFournisseur.bindValue(":telephone", livreur.telephone);
+    creerFournisseur.bindValue(":siret", livreur.siret);
+    creerFournisseur.bindValue(":ape", livreur.ape);
+    if(creerFournisseur.exec())
+    {
+
+       QMessageBox::information(this,tr("Création réussie"),tr("La création du fournisseur a été enregistrée avec succès."));
+
+
+    }
+    else
+    {
+       QMessageBox::information(this,tr("Création échouée"),tr("Nope."));
+
+
+    }
+
+    connClose();
+
+
+
+}
+

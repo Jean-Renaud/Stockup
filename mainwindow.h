@@ -6,7 +6,7 @@
 #include <QtDebug>
 
 #include <QMainWindow>
-#include <database.h>
+
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +41,8 @@ private slots:
     void on_searchNameProduct_clicked();
 
     void on_createUser_clicked();
+
+    void on_creerFournisseur_clicked();
 
 private:
     Ui::MainWindow *ui;

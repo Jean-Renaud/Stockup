@@ -31,14 +31,16 @@ SOURCES += \
         mainwindow.cpp \
     database.cpp \
     produits.cpp \
-    utilisateur.cpp
+    utilisateur.cpp \
+    fournisseur.cpp
    
 
 HEADERS += \
         mainwindow.h \
     database.h \
     produits.h \
-    utilisateur.h
+    utilisateur.h \
+    fournisseur.h
     
 
 FORMS += \

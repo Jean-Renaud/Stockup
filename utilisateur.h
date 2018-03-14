@@ -2,7 +2,6 @@
 #define UTILISATEUR_H
 #include <QString>
 
-
 class Utilisateur
 {
 public:

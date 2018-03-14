@@ -7,6 +7,8 @@
 #include <QtDebug>
 #include <QMessageBox>
 #include "utilisateur.h"
+#include "produits.h"
+#include "fournisseur.h"
 
 class database : public QMainWindow
 {
@@ -19,10 +21,13 @@ class database : public QMainWindow
         void searchReference(QString chercherReference);
         void deleteReference(QString deleteP);
         void updateReference(QString rowid, QString ref, QString name, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
-        void insertProductValue(QString Reference, QString Nom, QString Date, QString Heure, QString Emplacement, QString Emballage, QString Quantite, QString Etat, QString DLUO, QString Lot, QString Information);
+        void insertProductValue(Produits &produit);
         void connClose();
         bool connOpen();
         void createUser(Utilisateur &employe);
+        void createProvider(Fournisseur &livreur);
+
+
 
 
 
