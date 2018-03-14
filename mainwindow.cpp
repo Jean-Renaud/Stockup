@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "database.h"
+#include "utilisateur.h"
 #include <QMessageBox>
 #include <QDebug>
 #include <QSqlQuery>
@@ -72,8 +73,8 @@ void MainWindow::on_button_Create_clicked()
    QString Lot = ui->lot->text();
    QString Information = ui->pattern->currentText();
 
-   database data;
-   data.insertProductValue(Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information);
+   database bdd;
+   bdd.insertProductValue(Reference, Nom, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information);
 
 
 
@@ -87,8 +88,8 @@ void MainWindow::on_search_Database_clicked()
 
     QSqlQueryModel * modal = new QSqlQueryModel();
     modal->clear();
-        database mabd;
-        mabd.connOpen();
+        database bdd;
+        bdd.connOpen();
         QSqlQuery listRef;
         QString searchRef = ui->searchRef->text();
         listRef.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :reference");
@@ -96,15 +97,16 @@ void MainWindow::on_search_Database_clicked()
         listRef.exec();
         modal->setQuery(listRef);
         ui->listDatabase->setModel(modal);
-        mabd.connClose();
+        ui->listDatabase->resizeColumnsToContents();
+        bdd.connClose();
 }
 
 void MainWindow::on_search_Location_clicked()
 {
 
     QSqlQueryModel * modal = new QSqlQueryModel();
-        database mabd;
-        mabd.connOpen();
+        database bdd;
+        bdd.connOpen();
         QSqlQuery listLoc;
 
         QString searchLocation = ui->searchLocation->text();
@@ -113,7 +115,7 @@ void MainWindow::on_search_Location_clicked()
         listLoc.exec();
         modal->setQuery(listLoc);
         ui->listDatabase->setModel(modal);
-        mabd.connClose();
+        bdd.connClose();
 
 
 }
@@ -121,9 +123,10 @@ void MainWindow::on_search_Location_clicked()
 void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 {
     QString val = ui->listDatabase->model()->data(index).toString();
+    ui->listDatabase->resizeColumnsToContents();
     clearFocus();
-    database madb;
-        madb.connOpen();
+    database bdd;
+        bdd.connOpen();
         QSqlQuery query;
         query.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Information FROM matieres_Premieres where id_Produit ='"+val+"'or Reference='"+val+"' or Nom ='"+val+"' or Date='"+val+"' or Emplacement ='"+val+"' or Emballage='"+val+"' or Quantite='"+val+"' or Etat ='"+val+"'or DLUO='"+val+"' or Lot='"+val+"' or Information ='"+val+"'");
         query.exec();
@@ -145,7 +148,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 
         }
 
-        madb.connClose();
+        bdd.connClose();
 
 }
 
@@ -163,27 +166,18 @@ void MainWindow::on_update_row_clicked()
     QString lot2 = ui->lot_2->text();
     QString pattern2 = ui->information->text();
 
-    database data23;
-    data23.updateReference(rowid, ref, name, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+    database bdd;
+    bdd.updateReference(rowid, ref, name, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
 
 }
 
 void MainWindow::on_deleteProduct_clicked()
 {
     QString deleteP = ui->id->text();
+    database bdd;
 
-
-    /*QString refDel = ui->ref->text();
-    QString dateDel = ui->date_2->text();
-    QString locDel = ui->emplacement->text();
-    QString packDel = ui->packaging_2->text();
-    QString quantDel = ui->quantite->text();
-    QString stateDel = ui->etat->text();
-    QString dluoDel = ui->dluo_2->text();
-    QString lotDel = ui->lot_2->text();
-    QString patternDel = ui->information->text();*/
     database data25;
-    data25.deleteReference(deleteP);
+    bdd.deleteReference(deleteP);
 
 }
 
@@ -200,6 +194,20 @@ void MainWindow::on_searchNameProduct_clicked()
         listNom.exec();
         modal->setQuery(listNom);
         ui->listDatabase->setModel(modal);
+        ui->listDatabase->resizeColumnsToContents();
         mabd.connClose();
 
+}
+void MainWindow::on_createUser_clicked()
+{
+    Utilisateur *employe = new Utilisateur(ui->code->text().toInt(),
+                                           ui->nomUtilisateur->text(),
+                                           ui->prenom->text(),
+                                           ui->mdp->text(),
+                                           ui->groupe->text().toInt());
+
+
+    database bdd;
+//    bdd.createUser(ui->code->text().toInt(), ui->mdp->text(), ui->nomUtilisateur->text(), ui->prenom->text(), ui->groupe->text().toInt());
+    bdd.createUser(*employe);
 }

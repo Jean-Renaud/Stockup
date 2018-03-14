@@ -40,6 +40,8 @@ private slots:
 
     void on_searchNameProduct_clicked();
 
+    void on_createUser_clicked();
+
 private:
     Ui::MainWindow *ui;
 

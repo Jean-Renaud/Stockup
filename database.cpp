@@ -1,6 +1,7 @@
 #include "database.h"
 #include <iostream>
 #include <QMessageBox>
+#include <QObject>
 
 database::database()
 {
@@ -11,6 +12,30 @@ database::database()
 database::~database()
 {
     //dtor
+}
+
+bool database::connOpen()
+{
+
+    QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
+    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/Stockup/stockup.db");
+    if(!stockup.open())
+    {
+        qDebug()<<("Non connecté");
+        return false;
+    }
+    else
+    {
+        qDebug()<<("Connecté");
+        return true;
+    }
+}
+
+void database::connClose()
+{
+
+    stockup.close();
+    stockup.removeDatabase(QSqlDatabase::defaultConnection);
 }
 
 void database::createTable()
@@ -24,16 +49,17 @@ void database::createTable()
 
 
 
-         createTable.exec("create table if not exists 'Utilisateurs' ('id' INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                       "'id_Utilisateur' INTEGER NOT NULL,"
-                                       " 'Mot_de_Passe' INTEGER NOT NULL,"
+         createTable.exec("create table IF NOT EXISTS 'utilisateurs' ("
+                                       "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                       "'Code' INTEGER NOT NULL,"
                                        "'Nom' TEXT NOT NULL,"
                                        "'Prenom' TEXT NOT NULL,"
+                                       "'Mot_de_Passe' INTEGER NOT NULL,"
                                        "'Groupe' INTEGER NOT NULL"
                                        ");");
 
 
-        createTable.exec("CREATE TABLE matieres_Premieres ("
+        createTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
                          "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
                          "Reference TEXT NOT NULL,"
                          "Nom TEXT NOT NULL,"
@@ -46,6 +72,20 @@ void database::createTable()
                          "Etat TEXT NOT NULL,"
                          "DLUO TEXT NOT NULL,"
                          "Information TEXT NOT NULL"
+                         ");");
+
+        createTable.exec("CREATE TABLE IF NOT EXISTS fournisseurs ("
+                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                         "Code INTEGER NOT NULL,"
+                         "Nom TEXT NOT NULL,"
+                         "Forme_juridique TEXT NOT NULL,"
+                         "Adresse TEXT NOT NULL,"
+                         "Code_postal TEXT NOT NULL,"
+                         "Pays TEXT NOT NULL,"
+                         "Ville TEXT NOT NULL,"
+                         "Telephone TEXT NOT NULL,"
+                         "Siret TEXT NOT NULL,"
+                         "APE TEXT NOT NULL"
                          ");");
     }
     else
@@ -156,4 +196,31 @@ void database::searchProductName(QString searchName)
     SearchbyName.bindValue(":chercherNom", searchName);
     SearchbyName.exec();
     connClose();
+}
+void database::createUser(Utilisateur &employe)
+{
+    connOpen();
+    QSqlQuery createuser;
+    createuser.prepare("INSERT INTO Utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) VALUES (:code, :nom, :prenom, :mdp, :groupe);");
+    createuser.bindValue(":code", employe.code);
+    createuser.bindValue(":nom", employe.nom);
+    createuser.bindValue(":prenom", employe.prenom);
+    createuser.bindValue(":mdp", employe.mdp);
+    createuser.bindValue(":groupe", employe.groupe);
+    if(createuser.exec())
+    {
+
+       QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
+
+
+    }
+    else
+    {
+       QMessageBox::information(this,tr("Création échouée"),tr("Nope."));
+
+
+    }
+
+  connClose();
+
 }

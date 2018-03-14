@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 
-
+QT       -= gui
 QT       += core gui
 QT       += core gui sql
 
@@ -29,13 +29,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    database.cpp
+    database.cpp \
+    produits.cpp \
+    utilisateur.cpp
    
 
 HEADERS += \
         mainwindow.h \
-    produit.h \
-    database.h
+    database.h \
+    produits.h \
+    utilisateur.h
     
 
 FORMS += \
