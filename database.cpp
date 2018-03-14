@@ -211,13 +211,13 @@ void database::createUser(Utilisateur &employe)
     if(createuser.exec())
     {
 
-       QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
+       QMessageBox::information(this,tr("Création réussie"),tr("La création de l'utilisateur a été enregistrée avec succès."));
 
 
     }
     else
     {
-       QMessageBox::information(this,tr("Création échouée"),tr("Nope."));
+       QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
 
 
     }
@@ -250,14 +250,12 @@ void database::createProvider(Fournisseur &livreur)
     }
     else
     {
-       QMessageBox::information(this,tr("Création échouée"),tr("Nope."));
+       QMessageBox::information(this,tr("Création échouée"),tr("La création du fournisseur a échouée"));
 
 
     }
 
     connClose();
-
-
 
 }
 
