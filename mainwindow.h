@@ -54,12 +54,11 @@ private slots:
 
     void on_fournisseur_clicked();
 
+    void on_majfournisseur_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
-
-
-

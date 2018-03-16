@@ -297,3 +297,10 @@ void MainWindow::on_fournisseur_clicked()
      data50.connClose();
 
  }
+void MainWindow::on_majfournisseur_clicked()
+{
+
+
+
+}
+

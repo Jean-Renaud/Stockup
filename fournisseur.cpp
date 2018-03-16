@@ -13,5 +13,10 @@ Fournisseur::Fournisseur(QString codeDuFournisseur, QString nomSociete, QString 
     this->siret = siret;
     this->ape = ape;
 
+QString Fournisseur::GetCodeDuFournisseur(codeDuFournisseur)
+{
+    this->codeDuFournisseur = codeDuFournisseur;
+    return codeDuFournisseur;
+}
 
 }

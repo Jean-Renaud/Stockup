@@ -17,6 +17,21 @@ public:
      QString telephone;
      QString siret;
      QString ape;
+     void updateProvider(QString majCodeDuFournisseur, QString majNomSociete, QString majFormeJuridique, QString majAdresse, QString majCodePostal, QString majVille, QString majPays, QString majTelephone, QString majSiret, QString majApe);
+     QString majCodeDuFournisseur;
+     QString majNomSociete;
+     QString majFormeJuridique;
+     QString majAdresse;
+     QString majCodePostal;
+     QString majVille;
+     QString majPays;
+     QString majTelephone;
+     QString majSiret;
+     QString majApe;
+
+
+
+
 
 
 };

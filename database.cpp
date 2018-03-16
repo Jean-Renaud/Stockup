@@ -271,4 +271,26 @@ void database::chercherFournisseur(QString trouverFournisseur)
     }
     connClose();
 }
+void Fournisseur::updateProvider(QString majCodeDuFournisseur, QString majNomSociete, QString majFormeJuridique, QString majAdresse, QString majCodePostal, QString majVille, QString majPays, QString majTelephone, QString majSiret, QString majApe)
+{
+
+    database bdd;
+    bdd.connOpen();
+    QSqlQuery Update_Product;
+    Update_Product.prepare("UPDATE fournisseurs SET id = '"+majCodeDuFournisseur+"', Code = '"+majCodeDuFournisseur+"', Nom = '"+majNomSociete+"', Forme_juridique = '"+majFormeJuridique+"', Adresse = '"+majAdresse+"', Code_postal = '"+majCodePostal+"', Pays = '"+majPays+"', Etat = '"+state2+"', DLUO = '"+dluo2+"', Lot = '"+lot2+"', Code_fournisseur = '"+pattern2+"' WHERE id_Produit='"+rowid+"'");
+
+    if(!Update_Product.exec())
+    {
+        QMessageBox::critical(this,tr("ERREUR"),tr("ERREUR."));
+
+    }
+    else
+    {
+        QMessageBox::information(this,tr("Succès"),tr("La modification du produit a bien été effectuée."));
+
+    }
+   bdd.connClose();
+
+
+}
 
