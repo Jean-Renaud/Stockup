@@ -258,4 +258,17 @@ void database::createProvider(Fournisseur &livreur)
     connClose();
 
 }
+void database::chercherFournisseur(QString trouverFournisseur)
+{
+
+    connOpen();
+    QSqlQuery rechercherFournisseur;
+    rechercherFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
+    rechercherFournisseur.bindValue(":code",trouverFournisseur);
+    if(!rechercherFournisseur.exec())
+    {
+        qDebug() << ("Erreur");
+    }
+    connClose();
+}
 

@@ -20,6 +20,7 @@ class database : public QMainWindow
         void searchProductName(QString searchName);
         void searchReference(QString chercherReference);
         void deleteReference(QString deleteP);
+        void chercherFournisseur(QString trouverFournisseur);
         void updateReference(QString rowid, QString ref, QString name, QString date2, QString loc, QString pack, QString quant, QString state2, QString dluo2, QString lot2, QString pattern2);
         void insertProductValue(Produits &produit);
         void connClose();

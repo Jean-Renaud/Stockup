@@ -193,8 +193,6 @@ void MainWindow::on_deleteProduct_clicked()
 {
     QString deleteP = ui->id->text();
     database bdd;
-
-    database data25;
     bdd.deleteReference(deleteP);
 
 }
@@ -202,12 +200,13 @@ void MainWindow::on_deleteProduct_clicked()
 void MainWindow::on_searchNameProduct_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
+    clearFocus();
         database mabd;
         mabd.connOpen();
         QSqlQuery listNom;
 
         QString searchName = ui->searchByName->text();
-        listNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom");
+        listNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom LIKE '%' ");
         listNom.bindValue(":chercheNom",searchName);
         listNom.exec();
         modal->setQuery(listNom);
@@ -247,3 +246,54 @@ void MainWindow::on_creerFournisseur_clicked()
     bdd2.createProvider(*livreur);
 
 }
+void MainWindow::on_listProvider_activated(const QModelIndex &index)
+{
+
+    QString val = ui->listProvider->model()->data(index).toString();
+    ui->listDatabase->resizeColumnsToContents();
+
+    database bdd;
+        bdd.connOpen();
+        QSqlQuery query;
+        query.prepare("SELECT id, Code, Nom, Forme_juridique ,Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE "
+                      "FROM fournisseurs where id ='"+val+"'or code='"+val+"' or Nom ='"+val+"' or Forme_juridique='"+val+"' or Adresse ='"+val+"' or Code_postal='"+val+"' or Pays='"+val+"' or Ville ='"+val+"'or Telephone='"+val+"' or Siret='"+val+"' or APE ='"+val+"'");
+        query.exec();
+
+        while(query.next())
+        {
+
+            ui->idfournisseur->setText(query.value(0).toString());
+            ui->cfournisseur->setText(query.value(1).toString());
+            ui->nomsociete->setText(query.value(2).toString());
+            ui->formejuridique->setText(query.value(3).toString());
+            ui->adresseedit->setText(query.value(4).toString());
+            ui->codepostal->setText(query.value(5).toString());
+            ui->villefournisseur->setText(query.value(6).toString());
+            ui->paysfournisseur->setText(query.value(7).toString());
+            ui->telephonefournisseur->setText(query.value(8).toString());
+            ui->siretfournisseur->setText(query.value(9).toString());
+            ui->apefournisseur->setText(query.value(10).toString());
+            //ui->codef->setText(query.value(12).toString());
+
+        }
+
+        bdd.connClose();
+
+}
+void MainWindow::on_fournisseur_clicked()
+ {
+
+     QSqlQueryModel * modal2 = new QSqlQueryModel();
+     clearFocus();
+     database data50;
+     data50.connOpen();
+     QSqlQuery listeFournisseur;
+     QString chercherFournisseur = ui->trouverfournisseur->text();
+     listeFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
+     listeFournisseur.bindValue(":code",chercherFournisseur);
+     listeFournisseur.exec();
+     modal2->setQuery(listeFournisseur);
+     ui->listProvider->setModel(modal2);
+     data50.connClose();
+
+ }

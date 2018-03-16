@@ -44,9 +44,22 @@ private slots:
 
     void on_creerFournisseur_clicked();
 
+    void on_listProvider_activated(const QModelIndex &index);
+
+    //void on_pushButton_clicked();
+
+    //void on_cherchefournisseur_2_clicked();
+
+
+
+    void on_fournisseur_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
+
+
+
