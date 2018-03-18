@@ -6,7 +6,7 @@
 #include <QtDebug>
 
 #include <QMainWindow>
-#include <database.h>
+
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +27,34 @@ public slots:
 private slots:
 
 
+
+    void on_search_Database_clicked();
+
+    void on_search_Location_clicked();
+
+    void on_listDatabase_activated(const QModelIndex &index);
+
+    void on_update_row_clicked();
+
+    void on_deleteProduct_clicked();
+
+    void on_searchNameProduct_clicked();
+
+    void on_createUser_clicked();
+
+    void on_creerFournisseur_clicked();
+
+    void on_listProvider_activated(const QModelIndex &index);
+
+    //void on_pushButton_clicked();
+
+    //void on_cherchefournisseur_2_clicked();
+
+
+
+    void on_fournisseur_clicked();
+
+    void on_majfournisseur_clicked();
 
 private:
     Ui::MainWindow *ui;
