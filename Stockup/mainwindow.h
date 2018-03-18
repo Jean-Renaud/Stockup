@@ -48,14 +48,7 @@ private slots:
 
     void on_listProvider_activated(const QModelIndex &index);
 
-    //void on_pushButton_clicked();
-
-    //void on_cherchefournisseur_2_clicked();
-
-
-
     void on_fournisseur_clicked();
-
 
     void on_voirStock_clicked();
 
@@ -63,9 +56,22 @@ private slots:
 
     void on_suppFournisseur_clicked();
 
+    void on_chercheUtilisateur_clicked();
+
+    void on_gestionUtilisateur_activated(const QModelIndex &index);
+
+    void on_majUtilisateur_clicked();
+
+    void on_suppUtilisateur_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
+
+
+
+
+

@@ -164,6 +164,36 @@ void database::updateReference(QString rowid, QString ref, QString name,QString 
    connClose();
 
 }
+void database::majUtilisateur(Utilisateur &mettreAjourUtilisateur)
+{
+    connOpen();
+    QSqlQuery miseAjourUtilisateur;
+    miseAjourUtilisateur.prepare("UPDATE utilisateurs SET Code = :code, Nom = :nom, Prenom = :prenom, Mot_de_Passe = :mdp, Groupe = :groupe WHERE id = :id");
+    miseAjourUtilisateur.bindValue(":id", mettreAjourUtilisateur.id);
+    miseAjourUtilisateur.bindValue(":code", mettreAjourUtilisateur.code);
+    miseAjourUtilisateur.bindValue(":nom", mettreAjourUtilisateur.nom);
+    miseAjourUtilisateur.bindValue(":prenom", mettreAjourUtilisateur.prenom);
+    miseAjourUtilisateur.bindValue(":mdp", mettreAjourUtilisateur.mdp);
+    miseAjourUtilisateur.bindValue(":groupe", mettreAjourUtilisateur.groupe);
+    if(miseAjourUtilisateur.exec())
+    {
+
+       QMessageBox::information(this,tr("Mis à jour réussie"),tr("La mise à jour de l'utilisateur a été enregistrée avec succès."));
+
+
+    }
+    else
+    {
+       QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour de l'utilisateur a échouée"));
+
+
+    }
+
+    connClose();
+
+
+}
+
 void database::majProvider(Fournisseur &livreur2)
 {
     connOpen();
@@ -304,6 +334,16 @@ void database::supFournisseur(Fournisseur &livreur3)
     supprimerFournisseur.bindValue(":id", livreur3.id);
     supprimerFournisseur.exec();
     connClose();
+}
+void database::supUtilisateur(Utilisateur &supprimerUtilisateur)
+{
+    connOpen();
+    QSqlQuery supprimerUnUtilisateur;
+    supprimerUnUtilisateur.prepare("DELETE FROM utilisateurs WHERE id = :id");
+    supprimerUnUtilisateur.bindValue(":id", supprimerUtilisateur.id);
+    supprimerUnUtilisateur.exec();
+    connClose();
+
 }
 
 

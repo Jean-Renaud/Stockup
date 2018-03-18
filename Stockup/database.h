@@ -29,6 +29,8 @@ class database : public QMainWindow
         void createProvider(Fournisseur &livreur);
         void majProvider(Fournisseur &livreur2);
         void supFournisseur(Fournisseur &livreur3);
+        void majUtilisateur(Utilisateur &mettreAjourUtilisateur);
+        void supUtilisateur(Utilisateur &supprimerUtilisateur);
 
 
 

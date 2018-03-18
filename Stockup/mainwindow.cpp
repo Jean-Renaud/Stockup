@@ -145,7 +145,6 @@ void MainWindow::on_search_Location_clicked()
 void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 {
     QString val = ui->listDatabase->model()->data(index).toString();
-    clearFocus();
     database bdd;
         bdd.connOpen();
         QSqlQuery query;
@@ -208,6 +207,19 @@ void MainWindow::on_majFournisseur_clicked()
     bdd2.majProvider(*livreur2);
 
 }
+void MainWindow::on_majUtilisateur_clicked()
+{
+    Utilisateur *mettreAjourUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
+                                               ui->codeUtilisateurEdit->text(),
+                                               ui->nomUtilisateurEdit->text(),
+                                               ui->prenomUtilisateurEdit->text(),
+                                               ui->mdpUtilisateurEdit->text(),
+                                               ui->groupeUtilisateurEdit->text()
+                                               );
+    database bdd2;
+    bdd2.majUtilisateur(*mettreAjourUtilisateur);
+
+}
 
 void MainWindow::on_deleteProduct_clicked()
 {
@@ -250,13 +262,31 @@ void MainWindow::on_searchNameProduct_clicked()
         mabd.connClose();
 
 }
+void MainWindow::on_chercheUtilisateur_clicked()
+{
+
+    QSqlQueryModel * modal3 = new QSqlQueryModel();
+    clearFocus();
+    database mabd;
+    mabd.connOpen();
+    QSqlQuery chercherUnUtilisateur;
+    QString trouverUtilisateur = ui->chercheUtilisateurEdit->text();
+    chercherUnUtilisateur.prepare("SELECT * FROM utilisateurs WHERE Nom = :nom");
+    chercherUnUtilisateur.bindValue(":nom",trouverUtilisateur);
+    chercherUnUtilisateur.exec();
+    modal3->setQuery(chercherUnUtilisateur);
+    ui->gestionUtilisateur->setModel(modal3);
+    mabd.connClose();
+
+}
 void MainWindow::on_createUser_clicked()
 {
-    Utilisateur *employe = new Utilisateur(ui->code->text().toInt(),
+    Utilisateur *employe = new Utilisateur(ui->idUtilisateurEdit->text(),
+                                           ui->code->text(),
                                            ui->nomUtilisateur->text(),
                                            ui->prenom->text(),
                                            ui->mdp->text(),
-                                           ui->groupe->text().toInt()
+                                           ui->groupe->text()
                                            );
 
 
@@ -282,11 +312,36 @@ void MainWindow::on_creerFournisseur_clicked()
     bdd2.createProvider(*livreur);
 
 }
+void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
+{
+
+    QString val2 = ui->gestionUtilisateur->model()->data(index).toString();
+
+        database bdd;
+        bdd.connOpen();
+        QSqlQuery cherche;
+        cherche.prepare("SELECT id, Code, Nom, Prenom, Mot_de_Passe, Groupe FROM utilisateurs WHERE id ='"+val2+"' or Code='"+val2+"' or Nom ='"+val2+"' or Prenom='"+val2+"' or Mot_de_Passe ='"+val2+"' or Groupe='"+val2+"'");
+        cherche.exec();
+
+        while(cherche.next())
+        {
+
+            ui->idUtilisateurEdit->setText(cherche.value(0).toString());
+            ui->codeUtilisateurEdit->setText(cherche.value(1).toString());
+            ui->nomUtilisateurEdit->setText(cherche.value(2).toString());
+            ui->prenomUtilisateurEdit->setText(cherche.value(3).toString());
+            ui->mdpUtilisateurEdit->setText(cherche.value(4).toString());
+            ui->groupeUtilisateurEdit->setText(cherche.value(5).toString());
+
+        }
+
+        bdd.connClose();
+}
+
 void MainWindow::on_listProvider_activated(const QModelIndex &index)
 {
 
     QString val = ui->listProvider->model()->data(index).toString();
-    ui->listDatabase->resizeColumnsToContents();
 
     database bdd;
         bdd.connOpen();
@@ -311,8 +366,6 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
             ui->telephonefournisseur->setText(query.value(8).toString());
             ui->siretfournisseur->setText(query.value(9).toString());
             ui->apefournisseur->setText(query.value(10).toString());
-            //ui->codef->setText(query.value(12).toString());
-
         }
 
         bdd.connClose();
@@ -358,9 +411,6 @@ void MainWindow::on_suppFournisseur_clicked()
 {
 
     int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur OUI pour confirmer ou sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
-
-
-
     if (reponse == QMessageBox::Yes)
     {
         Fournisseur *livreur3 = new Fournisseur(ui->idfournisseur->text(),
@@ -379,6 +429,32 @@ void MainWindow::on_suppFournisseur_clicked()
 
         database bdd2;
         bdd2.supFournisseur(*livreur3);
+        QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
+
+
+    }
+    else if (reponse == QMessageBox::No)
+    {
+        QMessageBox::critical(this, "Confirmation", "Le fournisseur n'a pas été supprimé.");
+    }
+
+
+}
+void MainWindow::on_suppUtilisateur_clicked()
+{
+    int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur OUI pour confirmer ou sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
+    if (reponse == QMessageBox::Yes)
+    {
+        Utilisateur *supprimerUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
+                                                            ui->code->text(),
+                                                            ui->nomUtilisateur->text(),
+                                                            ui->prenom->text(),
+                                                            ui->mdp->text(),
+                                                            ui->groupe->text()
+                                                            );
+
+        database bdd2;
+        bdd2.supUtilisateur(*supprimerUtilisateur);
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
 
 
