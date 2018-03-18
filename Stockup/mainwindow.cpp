@@ -393,19 +393,16 @@ void MainWindow::on_fournisseur_clicked()
 
 void MainWindow::on_voirStock_clicked()
 {
-
-    QSqlQueryModel * modal3 = new QSqlQueryModel();
+    QSqlQueryModel * triAlphaproduits = new QSqlQueryModel();
     clearFocus();
     database mabdd;
     mabdd.connOpen();
-    QSqlQuery listeStock;
-    listeStock.prepare("SELECT * FROM matieres_Premieres");
-    listeStock.exec();
-    modal3->setQuery(listeStock);
-    ui->listDatabase->setModel(modal3);
+    QSqlQuery triAlphaProduits;
+    triAlphaProduits.prepare("SELECT * FROM matieres_Premieres ORDER BY Nom");
+    triAlphaProduits.exec();
+    triAlphaproduits->setQuery(triAlphaProduits);
+    ui->listDatabase->setModel(triAlphaproduits);
     mabdd.connClose();
-
-
 }
 void MainWindow::on_suppFournisseur_clicked()
 {
@@ -466,5 +463,30 @@ void MainWindow::on_suppUtilisateur_clicked()
 
 
 }
+void MainWindow::on_triAlphaUtilisateur_clicked()
+{
+    QSqlQueryModel * triAlphautilisateur = new QSqlQueryModel();
+    clearFocus();
+    database mabdd;
+    mabdd.connOpen();
+    QSqlQuery triAlphaUtilisateur;
+    triAlphaUtilisateur.prepare("SELECT * FROM utilisateurs ORDER BY Nom");
+    triAlphaUtilisateur.exec();
+    triAlphautilisateur->setQuery(triAlphaUtilisateur);
+    ui->gestionUtilisateur->setModel(triAlphautilisateur);
+    mabdd.connClose();
+}
 
-
+void MainWindow::on_triAlphaFournisseur_clicked()
+{
+    QSqlQueryModel * triAlphafournisseur = new QSqlQueryModel();
+    clearFocus();
+    database mabdd;
+    mabdd.connOpen();
+    QSqlQuery triAlphaFournisseur;
+    triAlphaFournisseur.prepare("SELECT * FROM fournisseurs ORDER BY Nom");
+    triAlphaFournisseur.exec();
+    triAlphafournisseur->setQuery(triAlphaFournisseur);
+    ui->listProvider->setModel(triAlphafournisseur);
+    mabdd.connClose();
+}

@@ -44,7 +44,7 @@ font-weight: bold;
 </string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
@@ -543,7 +543,7 @@ border:1px solid rgb(62, 124, 146);</string>
        </item>
        <item>
         <property name="text">
-         <string>CARTON 25 kg</string>
+         <string>CARTON 25 kG</string>
         </property>
        </item>
        <item>
@@ -568,7 +568,7 @@ border:1px solid rgb(62, 124, 146);</string>
        </item>
        <item>
         <property name="text">
-         <string>SAC 25 GK</string>
+         <string>SAC 25 KG</string>
         </property>
        </item>
       </widget>
@@ -1337,7 +1337,7 @@ color: rgb(255, 255, 255);
 border-radius: 5px;</string>
       </property>
       <property name="text">
-       <string>Voir tout le stock</string>
+       <string>Tri alphabétique</string>
       </property>
      </widget>
     </widget>
@@ -1899,6 +1899,25 @@ border: none;</string>
       </property>
       <property name="text">
        <string>Rechercher</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="triAlphaUtilisateur">
+      <property name="geometry">
+       <rect>
+        <x>1120</x>
+        <y>60</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 124, 146);
+color: rgb(255, 255, 255);
+border-radius: 5px;
+border: none;</string>
+      </property>
+      <property name="text">
+       <string>Tri alphabétique</string>
       </property>
      </widget>
     </widget>
@@ -2725,6 +2744,24 @@ border-radius: 5px;</string>
       </property>
       <property name="text">
        <string>Rechercher</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="triAlphaFournisseur">
+      <property name="geometry">
+       <rect>
+        <x>1280</x>
+        <y>60</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 124, 146);
+color: rgb(255, 255, 255);
+border-radius: 5px;</string>
+      </property>
+      <property name="text">
+       <string>Tri alphabétique</string>
       </property>
      </widget>
     </widget>

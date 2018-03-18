@@ -64,14 +64,15 @@ private slots:
 
     void on_suppUtilisateur_clicked();
 
+    void on_triAlphaUtilisateur_clicked();
+
+    void on_triAlphaFournisseur_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
-
-
-
 
 
