@@ -1,7 +1,8 @@
 #include "fournisseur.h"
 
-Fournisseur::Fournisseur(QString codeDuFournisseur, QString nomSociete, QString formeJuridique, QString adresse, QString codePostal, QString ville, QString pays, QString telephone, QString siret, QString ape)
+Fournisseur::Fournisseur(QString id, QString codeDuFournisseur, QString nomSociete, QString formeJuridique, QString adresse, QString codePostal, QString ville, QString pays, QString telephone, QString siret, QString ape)
 {
+    this->id = id;
     this->codeDuFournisseur = codeDuFournisseur;
     this-> nomSociete = nomSociete;
     this-> formeJuridique = formeJuridique;
@@ -13,10 +14,5 @@ Fournisseur::Fournisseur(QString codeDuFournisseur, QString nomSociete, QString 
     this->siret = siret;
     this->ape = ape;
 
-QString Fournisseur::GetCodeDuFournisseur(codeDuFournisseur)
-{
-    this->codeDuFournisseur = codeDuFournisseur;
-    return codeDuFournisseur;
-}
 
 }

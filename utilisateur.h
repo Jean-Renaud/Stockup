@@ -5,12 +5,13 @@
 class Utilisateur
 {
 public:
-    Utilisateur(int code, QString mdp, QString nom, QString prenom, int groupe);
-    int code;
-    QString mdp;
+    Utilisateur (QString id, QString code, QString nom, QString prenom,  QString mdp, QString groupe);
+    QString id;
+    QString code;
     QString nom;
     QString prenom;
-    int groupe;
+    QString mdp;  
+    QString groupe;
 
 };
 

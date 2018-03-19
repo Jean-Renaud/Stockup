@@ -1,10 +1,11 @@
 #include "utilisateur.h"
 
-Utilisateur::Utilisateur(int code, QString mdp, QString nom, QString prenom, int groupe)
+Utilisateur::Utilisateur(QString id, QString code, QString nom, QString prenom, QString mdp, QString groupe)
 {
+    this->id = id;
     this->code = code;
-    this->mdp = mdp;
     this->nom = nom;
     this->prenom = prenom;
+    this->mdp = mdp;
     this->groupe = groupe;
 }
