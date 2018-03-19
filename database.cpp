@@ -19,7 +19,8 @@ bool database::connOpen()
 {
 
     QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/Stockup/stockup.db");
+    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/Stockup.db");
+
     if(!stockup.open())
     {
         qDebug()<<("Non connecté");
@@ -48,8 +49,6 @@ void database::createTable()
          QSqlQuery createTable(stockup);
 
 
-
-
          createTable.exec("create table IF NOT EXISTS 'utilisateurs' ("
                                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
                                        "'Code' INTEGER NOT NULL,"
@@ -58,6 +57,9 @@ void database::createTable()
                                        "'Mot_de_Passe' INTEGER NOT NULL,"
                                        "'Groupe' INTEGER NOT NULL"
                                        ");");
+
+        createTable.exec("INSERT INTO utilisateurs(Code, Nom, Prenom, Mot_de_Passe, Groupe) "
+                             "VALUES(77, 'Dubois', 'Jean-Renaud', 0000, 1);");
 
 
         createTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
