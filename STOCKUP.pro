@@ -32,7 +32,8 @@ SOURCES += \
     database.cpp \
     produits.cpp \
     utilisateur.cpp \
-    fournisseur.cpp
+    fournisseur.cpp \
+    connexion.cpp
    
 
 HEADERS += \
@@ -40,8 +41,10 @@ HEADERS += \
     database.h \
     produits.h \
     utilisateur.h \
-    fournisseur.h
+    fournisseur.h \
+    connexion.h
     
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    connexion.ui

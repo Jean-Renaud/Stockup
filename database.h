@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QtSql/QtSql>
 #include <QtDebug>
+#include <QDebug>
 #include <QMessageBox>
 #include "utilisateur.h"
 #include "produits.h"
@@ -27,6 +28,10 @@ class database : public QMainWindow
         bool connOpen();
         void createUser(Utilisateur &employe);
         void createProvider(Fournisseur &livreur);
+        void majProvider(Fournisseur &livreur2);
+        void supFournisseur(Fournisseur &livreur3);
+        void majUtilisateur(Utilisateur &mettreAjourUtilisateur);
+        void supUtilisateur(Utilisateur &supprimerUtilisateur);
 
 
 

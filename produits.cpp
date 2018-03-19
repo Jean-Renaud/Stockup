@@ -1,6 +1,6 @@
 #include "produits.h"
 
-Produits::Produits(QString reference, QString nom, QString lot, QString date, QString heure, QString emplacement,
+Produits::Produits(QString reference, QString nom, QString lot, QDate date, QString heure, QString emplacement,
                    QString emballage, QString quantite, QString etat, QString dluo, QString codeFournisseur)
 {
     this->reference = reference;
