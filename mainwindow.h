@@ -20,6 +20,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+
 public slots:
     void on_button_Create_clicked();
 
@@ -46,15 +48,25 @@ private slots:
 
     void on_listProvider_activated(const QModelIndex &index);
 
-    //void on_pushButton_clicked();
-
-    //void on_cherchefournisseur_2_clicked();
-
-
-
     void on_fournisseur_clicked();
 
-    void on_majfournisseur_clicked();
+    void on_voirStock_clicked();
+
+    void on_majFournisseur_clicked();
+
+    void on_suppFournisseur_clicked();
+
+    void on_chercheUtilisateur_clicked();
+
+    void on_gestionUtilisateur_activated(const QModelIndex &index);
+
+    void on_majUtilisateur_clicked();
+
+    void on_suppUtilisateur_clicked();
+
+    void on_triAlphaUtilisateur_clicked();
+
+    void on_triAlphaFournisseur_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -62,3 +74,5 @@ private:
 };
 
 #endif // MAINWINDOW_H
+
+
