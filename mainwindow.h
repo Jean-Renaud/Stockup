@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "mainwindow.h"
+#include "utilisateur.h"
 #include <QApplication>
 #include <QtSql/QSql>
 #include <QtDebug>
+
 
 #include <QMainWindow>
 
@@ -19,6 +21,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void moveToTab(int);
+    void disableTab(int);
+
+    Utilisateur * carriste;
 
 
 
@@ -68,11 +75,13 @@ private slots:
 
     void on_triAlphaFournisseur_clicked();
 
+    void disableFormCarriste();
+
+    void disableFormQualite();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
-
-

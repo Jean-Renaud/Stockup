@@ -30,7 +30,7 @@ void Connexion::on_seConnecter_clicked()
     }
 
     QSqlQuery connexion;
-    connexion.prepare("SELECT * FROM utilisateurs WHERE Code = :code AND Mot_de_Passe = :mdp");
+    connexion.prepare("SELECT Code, Groupe FROM utilisateurs WHERE Code = :code AND Mot_de_Passe = :mdp");
     connexion.bindValue(":code", codeUtilisateur);
     connexion.bindValue(":mdp", motDepasse);
     if(connexion.exec())
@@ -42,7 +42,13 @@ void Connexion::on_seConnecter_clicked()
         }
         if(compteur == 1)
         {
+            connexion.previous();
             ui->verifConnexion->setText("L'utilisateur est bien connecté");
+
+            this->carriste = new Utilisateur();
+            this->carriste->code = connexion.value(0).toString();
+            this->carriste->groupe = connexion.value(1).toString();
+
             this->accept();
 
             this->close();

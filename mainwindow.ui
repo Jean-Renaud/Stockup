@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="tabGestionStock">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -44,7 +44,13 @@ font-weight: bold;
 </string>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>1</number>
+    </property>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>false</bool>
     </property>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">

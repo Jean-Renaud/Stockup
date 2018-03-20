@@ -423,14 +423,12 @@ void MainWindow::on_triAlphaFournisseur_clicked()
 
 
 void MainWindow::disableTab(int index)
-{
-    qDebug() << "C'est de la merde 1";
+{  
     ui->tabGestionStock->setTabEnabled(index, false);
 }
 
 void MainWindow::moveToTab(int index)
-{
-    qDebug() << "C'est de la merde 2";
+{ 
     ui->tabGestionStock->setCurrentIndex(index);
 }
 

@@ -58,8 +58,8 @@ void database::createTable()
                                        "'Groupe' INTEGER NOT NULL"
                                        ");");
 
-        createTable.exec("INSERT INTO utilisateurs(Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                             "VALUES(77, 'Dubois', 'Jean-Renaud', 0000, 1);");
+        createTable.exec("INSERT INTO utilisateurs WHERE NOT EXISTS (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
+                             "VALUES(77, 'Dubois', 'Jean-Renaud', 1, 1);");
 
 
         createTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
