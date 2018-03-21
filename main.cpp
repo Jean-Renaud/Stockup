@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     if (Login.exec() == QDialog::Accepted)
     {
         fenetrePrincipale.carriste = Login.carriste;
+
         qDebug() << fenetrePrincipale.carriste->groupe << " " << Login.carriste->groupe;
 
         if(fenetrePrincipale.carriste->groupe.toInt() == 1) {

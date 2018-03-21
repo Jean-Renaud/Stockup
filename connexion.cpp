@@ -20,10 +20,10 @@ void Connexion::on_seConnecter_clicked()
 {
    database bddConnexion;
    QString codeUtilisateur;
-   QString motDepasse;
+   QString motDePasse;
     codeUtilisateur = ui->codeConnexion->text();
-    motDepasse = ui->motDePasseConnexion->text();
-    if (!bddConnexion.connOpen())
+    motDePasse = ui->motDePasseConnexion->text();
+    if (!bddConnexion.ouvertureBdd())
    {
         qDebug() <<"Echec de l'ouverture de la base de données.";
         return;
@@ -32,7 +32,7 @@ void Connexion::on_seConnecter_clicked()
     QSqlQuery connexion;
     connexion.prepare("SELECT Code, Groupe FROM utilisateurs WHERE Code = :code AND Mot_de_Passe = :mdp");
     connexion.bindValue(":code", codeUtilisateur);
-    connexion.bindValue(":mdp", motDepasse);
+    connexion.bindValue(":mdp", motDePasse);
     if(connexion.exec())
     {
         int compteur = 0;
@@ -52,14 +52,13 @@ void Connexion::on_seConnecter_clicked()
             this->accept();
 
             this->close();
-            //MainWindow fenetrePrincipale;
-            //fenetrePrincipale.show();
+
         }
         if(compteur < 1)
         {
             ui->verifConnexion->setText("Le code ou le mot de passe est incorrect");
         }
     }
-    bddConnexion.connClose();
+    bddConnexion.fermetureBdd();
 
 }

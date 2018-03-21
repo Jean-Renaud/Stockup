@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     database maBdd;
 
-    maBdd.createTable();
+    maBdd.creerTableBdd();
 
     QMenu *menuFile = menuBar()->addMenu("&Fichier");
 
@@ -60,8 +60,10 @@ void MainWindow::on_button_Create_clicked()
                                           ui->dluo->text(),
                                           ui->codeFournisseur->text());
    database bdd;
-   bdd.insertProductValue(*produit);
+   bdd.creerUneReference(*produit);
 }
+
+
 
 void MainWindow::on_search_Database_clicked()
 {
@@ -69,7 +71,7 @@ void MainWindow::on_search_Database_clicked()
     QSqlQueryModel * modal = new QSqlQueryModel();
     modal->clear();
         database bdd;
-        bdd.connOpen();
+        bdd.ouvertureBdd();
         QSqlQuery listRef;
         QString searchRef = ui->searchRef->text();
         listRef.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :reference");
@@ -78,14 +80,16 @@ void MainWindow::on_search_Database_clicked()
          modal->setQuery(listRef);
            ui->listDatabase->setModel(modal);
 
-       bdd.connClose();
+       bdd.fermetureBdd();
 }
+
+
 
 void MainWindow::on_search_Location_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
         database bdd;
-        bdd.connOpen();
+        bdd.ouvertureBdd();
         QSqlQuery listLoc;
 
         QString searchLocation = ui->searchLocation->text();
@@ -94,15 +98,17 @@ void MainWindow::on_search_Location_clicked()
         listLoc.exec();
         modal->setQuery(listLoc);
         ui->listDatabase->setModel(modal);
-        bdd.connClose();
+        bdd.fermetureBdd();
 }
+
+
 
 void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 {
 
     QString val = ui->listDatabase->model()->data(index).toString();
     database bdd;
-        bdd.connOpen();
+        bdd.ouvertureBdd();
         QSqlQuery query;
         query.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Code_fournisseur FROM matieres_Premieres where id_Produit ='"+val+"'or Reference='"+val+"' or Nom ='"+val+"' or Lot='"+val+"' or Date='"+val+"' or Emplacement ='"+val+"' or Emballage='"+val+"' or Quantite='"+val+"' or Etat ='"+val+"'or DLUO='"+val+"' or Code_fournisseur ='"+val+"'");
         query.exec();
@@ -130,28 +136,33 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
             ui->codef->setText(query.value(10).toString());
         }
 
-        bdd.connClose();
+        bdd.fermetureBdd();
 
 }
+
+
 
 void MainWindow::on_update_row_clicked()
 {
     QString rowid = ui->id->text();
-    QString ref = ui->ref->text();
-    QString name =ui->nomProduit->text();
-    QString date2 = ui->date_2->text();
-    QString loc = ui->emplacement->text();
-    QString pack = ui->packaging_2->text();
-    QString quant = ui->quantite->text();
-    QString state2 = ui->etat->text();
-    QString dluo2 = ui->dluo_2->text();
-    QString lot2 = ui->lot_2->text();
-    QString pattern2 = ui->codef->text();
+    QString reference = ui->ref->text();
+    QString nom =ui->nomProduit->text();
+    QString date = ui->date_2->text();
+    QString emplacement = ui->emplacement->text();
+    QString emballage = ui->packaging_2->text();
+    QString quantite = ui->quantite->text();
+    QString etat = ui->etat->text();
+    QString dluo = ui->dluo_2->text();
+    QString lot = ui->lot_2->text();
+    QString codeFournisseur = ui->codef->text();
 
     database bdd;
-    bdd.updateReference(rowid, ref, name, date2, loc, pack, quant, state2, dluo2, lot2, pattern2);
+    bdd.miseAjourReference(rowid, reference, nom, date, emplacement, emballage, quantite, etat, dluo, lot, codeFournisseur);
 
 }
+
+
+
 void MainWindow::on_majFournisseur_clicked()
 {
     Fournisseur *livreur2 = new Fournisseur(   ui->idfournisseur->text(),
@@ -167,8 +178,11 @@ void MainWindow::on_majFournisseur_clicked()
                                                ui->apefournisseur->text()
                                                );
     database bdd2;
-    bdd2.majProvider(*livreur2);
+    bdd2.miseAjourFournisseur(*livreur2);
 }
+
+
+
 void MainWindow::on_majUtilisateur_clicked()
 {
     Utilisateur *mettreAjourUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
@@ -179,18 +193,22 @@ void MainWindow::on_majUtilisateur_clicked()
                                                ui->groupeUtilisateurEdit->text()
                                                );
     database bdd2;
-    bdd2.majUtilisateur(*mettreAjourUtilisateur);
+    bdd2.miseAJourUtilisateur(*mettreAjourUtilisateur);
 }
+
+
+
 void MainWindow::on_deleteProduct_clicked()
 {
 
-        int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur OUI pour confirmer ou sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
+        int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur Ok pour confirmer ou sur No pour annuler.", QMessageBox::Ok | QMessageBox::No);
 
         if (reponse == QMessageBox::Yes)
         {
-            QString deleteP = ui->id->text();
+            QString supprimerRef = ui->id->text();
             database bdd;
-            bdd.deleteReference(deleteP);
+            bdd.supprimerReference(supprimerRef);
+
             QMessageBox::information(this,tr("Succès"),tr("La suppression du produit a bien été effectuée."));
 
         }
@@ -198,32 +216,36 @@ void MainWindow::on_deleteProduct_clicked()
         {
             QMessageBox::critical(this, "Confirmation", "Le produit n'a pas été supprimé.");
         }
-
 }
+
+
+
 void MainWindow::on_searchNameProduct_clicked()
 {
     QSqlQueryModel * modal = new QSqlQueryModel();
     clearFocus();
         database mabd;
-        mabd.connOpen();
-        QSqlQuery listNom;
+        mabd.ouvertureBdd();
+        QSqlQuery listeRechercheNomProduit;
 
         QString searchName = ui->searchByName->text();
-        listNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom LIKE '%' ");
-        listNom.bindValue(":chercheNom",searchName);
-        listNom.exec();
-        modal->setQuery(listNom);
+        listeRechercheNomProduit.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom LIKE '%' ");
+        listeRechercheNomProduit.bindValue(":chercheNom",searchName);
+        listeRechercheNomProduit.exec();
+        modal->setQuery(listeRechercheNomProduit);
         ui->listDatabase->setModel(modal);
-        //ui->listDatabase->resizeColumnsToContents();
         ui->listDatabase->verticalHeader()->setVisible(false);
-        mabd.connClose();
+        mabd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_chercheUtilisateur_clicked()
 {
     QSqlQueryModel * modal3 = new QSqlQueryModel();
     clearFocus();
     database mabd;
-    mabd.connOpen();
+    mabd.ouvertureBdd();
     QSqlQuery chercherUnUtilisateur;
     QString trouverUtilisateur = ui->chercheUtilisateurEdit->text();
     chercherUnUtilisateur.prepare("SELECT * FROM utilisateurs WHERE Nom = :nom");
@@ -231,8 +253,11 @@ void MainWindow::on_chercheUtilisateur_clicked()
     chercherUnUtilisateur.exec();
     modal3->setQuery(chercherUnUtilisateur);
     ui->gestionUtilisateur->setModel(modal3);
-    mabd.connClose();
+    mabd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_createUser_clicked()
 {
     Utilisateur *employe = new Utilisateur(ui->idUtilisateurEdit->text(),
@@ -243,8 +268,10 @@ void MainWindow::on_createUser_clicked()
                                            ui->groupe->text()
                                            );
     database bdd;
-    bdd.createUser(*employe);
+    bdd.creerUnUtilisateur(*employe);
 }
+
+
 
 void MainWindow::on_creerFournisseur_clicked()
 {
@@ -261,14 +288,17 @@ void MainWindow::on_creerFournisseur_clicked()
                                                ui->ape->text()
                                                );
     database bdd2;
-    bdd2.createProvider(*livreur);
+    bdd2.creerUnFournisseur(*livreur);
 }
+
+
+
 void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 {
     QString val2 = ui->gestionUtilisateur->model()->data(index).toString();
 
         database bdd;
-        bdd.connOpen();
+        bdd.ouvertureBdd();
         QSqlQuery cherche;
         cherche.prepare("SELECT id, Code, Nom, Prenom, Mot_de_Passe, Groupe FROM utilisateurs WHERE id ='"+val2+"' or Code='"+val2+"' or Nom ='"+val2+"' or Prenom='"+val2+"' or Mot_de_Passe ='"+val2+"' or Groupe='"+val2+"'");
         cherche.exec();
@@ -285,15 +315,18 @@ void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 
         }
 
-        bdd.connClose();
+        bdd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_listProvider_activated(const QModelIndex &index)
 {
 
     QString val = ui->listProvider->model()->data(index).toString();
 
     database bdd;
-        bdd.connOpen();
+        bdd.ouvertureBdd();
         QSqlQuery query;
         query.prepare("SELECT id, Code, Nom, Forme_juridique ,Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE "
                       "FROM fournisseurs where id ='"+val+"'or code='"+val+"' or Nom ='"+val+"' or Forme_juridique='"+val+"' "
@@ -315,36 +348,45 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
             ui->apefournisseur->setText(query.value(10).toString());
         }
 
-        bdd.connClose();
+        bdd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_fournisseur_clicked()
  {
      QSqlQueryModel * modal2 = new QSqlQueryModel();
      clearFocus();
      database data50;
-     data50.connOpen();
-     QSqlQuery listeFournisseur;
+     data50.ouvertureBdd();
+     QSqlQuery listeFournisseurParCode;
      QString chercherFournisseur = ui->trouverfournisseur->text();
-     listeFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
-     listeFournisseur.bindValue(":code",chercherFournisseur);
-     listeFournisseur.exec();
-     modal2->setQuery(listeFournisseur);
+     listeFournisseurParCode.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
+     listeFournisseurParCode.bindValue(":code",chercherFournisseur);
+     listeFournisseurParCode.exec();
+     modal2->setQuery(listeFournisseurParCode);
      ui->listProvider->setModel(modal2);
-     data50.connClose();
+     data50.fermetureBdd();
  }
+
+
+
 void MainWindow::on_voirStock_clicked()
 {
     QSqlQueryModel * triAlphaproduits = new QSqlQueryModel();
     clearFocus();
     database mabdd;
-    mabdd.connOpen();
+    mabdd.ouvertureBdd();
     QSqlQuery triAlphaProduits;
     triAlphaProduits.prepare("SELECT * FROM matieres_Premieres ORDER BY Nom");
     triAlphaProduits.exec();
     triAlphaproduits->setQuery(triAlphaProduits);
     ui->listDatabase->setModel(triAlphaproduits);
-    mabdd.connClose();
+    mabdd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_suppFournisseur_clicked()
 {
     int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur OUI pour confirmer ou sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
@@ -364,7 +406,7 @@ void MainWindow::on_suppFournisseur_clicked()
 
                     );
         database bdd2;
-        bdd2.supFournisseur(*livreur3);
+        bdd2.supprimerUnFournisseur(*livreur3);
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
         ui->fournisseur->clicked();
     }
@@ -373,6 +415,9 @@ void MainWindow::on_suppFournisseur_clicked()
         QMessageBox::critical(this, "Confirmation", "Le fournisseur n'a pas été supprimé.");
     }
 }
+
+
+
 void MainWindow::on_suppUtilisateur_clicked()
 {
     int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, cette action est irreversible. Cliquez sur OUI pour confirmer ou sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
@@ -387,7 +432,7 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                             );
 
         database bdd2;
-        bdd2.supUtilisateur(*supprimerUtilisateur);
+        bdd2.supprimerUnUtilisateur(*supprimerUtilisateur);
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
     }
     else if (reponse == QMessageBox::No)
@@ -395,32 +440,39 @@ void MainWindow::on_suppUtilisateur_clicked()
         QMessageBox::critical(this, "Confirmation", "Le fournisseur n'a pas été supprimé.");
     }
 }
+
+
+
 void MainWindow::on_triAlphaUtilisateur_clicked()
 {
     QSqlQueryModel * triAlphautilisateur = new QSqlQueryModel();
     clearFocus();
     database mabdd;
-    mabdd.connOpen();
+    mabdd.ouvertureBdd();
     QSqlQuery triAlphaUtilisateur;
     triAlphaUtilisateur.prepare("SELECT * FROM utilisateurs ORDER BY Nom");
     triAlphaUtilisateur.exec();
     triAlphautilisateur->setQuery(triAlphaUtilisateur);
     ui->gestionUtilisateur->setModel(triAlphautilisateur);
-    mabdd.connClose();
+    mabdd.fermetureBdd();
 }
+
+
+
 void MainWindow::on_triAlphaFournisseur_clicked()
 {
     QSqlQueryModel * triAlphafournisseur = new QSqlQueryModel();
     clearFocus();
     database mabdd;
-    mabdd.connOpen();
+    mabdd.ouvertureBdd();
     QSqlQuery triAlphaFournisseur;
     triAlphaFournisseur.prepare("SELECT * FROM fournisseurs ORDER BY Nom");
     triAlphaFournisseur.exec();
     triAlphafournisseur->setQuery(triAlphaFournisseur);
     ui->listProvider->setModel(triAlphafournisseur);
-    mabdd.connClose();
+    mabdd.fermetureBdd();
 }
+
 
 
 void MainWindow::disableTab(int index)
@@ -428,10 +480,14 @@ void MainWindow::disableTab(int index)
     ui->tabGestionStock->setTabEnabled(index, false);
 }
 
+
+
 void MainWindow::moveToTab(int index)
 {
     ui->tabGestionStock->setCurrentIndex(index);
 }
+
+
 
 void MainWindow::disableFormCarriste() {
     ui->id->setEnabled(false);
@@ -447,6 +503,9 @@ void MainWindow::disableFormCarriste() {
     ui->deleteProduct->setEnabled(false);
 
 }
+
+
+
 void MainWindow::disableFormQualite()
 {
     ui->id->setEnabled(false);
@@ -462,6 +521,9 @@ void MainWindow::disableFormQualite()
     ui->codef->setEnabled(false);
     ui->deleteProduct->setEnabled(false);
 }
+
+
+
 void database::insertionUtilisateur()
 {
     QSqlQuery connexion;
@@ -477,5 +539,4 @@ void database::insertionUtilisateur()
                        "VALUES (01, 'Admin', 'adm', 1, 5)");
 
     }
-
 }

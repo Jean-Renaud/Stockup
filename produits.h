@@ -6,19 +6,30 @@
 class Produits
 {
 public:
-    Produits(QString reference, QString nom, QString lot, QDate date, QString heure, QString emplacement, QString emballage,
-             QString quantite, QString etat, QString dluo, QString codeFournisseur);
-
-    QString reference;
-    QString nom;
-    QString lot;
+    Produits(QString referenceProduit, QString nomProduit, QString lotProduit, QDate date, QString heure, QString emplacementProduit, QString emballageProduit,
+             QString quantiteProduit, QString etatProduit, QString dluoProduit, QString codeFournisseur);
+    QString getRef();
+    QString getNom();
+    QString getLot();
+    QDate getDate();
+    QString getHeure();
+    QString getEmplacement();
+    QString getEmballage();
+    QString getQuantite();
+    QString getEtat();
+    QString getDluo();
+    QString getCodeFournisseur();
+private :
+    QString referenceProduit;
+    QString nomProduit;
+    QString lotProduit;
     QDate date;
     QString heure;
-    QString emplacement;
-    QString emballage;
-    QString quantite;
-    QString etat;
-    QString dluo;
+    QString emplacementProduit;
+    QString emballageProduit;
+    QString quantiteProduit;
+    QString etatProduit;
+    QString dluoProduit;
     QString codeFournisseur;
 };
 
