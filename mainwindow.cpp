@@ -17,6 +17,7 @@
 #include <QDateTime>
 #include <QDate>
 #include <QDateEdit>
+#include <QIcon>
 using namespace std;
 
 
@@ -32,8 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QMenu *menuFile = menuBar()->addMenu("&Fichier");
 
-    QAction *actionLogout = new QAction("&Deconnexion", this);
-    menuFile->addAction(actionLogout);
+
     QAction *actionQuit = new QAction("&Quitter", this);
     menuFile->addAction(actionQuit);
     connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -115,6 +115,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
                 break;
                 case 4:
                 this->disableFormQualite();
+                break;
             }
             ui->id->setText(query.value(0).toString());
             ui->ref->setText(query.value(1).toString());
@@ -424,13 +425,11 @@ void MainWindow::on_triAlphaFournisseur_clicked()
 
 void MainWindow::disableTab(int index)
 {
-    qDebug() << "C'est de la merde 1";
     ui->tabGestionStock->setTabEnabled(index, false);
 }
 
 void MainWindow::moveToTab(int index)
 {
-    qDebug() << "C'est de la merde 2";
     ui->tabGestionStock->setCurrentIndex(index);
 }
 
@@ -440,9 +439,7 @@ void MainWindow::disableFormCarriste() {
     ui->ref->setEnabled(false);
     ui->nomProduit->setEnabled(false);
     ui->date_2->setEnabled(false);
-    //ui->emplacement->setEnabled(false);
     ui->packaging_2->setEnabled(false);
-    ui->quantite->setEnabled(false);
     ui->etat->setEnabled(false);
     ui->dluo_2->setEnabled(false);
     ui->lot_2->setEnabled(false);
@@ -464,4 +461,21 @@ void MainWindow::disableFormQualite()
     ui->lot_2->setEnabled(false);
     ui->codef->setEnabled(false);
     ui->deleteProduct->setEnabled(false);
+}
+void database::insertionUtilisateur()
+{
+    QSqlQuery connexion;
+    connexion.exec("SELECT COUNT(id) FROM utilisateurs");
+
+    connexion.next();
+
+    int presentDansLaBdd = connexion.value(0).toInt();
+    if(presentDansLaBdd == 0)
+    {
+
+        connexion.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
+                       "VALUES (01, 'Admin', 'adm', 1, 5)");
+
+    }
+
 }

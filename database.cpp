@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QMessageBox>
 #include <QObject>
+#include <QCoreApplication>
 
 database::database()
 {
@@ -18,9 +19,11 @@ database::~database()
 
 bool database::connOpen()
 {
-
     QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/Stockup.db");
+    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/stockup.db");
+
+
+
 
     if(!stockup.open())
     {
@@ -58,10 +61,6 @@ void database::createTable()
                                        "'Groupe' INTEGER NOT NULL"
                                        ");");
 
-        createTable.exec("INSERT INTO utilisateurs WHERE NOT EXISTS (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                             "VALUES(77, 'Dubois', 'Jean-Renaud', 1, 1);");
-
-
         createTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
                          "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
                          "Reference TEXT NOT NULL,"
@@ -90,6 +89,8 @@ void database::createTable()
                          "Siret TEXT NOT NULL,"
                          "APE TEXT NOT NULL"
                          ");");
+
+                       insertionUtilisateur();
     }
     else
     {

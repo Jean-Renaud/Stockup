@@ -79,6 +79,7 @@ private slots:
 
     void disableFormQualite();
 
+
 private:
     Ui::MainWindow *ui;
 

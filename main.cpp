@@ -51,9 +51,6 @@ int main(int argc, char *argv[])
             fenetrePrincipale.disableTab(5);
             fenetrePrincipale.disableTab(6);
         }
-
-
-
         fenetrePrincipale.show();
     }
     else

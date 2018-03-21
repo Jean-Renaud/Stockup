@@ -32,15 +32,10 @@ class database : public QMainWindow
         void supFournisseur(Fournisseur &livreur3);
         void majUtilisateur(Utilisateur &mettreAjourUtilisateur);
         void supUtilisateur(Utilisateur &supprimerUtilisateur);
-
-
-
-
+        void insertionUtilisateur();
 
     protected:
-
     private:
-
 };
 
 #endif // DATABASE_H
