@@ -13,13 +13,50 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Connexion Login;
     MainWindow fenetrePrincipale;
-   if (Login.exec() == QDialog::Accepted)
+    if (Login.exec() == QDialog::Accepted)
     {
+        fenetrePrincipale.carriste = Login.carriste;
+
+        qDebug() << fenetrePrincipale.carriste->getGroupe() << " " << Login.carriste->getGroupe();
+
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 1) {
+            fenetrePrincipale.moveToTab(1);
+            fenetrePrincipale.disableTab(0);
+            fenetrePrincipale.disableTab(1);
+            fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.disableTab(5);
+            fenetrePrincipale.disableTab(6);
+        }
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 2) {
+            fenetrePrincipale.moveToTab(1);
+            fenetrePrincipale.disableTab(2);
+            fenetrePrincipale.disableTab(3);
+
+
+        }
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 3) {
+            fenetrePrincipale.moveToTab(1);
+            fenetrePrincipale.disableTab(0);
+            fenetrePrincipale.disableTab(2);
+            fenetrePrincipale.disableTab(3);
+            fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.disableTab(5);
+            fenetrePrincipale.disableTab(6);
+        }
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 4) {
+            fenetrePrincipale.moveToTab(1);
+            fenetrePrincipale.disableTab(0);
+            fenetrePrincipale.disableTab(2);
+            fenetrePrincipale.disableTab(3);
+            fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.disableTab(5);
+            fenetrePrincipale.disableTab(6);
+        }
         fenetrePrincipale.show();
     }
-   else
+    else
     {
-       return 0;
+        return 0;
     }
     return a.exec();
 }

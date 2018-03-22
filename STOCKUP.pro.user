@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<!-- Written by QtCreator 4.5.0, 2018-03-16T13:32:31. -->
-=======
-<!-- Written by QtCreator 4.5.0, 2018-03-19T16:39:24. -->
->>>>>>> Stashed changes
-=======
-<!-- Written by QtCreator 4.5.0, 2018-03-17T16:31:08. -->
->>>>>>> 973236d1a6772e16fb74f5955ab8a5a3ef637a14
+<!-- Written by QtCreator 4.5.0, 2018-03-21T21:33:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -293,8 +285,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">STOCKUP</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">STOCKUP2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/STOCKUP/Stockup/STOCKUP.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/STOCKUP/STOCKUP.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">STOCKUP.pro</value>
