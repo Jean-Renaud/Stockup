@@ -1,6 +1,7 @@
 #include "connexion.h"
 #include "ui_connexion.h"
 #include "database.h"
+#include "utilisateur.h"
 #include "mainwindow.h"
 #include <QMainWindow>
 
@@ -21,8 +22,8 @@ void Connexion::on_seConnecter_clicked()
    database bddConnexion;
    QString codeUtilisateur;
    QString motDePasse;
-    codeUtilisateur = ui->codeConnexion->text();
-    motDePasse = ui->motDePasseConnexion->text();
+   codeUtilisateur = ui->codeConnexion->text();
+  motDePasse = ui->motDePasseConnexion->text();
     if (!bddConnexion.ouvertureBdd())
    {
         qDebug() <<"Echec de l'ouverture de la base de données.";
@@ -46,8 +47,8 @@ void Connexion::on_seConnecter_clicked()
             ui->verifConnexion->setText("L'utilisateur est bien connecté");
 
             this->carriste = new Utilisateur();
-            this->carriste->code = connexion.value(0).toString();
-            this->carriste->groupe = connexion.value(1).toString();
+            this->carriste->setCode(connexion.value(0).toString());
+            this->carriste->setGroupe(connexion.value(1).toString());
 
             this->accept();
 

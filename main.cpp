@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <connexion.h>
 #include "database.h"
+#include "utilisateur.h"
 #include <iostream>
 #include <QTranslator>
 #include <QLocale>
@@ -16,10 +17,11 @@ int main(int argc, char *argv[])
     if (Login.exec() == QDialog::Accepted)
     {
         fenetrePrincipale.carriste = Login.carriste;
+        //fenetrePrincipale.carriste->setGroupe(Login.carriste->getGroupe());
 
-        qDebug() << fenetrePrincipale.carriste->groupe << " " << Login.carriste->groupe;
+        qDebug() << fenetrePrincipale.carriste->getGroupe() << " " << Login.carriste->getGroupe();
 
-        if(fenetrePrincipale.carriste->groupe.toInt() == 1) {
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 1) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.disableTab(0);
             fenetrePrincipale.disableTab(1);
@@ -27,14 +29,14 @@ int main(int argc, char *argv[])
             fenetrePrincipale.disableTab(5);
             fenetrePrincipale.disableTab(6);
         }
-        if(fenetrePrincipale.carriste->groupe.toInt() == 2) {
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 2) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.disableTab(2);
             fenetrePrincipale.disableTab(3);
 
 
         }
-        if(fenetrePrincipale.carriste->groupe.toInt() == 3) {
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 3) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.disableTab(0);
             fenetrePrincipale.disableTab(2);
@@ -43,7 +45,7 @@ int main(int argc, char *argv[])
             fenetrePrincipale.disableTab(5);
             fenetrePrincipale.disableTab(6);
         }
-        if(fenetrePrincipale.carriste->groupe.toInt() == 4) {
+        if(fenetrePrincipale.carriste->getGroupe().toInt() == 4) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.disableTab(0);
             fenetrePrincipale.disableTab(2);

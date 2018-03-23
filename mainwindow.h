@@ -27,10 +27,11 @@ public:
 
     Utilisateur * carriste;
 
+    Utilisateur * modifier;
+
 
 
 public slots:
-    void on_button_Create_clicked();
 
 
 private slots:
@@ -80,9 +81,13 @@ private slots:
     void disableFormQualite();
 
 
+    void on_creerReferenceBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
+
+

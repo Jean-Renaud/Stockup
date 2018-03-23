@@ -18,8 +18,10 @@ class database : public QMainWindow
         virtual ~database();
         QSqlDatabase stockup;
         void creerTableBdd();
+        void insertionBddInstallation();
         void chercheProduitParNom(QString chercherProduitParNom);
-        void supprimerReference(QString suppRef);
+        void chercherUnUtilisateur();
+        void supprimerReference(Produits &supprimerProduit);
         void chercherFournisseur(QString trouverFournisseur);
         void miseAjourReference(QString rowid, QString referenceDuProduit, QString nomDuProduit, QString numeroLot, QString emplacement, QString emballage, QString quantite, QString etat, QString dluo, QString date, QString fournisseur);
         void creerUneReference(Produits &produit);
@@ -31,7 +33,7 @@ class database : public QMainWindow
         void supprimerUnFournisseur(Fournisseur &livreur3);
         void miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur);
         void supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur);
-        void insertionUtilisateur();
+        void insertionEnBdd();
 
     protected:
     private:

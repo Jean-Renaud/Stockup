@@ -1,8 +1,9 @@
 #include "produits.h"
 
-Produits::Produits(QString referenceProduit, QString nomProduit, QString lotProduit, QDate date, QString heure, QString emplacementProduit,
+Produits::Produits(QString idProduit, QString referenceProduit, QString nomProduit, QString lotProduit, QString date, QString heure, QString emplacementProduit,
                    QString emballageProduit, QString quantiteProduit, QString etatProduit, QString dluoProduit, QString codeFournisseur)
 {
+    this->idProduit = idProduit;
     this->referenceProduit = referenceProduit;
     this->nomProduit = nomProduit;
     this->lotProduit = lotProduit;
@@ -14,6 +15,10 @@ Produits::Produits(QString referenceProduit, QString nomProduit, QString lotProd
     this->etatProduit = etatProduit;
     this->dluoProduit = dluoProduit;
     this->codeFournisseur = codeFournisseur;
+}
+QString Produits::getId()
+{
+    return this->idProduit;
 }
 
 QString Produits::getRef()
@@ -28,7 +33,7 @@ QString Produits::getLot()
 {
     return this->lotProduit;
 }
-QDate Produits::getDate()
+QString Produits::getDate()
 {
     return this->date;
 }
@@ -60,3 +65,4 @@ QString Produits::getCodeFournisseur()
 {
     return this->codeFournisseur;
 }
+

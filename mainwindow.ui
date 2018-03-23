@@ -44,7 +44,7 @@ font-weight: bold;
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -76,7 +76,7 @@ border:2px solid rgb(62, 124, 146);
       <property name="title">
        <string>CREER UNE NOUVELLE REFERENCE</string>
       </property>
-      <widget class="QTimeEdit" name="hour">
+      <widget class="QTimeEdit" name="heureDeCreation">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -185,7 +185,7 @@ font-weight: bold;</string>
         <string>NOM :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="reference_Product">
+      <widget class="QLineEdit" name="referenceProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -237,7 +237,7 @@ font-weight: bold;
         <string>REFERENCE :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="location">
+      <widget class="QLineEdit" name="emplacementProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -288,7 +288,7 @@ font-weight: bold;</string>
         <string>EMPLACEMENT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="quantity">
+      <widget class="QLineEdit" name="quantiteProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -337,7 +337,7 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>QUANTITE :</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="state">
+      <widget class="QComboBox" name="etatProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -406,7 +406,7 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>ETAT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="dluo">
+      <widget class="QLineEdit" name="dluoProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -455,7 +455,7 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>DLUO</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lot">
+      <widget class="QLineEdit" name="lotProdiuit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -504,7 +504,7 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>LOT :</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="packaging">
+      <widget class="QComboBox" name="emballageProduit">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -618,7 +618,7 @@ border-radius: 5px;
 border:1px solid rgb(62, 124, 146);</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_Create">
+      <widget class="QPushButton" name="creerReferenceBtn">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -645,7 +645,7 @@ border-radius: 5px;</string>
         <string>Créer la nouvelle référence</string>
        </property>
       </widget>
-      <widget class="QDateEdit" name="date">
+      <widget class="QDateEdit" name="dateDeCreation">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -904,7 +904,7 @@ border-radius: 5px;
         <string>DATE :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="date_2">
+      <widget class="QLineEdit" name="dateProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -942,7 +942,7 @@ border-radius: 5px;
         <string>EMPLACEMENT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="emplacement">
+      <widget class="QLineEdit" name="emplacementProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -971,7 +971,7 @@ border-radius: 5px;
         <string>CONDITIONNEMENT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="packaging_2">
+      <widget class="QLineEdit" name="emballageProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1000,7 +1000,7 @@ border-radius: 5px;
         <string>QUANTITE :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="quantite">
+      <widget class="QLineEdit" name="quantitePoduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1029,7 +1029,7 @@ border-radius: 5px;
         <string>ETAT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="etat">
+      <widget class="QLineEdit" name="etatProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1058,7 +1058,7 @@ border-radius: 5px;
         <string>DLUO :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="dluo_2">
+      <widget class="QLineEdit" name="dluoProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1087,7 +1087,7 @@ border-radius: 5px;
         <string>LOT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lot_2">
+      <widget class="QLineEdit" name="lotProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1116,7 +1116,7 @@ border-radius: 5px;
         <string>CODE FOURNISSEUR :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="codef">
+      <widget class="QLineEdit" name="codeFmajProduit">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1156,7 +1156,7 @@ border-radius: 5px;</string>
         <string>Mettre à jour</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="id">
+      <widget class="QLineEdit" name="idProduit">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1169,7 +1169,7 @@ border-radius: 5px;</string>
         <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ref">
+      <widget class="QLineEdit" name="referenceProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -1234,7 +1234,7 @@ border-radius: 5px;</string>
         <string>Supprimer</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="nomProduit">
+      <widget class="QLineEdit" name="nomProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -2315,7 +2315,7 @@ border-radius: 5px;</string>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(233, 233, 233);
 border:1px solid rgb(62, 124, 146);
-test-align:justify;
+
 </string>
       </property>
      </widget>
@@ -2794,6 +2794,13 @@ border-radius: 5px;</string>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuOption">
+    <property name="title">
+     <string>Option</string>
+    </property>
+    <addaction name="actionVider_la_bas_de_donn_es"/>
+   </widget>
+   <addaction name="menuOption"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -2804,40 +2811,45 @@ border-radius: 5px;</string>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionVider_la_bas_de_donn_es">
+   <property name="text">
+    <string>Vider la base de donnée</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabGestionStock</tabstop>
-  <tabstop>hour</tabstop>
+  <tabstop>heureDeCreation</tabstop>
   <tabstop>nomProduit_2</tabstop>
-  <tabstop>reference_Product</tabstop>
-  <tabstop>location</tabstop>
-  <tabstop>quantity</tabstop>
-  <tabstop>state</tabstop>
-  <tabstop>dluo</tabstop>
-  <tabstop>lot</tabstop>
-  <tabstop>packaging</tabstop>
+  <tabstop>referenceProduit</tabstop>
+  <tabstop>emplacementProduit</tabstop>
+  <tabstop>quantiteProduit</tabstop>
+  <tabstop>etatProduit</tabstop>
+  <tabstop>dluoProduit</tabstop>
+  <tabstop>lotProdiuit</tabstop>
+  <tabstop>emballageProduit</tabstop>
   <tabstop>codeFournisseur</tabstop>
-  <tabstop>date</tabstop>
-  <tabstop>button_Create</tabstop>
+  <tabstop>dateDeCreation</tabstop>
+  <tabstop>creerReferenceBtn</tabstop>
   <tabstop>listDatabase</tabstop>
   <tabstop>search_Database</tabstop>
   <tabstop>searchRef</tabstop>
   <tabstop>searchLocation</tabstop>
   <tabstop>search_Location</tabstop>
-  <tabstop>date_2</tabstop>
-  <tabstop>emplacement</tabstop>
-  <tabstop>packaging_2</tabstop>
-  <tabstop>quantite</tabstop>
-  <tabstop>etat</tabstop>
-  <tabstop>dluo_2</tabstop>
-  <tabstop>lot_2</tabstop>
-  <tabstop>codef</tabstop>
+  <tabstop>dateProduitMaj</tabstop>
+  <tabstop>emplacementProduitMaj</tabstop>
+  <tabstop>emballageProduitMaj</tabstop>
+  <tabstop>quantitePoduitMaj</tabstop>
+  <tabstop>etatProduitMaj</tabstop>
+  <tabstop>dluoProduitMaj</tabstop>
+  <tabstop>lotProduitMaj</tabstop>
+  <tabstop>codeFmajProduit</tabstop>
   <tabstop>update_row</tabstop>
-  <tabstop>id</tabstop>
-  <tabstop>ref</tabstop>
+  <tabstop>idProduit</tabstop>
+  <tabstop>referenceProduitMaj</tabstop>
   <tabstop>deleteProduct</tabstop>
-  <tabstop>nomProduit</tabstop>
+  <tabstop>nomProduitMaj</tabstop>
   <tabstop>searchNameProduct</tabstop>
   <tabstop>searchByName</tabstop>
   <tabstop>voirStock</tabstop>
