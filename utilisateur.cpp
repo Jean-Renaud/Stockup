@@ -40,7 +40,6 @@ QString Utilisateur::getMdp()
 QString Utilisateur::getGroupe()
 {
     return this->groupe;
-<<<<<<< HEAD
 }
 void Utilisateur::setGroupe(QString groupe)
 {
@@ -49,6 +48,4 @@ void Utilisateur::setGroupe(QString groupe)
 void Utilisateur::setCode(QString code)
 {
    this->code = code;
-=======
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 }

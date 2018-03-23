@@ -23,11 +23,7 @@ database::~database()
 bool database::ouvertureBdd()
 {
     QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-<<<<<<< HEAD
     stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/stockup.db");
-=======
-    stockup.setDatabaseName("C:/STOCKUP/stockup.db");
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 
 
 
@@ -50,17 +46,12 @@ void database::fermetureBdd()
     stockup.removeDatabase(QSqlDatabase::defaultConnection);
 }
 
-<<<<<<< HEAD
 
 void database::insertionEnBdd()
-=======
-void database::creerTableBdd()
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 {
     QSqlQuery insererUtilisateur;
     insererUtilisateur.exec("SELECT COUNT (id) FROM utilisateurs");
 
-<<<<<<< HEAD
     insererUtilisateur.next();
 
     int presentDansLaBdd = insererUtilisateur.value(0).toInt();
@@ -96,13 +87,6 @@ void database::creerTableBdd()
          QSqlQuery creerTable(stockup);
 
          creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
-=======
-    if(ouvertureBdd())
-    {
-         QSqlQuery creerTable(stockup);
-
-         creerTable.exec("CREATE TABLE IF NOT EXISTS 'utilisateurs' ("
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
                                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
                                        "'Code' INTEGER NOT NULL,"
                                        "'Nom' TEXT NOT NULL,"
@@ -140,10 +124,7 @@ void database::creerTableBdd()
                          "APE TEXT NOT NULL"
                          ");");
 
-<<<<<<< HEAD
         insertionEnBdd();
-=======
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 
     }
     else
@@ -151,52 +132,10 @@ void database::creerTableBdd()
          QMessageBox::information(this,tr("Erreur"),tr("La connexion avec la base de donnée à échouée."));
     }
     fermetureBdd();
-<<<<<<< HEAD
 }
 
 void database::creerUneReference(Produits &produit)
 {
-=======
-
-}
-
-void database::insertionEnBdd()
-{
-    QSqlQuery insererUtilisateur;
-    insererUtilisateur.exec("SELECT COUNT (id) FROM utilisateurs");
-
-    insererUtilisateur.next();
-
-    int presentDansLaBdd = insererUtilisateur.value(0).toInt();
-    if(presentDansLaBdd == 0)
-    {
-
-
-        insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                       "VALUES (01, 'Admin', 'admin', 1, 1)");
-
-        insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                       "VALUES (02, 'ResponsableLogistique', 'responsable', 2, 2)");
-
-        insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                       "VALUES (03, 'Carriste', 'carriste', 3, 3)");
-
-        insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                       "VALUES (04, 'LaboQualite', 'labo', 4, 4)");
-
-        insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                               "VALUES (05, 'Root', 'superAdmin', 5, 5)");
-
-
-
-
-    }
-}
-
-
-void database::creerUneReference(Produits &produit)
-{
->>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
     ouvertureBdd();
     QSqlQuery insererNouvelleReference;
     insererNouvelleReference.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur) VALUES (:Reference, :Nom, :Lot, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Code_fournisseur)");
