@@ -13,8 +13,11 @@ public:
     QString getPrenom();
     QString getMdp();
     QString getGroupe();
+<<<<<<< HEAD
     void setGroupe(QString groupe);
     void setCode(QString code);
+=======
+>>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 
 
 private:

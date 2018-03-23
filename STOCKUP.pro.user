@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.5.0, 2018-03-23T10:59:19. -->
+=======
+<!-- Written by QtCreator 4.5.0, 2018-03-21T21:33:28. -->
+>>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -286,7 +290,11 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">STOCKUP</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/adai03/Documents/STOCKUP/STOCKUP.pro</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/STOCKUP/STOCKUP.pro</value>
+>>>>>>> 45c1f705aa4f85ad1a2a11a5cbe8e37146d9d7c7
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">STOCKUP.pro</value>
