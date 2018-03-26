@@ -1,7 +1,7 @@
 #ifndef CONNEXION_H
 #define CONNEXION_H
 #include <QDialog>
-#include "database.h"
+#include "basededonnees.h"
 #include "mainwindow.h"
 #include "utilisateur.h"
 
@@ -18,6 +18,7 @@ public:
     ~Connexion();
     Utilisateur * carriste;
 
+    void setBaseDeDonnees(BaseDeDonnees*);
 
 private slots:
 
@@ -25,7 +26,7 @@ private slots:
 
 private:
     Ui::Connexion *ui;
-    QSqlDatabase stockup;
+    BaseDeDonnees *bdd;
 };
 
 #endif // CONNEXION_H

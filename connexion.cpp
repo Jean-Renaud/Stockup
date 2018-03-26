@@ -1,6 +1,6 @@
 #include "connexion.h"
 #include "ui_connexion.h"
-#include "database.h"
+#include "basededonnees.h"
 #include "utilisateur.h"
 #include "mainwindow.h"
 #include <QMainWindow>
@@ -17,20 +17,15 @@ Connexion::~Connexion()
 {
     delete ui;
 }
+
 void Connexion::on_seConnecter_clicked()
 {
-   database bddConnexion;
    QString codeUtilisateur;
    QString motDePasse;
    codeUtilisateur = ui->codeConnexion->text();
-  motDePasse = ui->motDePasseConnexion->text();
-    if (!bddConnexion.ouvertureBdd())
-   {
-        qDebug() <<"Echec de l'ouverture de la base de données.";
-        return;
-    }
+   motDePasse = ui->motDePasseConnexion->text();
 
-    QSqlQuery connexion;
+    QSqlQuery connexion(this->bdd->stockup);
     connexion.prepare("SELECT Code, Groupe FROM utilisateurs WHERE Code = :code AND Mot_de_Passe = :mdp");
     connexion.bindValue(":code", codeUtilisateur);
     connexion.bindValue(":mdp", motDePasse);
@@ -60,6 +55,9 @@ void Connexion::on_seConnecter_clicked()
             ui->verifConnexion->setText("Le code ou le mot de passe est incorrect");
         }
     }
-    bddConnexion.fermetureBdd();
 
+}
+
+void Connexion::setBaseDeDonnees(BaseDeDonnees *bdd) {
+    this->bdd = bdd;
 }

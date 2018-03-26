@@ -1,14 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "mainwindow.h"
+
 #include "utilisateur.h"
+#include "basededonnees.h"
+#include "ui_mainwindow.h"
+
 #include <QApplication>
 #include <QtSql/QSql>
 #include <QtDebug>
-
-
 #include <QMainWindow>
-
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +21,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void setBaseDeDonnees(BaseDeDonnees*);
 
     void moveToTab(int);
     void disableTab(int);
@@ -35,8 +37,6 @@ public slots:
 
 
 private slots:
-
-
 
     void on_search_Database_clicked();
 
@@ -88,6 +88,7 @@ private slots:
     void on_actionVider_la_bas_de_donn_es_triggered();
 
 private:
+    BaseDeDonnees *bdd;
     Ui::MainWindow *ui;
 
 };
