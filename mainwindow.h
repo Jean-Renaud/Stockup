@@ -83,11 +83,16 @@ private slots:
 
     void on_creerReferenceBtn_clicked();
 
+    void on_actionQuitter_triggered();
+
+    void on_actionVider_la_bas_de_donn_es_triggered();
+
 private:
     Ui::MainWindow *ui;
 
 };
 
 #endif // MAINWINDOW_H
+
 
 

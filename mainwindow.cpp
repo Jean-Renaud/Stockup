@@ -30,20 +30,45 @@ MainWindow::MainWindow(QWidget *parent) :
     database maBdd;
 
     maBdd.creerTableBdd();
-
-    QMenu *menuFile = menuBar()->addMenu("&Fichier");
-
-
-    QAction *actionQuit = new QAction("&Quitter", this);
-    menuFile->addAction(actionQuit);
-    connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
-    actionQuit->setIcon(QIcon("quit.png"));
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+void MainWindow::on_actionQuitter_triggered()
+{
+    this->close();
+}
+
+void MainWindow::on_actionVider_la_bas_de_donn_es_triggered()
+{
+
+    if(carriste->getGroupe().toInt() == 5)
+{
+
+    int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer TOUTE la base de donnée, cette action est irreversible. Cliquez sur Ok pour confirmer ou sur No pour annuler.", QMessageBox::Yes | QMessageBox::No);
+
+    if (reponse == QMessageBox::Yes)
+    {
+        database bdd;
+        bdd.ouvertureBdd();
+        QSqlQuery viderBdd;
+        viderBdd.exec("DELETE FROM matieres_Premieres");
+        viderBdd.exec("DELETE FROM fournisseurs");
+        viderBdd.exec("DELETE FROM sqlite_sequence WHERE name='matieres_Premieres'");
+        viderBdd.exec("DELETE FROM sqlite_sequence WHERE name='fournisseurs'");
+
+        bdd.fermetureBdd();
+
+        QMessageBox::information(this,tr("Succès"),tr("La purge de la base de donnée a bien été effectuée."));
+
+    }
+    else if (reponse == QMessageBox::No)
+    {
+        QMessageBox::critical(this, "Confirmation", "La base de donnée n'a pas été purgée.");
+    }
+    }
 }
 void MainWindow::on_creerReferenceBtn_clicked()
 {
@@ -531,7 +556,11 @@ void MainWindow::disableFormCarriste() {
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
     ui->deleteProduct->setEnabled(false);
-
+    if(carriste->getGroupe().toInt() == 3)
+    {
+     MainWindow::on_actionVider_la_bas_de_donn_es_triggered();
+    this->setEnabled(false);
+    }
 }
 
 

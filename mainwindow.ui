@@ -2800,6 +2800,13 @@ border-radius: 5px;</string>
     </property>
     <addaction name="actionVider_la_bas_de_donn_es"/>
    </widget>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <addaction name="menuFichier"/>
    <addaction name="menuOption"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -2812,8 +2819,21 @@ border-radius: 5px;</string>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionVider_la_bas_de_donn_es">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/Image/images/corbeille_pleine.png</normaloff>:/Image/images/corbeille_pleine.png</iconset>
+   </property>
    <property name="text">
     <string>Vider la base de donnée</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/Image/images/gnome_application_exit.png</normaloff>:/Image/images/gnome_application_exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quitter</string>
    </property>
   </action>
  </widget>
@@ -2900,6 +2920,8 @@ border-radius: 5px;</string>
   <tabstop>fournisseur</tabstop>
   <tabstop>triAlphaFournisseur</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

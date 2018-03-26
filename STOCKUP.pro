@@ -48,3 +48,6 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
     connexion.ui
+
+RESOURCES += \
+    images.qrc

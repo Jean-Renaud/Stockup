@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Image">
+        <file>images/corbeille_pleine.png</file>
+        <file>images/gnome_application_exit.png</file>
+    </qresource>
+</RCC>

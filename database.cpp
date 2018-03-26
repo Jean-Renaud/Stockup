@@ -23,6 +23,8 @@ database::~database()
 bool database::ouvertureBdd()
 {
     QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
+    /* QString path = QCoreApplication::applicationDirPath() + ".db";
+     stockup.setDatabaseName(path);*/
     stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/stockup.db");
 
 
