@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <connexion.h>
-#include "database.h"
+#include "basededonnees.h"
 #include "utilisateur.h"
 #include <iostream>
 #include <QTranslator>
@@ -10,10 +10,13 @@
 
 int main(int argc, char *argv[])
 {
-
+    BaseDeDonnees bdd;
     QApplication a(argc, argv);
     Connexion Login;
     MainWindow fenetrePrincipale;
+    Login.setBaseDeDonnees(&bdd);
+    fenetrePrincipale.setBaseDeDonnees(&bdd);
+
     if (Login.exec() == QDialog::Accepted)
     {
         fenetrePrincipale.carriste = Login.carriste;

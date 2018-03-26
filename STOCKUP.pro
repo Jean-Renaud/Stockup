@@ -29,20 +29,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    database.cpp \
     produits.cpp \
     utilisateur.cpp \
     fournisseur.cpp \
-    connexion.cpp
+    connexion.cpp \
+    basededonnees.cpp
    
 
 HEADERS += \
         mainwindow.h \
-    database.h \
     produits.h \
     utilisateur.h \
     fournisseur.h \
-    connexion.h
+    connexion.h \
+    basededonnees.h
     
 
 FORMS += \

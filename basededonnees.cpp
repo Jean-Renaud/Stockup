@@ -1,4 +1,4 @@
-#include "database.h"
+#include "basededonnees.h"
 #include "produits.h"
 #include "fournisseur.h"
 #include "qmainwindow.h"
@@ -8,50 +8,33 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QCoreApplication>
+#include <QTranslator>
 
-database::database()
+using namespace std;
+BaseDeDonnees::BaseDeDonnees()
 {
-    //ctor
+    this->stockup = QSqlDatabase::addDatabase("QSQLITE");
 
-}
-
-database::~database()
-{
-    //dtor
-}
-
-bool database::ouvertureBdd()
-{
-    QSqlDatabase stockup = QSqlDatabase::addDatabase("QSQLITE");
-    /* QString path = QCoreApplication::applicationDirPath() + ".db";
-     stockup.setDatabaseName(path);*/
     stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/stockup.db");
 
-
-
-
-    if(!stockup.open())
-    {
-        qDebug()<<("Non connecté");
-        return false;
-    }
+    this->stockup.open();
+    if(this->stockup.isOpen())
+        qDebug() << "Base de données ouverte";
     else
-    {
-        qDebug()<<("Connecté");
-        return true;
-    }
-}
-void database::fermetureBdd()
-{
-
-    stockup.close();
-    stockup.removeDatabase(QSqlDatabase::defaultConnection);
+        qDebug() << "Erreur ouverture bdd";
+    this->creerTableBdd();
 }
 
 
-void database::insertionEnBdd()
+BaseDeDonnees::~BaseDeDonnees() {
+    this->stockup.close();
+    this->stockup.removeDatabase(QSqlDatabase::defaultConnection);
+}
+
+
+void BaseDeDonnees::insertionEnBdd()
 {
-    QSqlQuery insererUtilisateur;
+    QSqlQuery insererUtilisateur(this->stockup);
     insererUtilisateur.exec("SELECT COUNT (id) FROM utilisateurs");
 
     insererUtilisateur.next();
@@ -59,8 +42,6 @@ void database::insertionEnBdd()
     int presentDansLaBdd = insererUtilisateur.value(0).toInt();
     if(presentDansLaBdd == 0)
     {
-
-
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
                                 "VALUES (01, 'Admin', 'admin', 1, 1)");
 
@@ -75,71 +56,61 @@ void database::insertionEnBdd()
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
                                "VALUES (05, 'Root', 'superAdmin', 5, 5)");
-
-
-
     }
 }
-void database::creerTableBdd()
+void BaseDeDonnees::creerTableBdd()
 {
     //Creation de la table
 
-    if(ouvertureBdd())
-    {
-         QSqlQuery creerTable(stockup);
+     QSqlQuery creerTable(this->stockup);
 
-         creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
-                                       "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                       "'Code' INTEGER NOT NULL,"
-                                       "'Nom' TEXT NOT NULL,"
-                                       "'Prenom' TEXT NOT NULL,"
-                                       "'Mot_de_Passe' INTEGER NOT NULL,"
-                                       "'Groupe' INTEGER NOT NULL"
-                                       ");");
+     creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
+                                   "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                   "'Code' INTEGER NOT NULL,"
+                                   "'Nom' TEXT NOT NULL,"
+                                   "'Prenom' TEXT NOT NULL,"
+                                   "'Mot_de_Passe' INTEGER NOT NULL,"
+                                   "'Groupe' INTEGER NOT NULL"
+                                   ");");
 
-        creerTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
-                         "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
-                         "Reference TEXT NOT NULL,"
-                         "Nom TEXT NOT NULL,"
-                         "Lot TEXT NOT NULL,"
-                         "Date TEXT NOT NULL,"
-                         "Heure TEXT NOT NULL,"
-                         "Emplacement TEXT NOT NULL,"
-                         "Emballage TEXT NOT NULL,"
-                         "Quantite TEXT NOT NULL,"
-                         "Etat TEXT NOT NULL,"
-                         "DLUO TEXT NOT NULL,"
-                         "Code_fournisseur TEXT NOT NULL"
-                         ");");
+    creerTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
+                     "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
+                     "Reference TEXT NOT NULL,"
+                     "Nom TEXT NOT NULL,"
+                     "Lot TEXT NOT NULL,"
+                     "Date TEXT NOT NULL,"
+                     "Heure TEXT NOT NULL,"
+                     "Emplacement TEXT NOT NULL,"
+                     "Emballage TEXT NOT NULL,"
+                     "Quantite TEXT NOT NULL,"
+                     "Etat TEXT NOT NULL,"
+                     "DLUO TEXT NOT NULL,"
+                     "Code_fournisseur TEXT NOT NULL"
+                     ");");
 
-        creerTable.exec("CREATE TABLE IF NOT EXISTS fournisseurs ("
-                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                         "Code INTEGER NOT NULL,"
-                         "Nom TEXT NOT NULL,"
-                         "Forme_juridique TEXT NOT NULL,"
-                         "Adresse TEXT NOT NULL,"
-                         "Code_postal TEXT NOT NULL,"
-                         "Pays TEXT NOT NULL,"
-                         "Ville TEXT NOT NULL,"
-                         "Telephone TEXT NOT NULL,"
-                         "Siret TEXT NOT NULL,"
-                         "APE TEXT NOT NULL"
-                         ");");
+    creerTable.exec("CREATE TABLE IF NOT EXISTS fournisseurs ("
+                     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                     "Code INTEGER NOT NULL,"
+                     "Nom TEXT NOT NULL,"
+                     "Forme_juridique TEXT NOT NULL,"
+                     "Adresse TEXT NOT NULL,"
+                     "Code_postal TEXT NOT NULL,"
+                     "Pays TEXT NOT NULL,"
+                     "Ville TEXT NOT NULL,"
+                     "Telephone TEXT NOT NULL,"
+                     "Siret TEXT NOT NULL,"
+                     "APE TEXT NOT NULL"
+                     ");");
 
-        insertionEnBdd();
+    insertionEnBdd();
 
-    }
-    else
-    {
-         QMessageBox::information(this,tr("Erreur"),tr("La connexion avec la base de donnée à échouée."));
-    }
-    fermetureBdd();
+
+
 }
 
-void database::creerUneReference(Produits &produit)
+void BaseDeDonnees::creerUneReference(Produits &produit)
 {
-    ouvertureBdd();
-    QSqlQuery insererNouvelleReference;
+    QSqlQuery insererNouvelleReference(this->stockup);
     insererNouvelleReference.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur) VALUES (:Reference, :Nom, :Lot, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Code_fournisseur)");
     insererNouvelleReference.bindValue(":Reference", produit.getRef());
     insererNouvelleReference.bindValue(":Nom", produit.getNom());
@@ -155,26 +126,19 @@ void database::creerUneReference(Produits &produit)
 
    if(insererNouvelleReference.exec())
    {
-
-       QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
-
+       //QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
    }
    else
    {
-       QMessageBox::critical(this,tr("Création échouée"),tr("Nope."));
+      // QMessageBox::critical(this,"Création échouée", "Nope.");
 
    }
 
- fermetureBdd();
-
 
 }
-void database::miseAjourReference(QString rowid, QString referenceDuProduit, QString nomDuProduit,QString numeroLot , QString emplacement, QString emballage , QString quantite, QString etat, QString dluo, QString date, QString fournisseur)
-
+void BaseDeDonnees::miseAjourReference(QString rowid, QString referenceDuProduit, QString nomDuProduit,QString numeroLot , QString emplacement, QString emballage , QString quantite, QString etat, QString dluo, QString date, QString fournisseur)
 {
-
-    ouvertureBdd();
-       QSqlQuery miseAjourProduit;
+       QSqlQuery miseAjourProduit(this->stockup);
        miseAjourProduit.prepare("UPDATE matieres_Premieres SET Reference = :referenceDuProduit, Nom = :nomDuProduit, Date = :date, Emplacement = :emplacement, Emballage = :emballage, Quantite = :quantite, Etat = :etat, DLUO = :dluo, Lot = :numeroLot, Code_fournisseur = :fournisseur WHERE id_Produit= :rowid");
        miseAjourProduit.bindValue(":rowid", rowid);
        miseAjourProduit.bindValue(":referenceDuProduit", referenceDuProduit);
@@ -189,21 +153,18 @@ void database::miseAjourReference(QString rowid, QString referenceDuProduit, QSt
        miseAjourProduit.bindValue(":fournisseur", fournisseur);
        if(!miseAjourProduit.exec())
        {
-           QMessageBox::critical(this,tr("ERREUR"),tr("ERREUR."));
+           //QMessageBox::critical(this,tr("ERREUR"),tr("ERREUR."));
 
        }
        else
        {
-           QMessageBox::information(this,tr("Succès"),tr("La modification du produit a bien été effectuée."));
+           //QMessageBox::information(this,tr("Succès"),tr("La modification du produit a bien été effectuée."));
 
        }
-   fermetureBdd();
 
 }
-void database::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
+void BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
 {
-
-    ouvertureBdd();
     QSqlQuery miseAjourUtilisateur;
     miseAjourUtilisateur.prepare("UPDATE utilisateurs SET Code = :code, Nom = :nom, Prenom = :prenom, Mot_de_Passe = :mdp, Groupe = :groupe WHERE id = :id");
     miseAjourUtilisateur.bindValue(":id", mettreAjourUtilisateur.getIdUtilisateur());
@@ -215,26 +176,21 @@ void database::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
     if(miseAjourUtilisateur.exec())
     {
 
-       QMessageBox::information(this,tr("Mis à jour réussie"),tr("La mise à jour de l'utilisateur a été enregistrée avec succès."));
+      // QMessageBox::information(this,tr("Mis à jour réussie"),tr("La mise à jour de l'utilisateur a été enregistrée avec succès."));
 
 
     }
     else
     {
-       QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour de l'utilisateur a échouée"));
+      // QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour de l'utilisateur a échouée"));
 
 
     }
-
-    fermetureBdd();
-
-
 }
 
-void database::miseAjourFournisseur(Fournisseur &livreur2)
+void BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
 {
-    ouvertureBdd();
-    QSqlQuery miseAjourFournisseur;
+    QSqlQuery miseAjourFournisseur(this->stockup);
     miseAjourFournisseur.prepare("UPDATE fournisseurs SET Code = :code, Nom = :nom, Forme_juridique = :forme_juridique, Adresse = :adresse, Code_postal = :code_postal, Pays = :pays, Ville = :ville, Telephone = :telephone, Siret = :siret, APE = :ape WHERE id = :id");
     miseAjourFournisseur.bindValue(":id", livreur2.getIdFournisseur());
     miseAjourFournisseur.bindValue(":code", livreur2.getCodeFournisseur());
@@ -250,48 +206,38 @@ void database::miseAjourFournisseur(Fournisseur &livreur2)
     if(miseAjourFournisseur.exec())
     {
 
-       QMessageBox::information(this,tr("Création réussie"),tr("La mise à jour du fournisseur a été enregistrée avec succès."));
+      // QMessageBox::information(this,tr("Création réussie"),tr("La mise à jour du fournisseur a été enregistrée avec succès."));
 
 
     }
     else
     {
-       QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour du fournisseur a échouée"));
+     //  QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour du fournisseur a échouée"));
 
 
     }
-
-    fermetureBdd();
-
-
 }
-void database::supprimerReference(Produits &supprimerProduit)
+void BaseDeDonnees::supprimerReference(Produits &supprimerProduit)
 {
-    ouvertureBdd();
-    QSqlQuery supprimerLeProduit;
+    QSqlQuery supprimerLeProduit(this->stockup);
     supprimerLeProduit.prepare("DELETE FROM matieres_premieres WHERE id_Produit= :idProduit");
     supprimerLeProduit.bindValue(":idProduit", supprimerProduit.getId());
     if(!supprimerLeProduit.exec())
     {
-        QMessageBox::critical(this,tr("Erreur"),tr("La suppression a échouée."));
+      //  QMessageBox::critical(this, tr("Erreur"), tr("La suppression a échouée."));
 
     }
-    fermetureBdd();
 }
-void database::chercheProduitParNom(QString chercherProduitParNom)
+void BaseDeDonnees::chercheProduitParNom(QString chercherProduitParNom)
 {
-
-    ouvertureBdd();
-    QSqlQuery cherchProduitParNom;
+    QSqlQuery cherchProduitParNom(this->stockup);
     cherchProduitParNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercherNom LIKE '%'");
     cherchProduitParNom.bindValue(":chercherNom", chercherProduitParNom);
     cherchProduitParNom.exec();
-    fermetureBdd();
 }
-void database::creerUnUtilisateur(Utilisateur &employe)
+void BaseDeDonnees::creerUnUtilisateur(Utilisateur &employe)
 {
-    ouvertureBdd();
-    QSqlQuery nouvelUtilisateur;
+    QSqlQuery nouvelUtilisateur(this->stockup);
     nouvelUtilisateur.prepare("INSERT INTO Utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) VALUES (:code, :nom, :prenom, :mdp, :groupe);");
     nouvelUtilisateur.bindValue(":code", employe.getCode());
     nouvelUtilisateur.bindValue(":nom", employe.getNom());
@@ -301,25 +247,18 @@ void database::creerUnUtilisateur(Utilisateur &employe)
     if(nouvelUtilisateur.exec())
     {
 
-       QMessageBox::information(this,tr("Création réussie"),tr("La création de l'utilisateur a été enregistrée avec succès."));
+      // QMessageBox::information(this, "Création réussie", "La création de l'utilisateur a été enregistrée avec succès.");
 
 
     }
     else
     {
-       QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
-
-
+      // QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
     }
-
-  fermetureBdd();
-
 }
-void database::creerUnFournisseur(Fournisseur &livreur)
+void BaseDeDonnees::creerUnFournisseur(Fournisseur &livreur)
 {
-
-    ouvertureBdd();
-    QSqlQuery creerFournisseur;
+    QSqlQuery creerFournisseur(this->stockup);
     creerFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, :telephone, :siret, :ape)");
     creerFournisseur.bindValue(":code", livreur.getCodeFournisseur());
     creerFournisseur.bindValue(":nom", livreur.getNomSociete());
@@ -334,52 +273,39 @@ void database::creerUnFournisseur(Fournisseur &livreur)
     if(creerFournisseur.exec())
     {
 
-       QMessageBox::information(this,tr("Création réussie"),tr("La création du fournisseur a été enregistrée avec succès."));
+       //QMessageBox::information(this,tr("Création réussie"),tr("La création du fournisseur a été enregistrée avec succès."));
 
 
     }
     else
     {
-       QMessageBox::information(this,tr("Création échouée"),tr("La création du fournisseur a échouée"));
+      // QMessageBox::information(this,tr("Création échouée"),tr("La création du fournisseur a échouée"));
 
 
     }
-
-    fermetureBdd();
-
 }
 
-void database::chercherFournisseur(QString trouverFournisseur)
+void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
 {
-
-    ouvertureBdd();
-    QSqlQuery rechercherFournisseur;
+    QSqlQuery rechercherFournisseur(this->stockup);
     rechercherFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
     rechercherFournisseur.bindValue(":code",trouverFournisseur);
     if(!rechercherFournisseur.exec())
     {
         qDebug() << ("Erreur");
     }
-    fermetureBdd();
 }
-void database::supprimerUnFournisseur(Fournisseur &livreur3)
+void BaseDeDonnees::supprimerUnFournisseur(Fournisseur &livreur3)
 {
-    ouvertureBdd();
-    QSqlQuery supprimerFournisseur;
+    QSqlQuery supprimerFournisseur(this->stockup);
     supprimerFournisseur.prepare("DELETE FROM fournisseurs WHERE id = :id");
     supprimerFournisseur.bindValue(":id", livreur3.getIdFournisseur());
     supprimerFournisseur.exec();
-    fermetureBdd();
 }
-void database::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
+void BaseDeDonnees::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
 {
-    ouvertureBdd();
-    QSqlQuery supprimerUnUtilisateur;
+    QSqlQuery supprimerUnUtilisateur(this->stockup);
     supprimerUnUtilisateur.prepare("DELETE FROM utilisateurs WHERE id = :id");
     supprimerUnUtilisateur.bindValue(":id", supprimerUtilisateur.getIdUtilisateur());
     supprimerUnUtilisateur.exec();
-    fermetureBdd();
-
 }
-
-
