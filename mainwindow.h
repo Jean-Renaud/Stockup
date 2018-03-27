@@ -75,9 +75,9 @@ private slots:
 
     void on_triAlphaFournisseur_clicked();
 
-    void disableFormCarriste();
+    void desactiverOngletsGroupeCarriste();
 
-    void disableFormQualite();
+    void desactiverOngletsGroupeQualite();
 
 
     void on_creerReferenceBtn_clicked();
@@ -89,7 +89,8 @@ private slots:
 private:
     BaseDeDonnees *bdd;
     Ui::MainWindow *ui;
-    QSqlQueryModel *modal;
+    QSqlQueryModel modal;
+    QSqlQueryModel modelChercherProduitNom;
 
 
 

@@ -92,33 +92,30 @@ void MainWindow::on_creerReferenceBtn_clicked()
 void MainWindow::on_search_Database_clicked()
 {
 
-    QSqlQueryModel * modal = new QSqlQueryModel();
-    modal->clear();
-    QSqlQuery listRef;
     QString searchRef = ui->searchRef->text();
-    listRef.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :reference");
-    listRef.bindValue(":reference",searchRef);
-    listRef.exec();
-    modal->setQuery(listRef);
-    ui->listDatabase->setModel(modal);
+
+    bdd->chercherParReference(&this->modal, searchRef);
+
+    ui->listDatabase->setModel(&this->modal);
+
 }
-
-
 
 void MainWindow::on_search_Location_clicked()
 {
-    QSqlQueryModel * modal = new QSqlQueryModel();
-    QSqlQuery chercheParEmplacement;
-
     QString rechercheEmplacement = ui->searchLocation->text();
-    chercheParEmplacement.prepare("SELECT * FROM matieres_Premieres WHERE Emplacement = :location");
-    chercheParEmplacement.bindValue(":location",rechercheEmplacement);
-    chercheParEmplacement.exec();
-    modal->setQuery(chercheParEmplacement);
-    ui->listDatabase->setModel(modal);
+
+    bdd->chercherProduitParEmplacement(&this->modal, rechercheEmplacement);
+
+    ui->listDatabase->setModel(&this->modal);
 }
 
-
+void MainWindow::on_searchNameProduct_clicked()
+{
+     QString chercherProduitParnom = ui->searchByName->text();
+     bdd->chercherProduitParNom(&this->modal, chercherProduitParnom);
+     ui->listDatabase->setModel(&this->modal);
+     //ui->listDatabase->verticalHeader()->setVisible(false);
+}
 
 void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 {
@@ -126,9 +123,18 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
     QString valeur = ui->listDatabase->model()->data(index).toString();
     QSqlQuery cliqueSurListe;
     cliqueSurListe.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Code_fournisseur "
-                           "FROM matieres_Premieres WHERE id_Produit = :idProduit or Reference= :reference or Nom = :nom or Date= :date"
-                           "or Emplacement = :emplacement or Emballage= :emballage or Quantite= :quantite or Etat = :etat "
-                           "DLUO= :dluo or Lot= :lot or Code_fournisseur = :codeFournisseur");
+                           "FROM matieres_Premieres "
+                           "WHERE id_Produit = :idProduit or "
+                           "Reference = :reference or "
+                           "Nom = :nom or "
+                           "Date = :date or "
+                           "Emplacement = :emplacement or "
+                           "Emballage = :emballage or "
+                           "Quantite = :quantite or "
+                           "Etat = :etat or "
+                           "DLUO = :dluo or "
+                           "Lot = :lot or "
+                           "Code_fournisseur = :codeFournisseur");
     cliqueSurListe.bindValue(":idProduit", valeur);
     cliqueSurListe.bindValue(":reference", valeur);
     cliqueSurListe.bindValue(":nom", valeur);
@@ -141,20 +147,20 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
     cliqueSurListe.bindValue(":lot", valeur);
     cliqueSurListe.bindValue(":codeFournisseur", valeur);
 
-
-
     cliqueSurListe.exec();
     while(cliqueSurListe.next())
     {
+
         switch (carriste->getGroupe().toInt())
-        {
-            case 3:
-                this->disableFormCarriste();
-            break;
-            case 4:
-            this->disableFormQualite();
-            break;
-        }
+               {
+                   case 3:
+                       this->desactiverOngletsGroupeCarriste();
+                   break;
+                   case 4:
+                   this->desactiverOngletsGroupeQualite();
+                   break;
+               }
+
         ui->idProduit->setText(cliqueSurListe.value(0).toString());
         ui->referenceProduitMaj->setText(cliqueSurListe.value(1).toString());
         ui->nomProduitMaj->setText(cliqueSurListe.value(2).toString());
@@ -171,19 +177,19 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 
 void MainWindow::on_update_row_clicked()
 {
-
     Produits *mettreAjourProduit = new Produits(ui->idProduit->text(),
-                                            ui->referenceProduitMaj->text(),
-                                            ui->nomProduitMaj->text(),
-                                            ui->dateProduitMaj->text(),
-                                            ui->emplacementProduitMaj->text(),
-                                            ui->emballageProduitMaj->text(),
-                                            ui->quantitePoduitMaj->text(),
-                                            ui->etatProduitMaj->text(),
-                                            ui->dluoProduitMaj->text(),
-                                            ui->lotProduitMaj->text(),
-                                            ui->codeFmajProduit->text(),
-                                            ui->heureDeCreation->text()
+                                                ui->referenceProduitMaj->text(),
+                                                ui->nomProduitMaj->text(),
+                                                ui->lotProduitMaj->text(),
+                                                ui->dateProduitMaj->text(),
+                                                ui->heureDeCreation->text(),
+                                                ui->emplacementProduitMaj->text(),
+                                                ui->emballageProduitMaj->text(),
+                                                ui->quantitePoduitMaj->text(),
+                                                ui->etatProduitMaj->text(),
+                                                ui->dluoProduitMaj->text(),
+                                                ui->codeFmajProduit->text()
+
                                             );
 
     if(this->bdd->miseAjourReference(*mettreAjourProduit))
@@ -285,23 +291,6 @@ void MainWindow::on_deleteProduct_clicked()
         }
 }
 
-void MainWindow::on_searchNameProduct_clicked()
-{
-
-
-    QSqlQueryModel * modal = new QSqlQueryModel();
-     QSqlQuery listeRechercheNomProduit;
-     QString chercherProduitParnom = ui->searchByName->text();
-     listeRechercheNomProduit.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercheNom LIKE '%' ");
-     listeRechercheNomProduit.bindValue(":chercheNom", chercherProduitParnom);
-     listeRechercheNomProduit.exec();
-     modal->setQuery(listeRechercheNomProduit);
-     ui->listDatabase->setModel(modal);
-     ui->listDatabase->verticalHeader()->setVisible(false);
-
-
-}
-
 void MainWindow::on_chercheUtilisateur_clicked()
 {
     QSqlQueryModel * modal3 = new QSqlQueryModel();
@@ -326,7 +315,14 @@ void MainWindow::on_createUser_clicked()
                                            ui->mdp->text(),
                                            ui->groupe->text()
                                            );
-    this->bdd->creerUnUtilisateur(*employe);
+   if(this->bdd->creerUnUtilisateur(*employe))
+    {
+       QMessageBox::information(this, "Création réussie", "La création de l'utilisateur a été enregistrée avec succès.");
+    }
+    else
+    {
+      QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
+    }
 }
 
 void MainWindow::on_creerFournisseur_clicked()
@@ -363,7 +359,12 @@ void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 {
     QString renvoyerDansChampTexte = ui->gestionUtilisateur->model()->data(index).toString();
     QSqlQuery cliqueSurListe;
-    cliqueSurListe.prepare("SELECT id, Code, Nom, Prenom, Mot_de_Passe, Groupe FROM utilisateurs WHERE id = :id or Code= :code or Nom = :nom or Prenom= :prenom or Mot_de_Passe = :mdp or Groupe= :groupe");
+    cliqueSurListe.prepare("SELECT id, Code, Nom, Prenom, Mot_de_Passe, Groupe FROM utilisateurs WHERE id = :id or "
+                           "Code= :code or "
+                           "Nom = :nom or "
+                           "Prenom= :prenom or "
+                           "Mot_de_Passe = :mdp or "
+                           "Groupe= :groupe");
     cliqueSurListe.bindValue(":id", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":code", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":nom", renvoyerDansChampTexte);
@@ -381,7 +382,6 @@ void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
         ui->prenomUtilisateurEdit->setText(cliqueSurListe.value(3).toString());
         ui->mdpUtilisateurEdit->setText(cliqueSurListe.value(4).toString());
         ui->groupeUtilisateurEdit->setText(cliqueSurListe.value(5).toString());
-
     }
 }
 
@@ -391,7 +391,17 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
     QString renvoyerDansChampTexte = ui->listProvider->model()->data(index).toString();
     QSqlQuery cliqueSurListe;
     cliqueSurListe.prepare("SELECT id, Code, Nom, Forme_juridique ,Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE FROM fournisseurs"
-                           " WHERE id = :id or Code = :code or Nom = :nom or Forme_juridique = :formeJuridique or Adresse = :adresse or Code_postal= :codePostal or Pays = :pays or Ville = :ville or Telephone = :telephone or Siret = :siret or APE = :ape");
+                           "WHERE id = :id or"
+                           "Code = :code or"
+                           "Nom = :nom or"
+                           "Forme_juridique = :formeJuridique or"
+                           "Adresse = :adresse or"
+                           "Code_postal= :codePostal or"
+                           "Pays = :pays or"
+                           "Ville = :ville or"
+                           "Telephone = :telephone or"
+                           "Siret = :siret or"
+                           "APE = :ape");
     cliqueSurListe.bindValue(":id", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":code", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":nom", renvoyerDansChampTexte);
@@ -419,7 +429,6 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
         ui->apefournisseur->setText(cliqueSurListe.value(10).toString());
     }
 }
-
 void MainWindow::on_fournisseur_clicked()
  {
      QSqlQueryModel * modal2 = new QSqlQueryModel();
@@ -431,6 +440,7 @@ void MainWindow::on_fournisseur_clicked()
      listeFournisseurParCode.exec();
      modal2->setQuery(listeFournisseurParCode);
      ui->listProvider->setModel(modal2);
+
  }
 
 
@@ -466,9 +476,10 @@ void MainWindow::on_suppFournisseur_clicked()
                                                 ui->telephonefournisseur->text(),
                                                 ui->siretfournisseur->text(),
                                                 ui->apefournisseur->text()
+                                                );
 
-                    );
         this->bdd->supprimerUnFournisseur(*livreur3);
+
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
         //this->ui->fournisseur->clicked();
     }
@@ -494,6 +505,7 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                             ui->mdp->text(),
                                                             ui->groupe->text()
                                                             );
+
         this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
     }
@@ -537,7 +549,7 @@ void MainWindow::moveToTab(int index)
     ui->tabGestionStock->setCurrentIndex(index);
 }
 
-void MainWindow::disableFormCarriste() {
+void MainWindow::desactiverOngletsGroupeCarriste() {
     ui->idProduit->setEnabled(false);
     ui->nomProduitMaj->setEnabled(false);
     ui->referenceProduitMaj->setEnabled(false);
@@ -549,14 +561,9 @@ void MainWindow::disableFormCarriste() {
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
     ui->deleteProduct->setEnabled(false);
-    if(carriste->getGroupe().toInt() == 3)
-    {
-     MainWindow::on_actionVider_la_bas_de_donn_es_triggered();
-    this->setEnabled(false);
-    }
 }
 
-void MainWindow::disableFormQualite()
+void MainWindow::desactiverOngletsGroupeQualite()
 {
     ui->idProduit->setEnabled(false);
     ui->nomProduitMaj->setEnabled(false);

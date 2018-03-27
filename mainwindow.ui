@@ -44,7 +44,7 @@ font-weight: bold;
 </string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -879,103 +879,11 @@ border-radius: 5px;
         <string>REFERENCE :</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_14">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>131</y>
-         <width>41</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Malgun Gothic</family>
-         <pointsize>8</pointsize>
-         <weight>75</weight>
-         <italic>false</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border: none;</string>
-       </property>
-       <property name="text">
-        <string>DATE :</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="dateProduitMaj">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>131</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_15">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>161</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Malgun Gothic</family>
-         <pointsize>8</pointsize>
-         <weight>75</weight>
-         <italic>false</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border: none;</string>
-       </property>
-       <property name="text">
-        <string>EMPLACEMENT :</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="emplacementProduitMaj">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>161</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_16">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>191</y>
-         <width>131</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border: none;</string>
-       </property>
-       <property name="text">
-        <string>CONDITIONNEMENT :</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="emballageProduitMaj">
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>191</y>
+         <y>220</y>
          <width>113</width>
          <height>20</height>
         </rect>
@@ -988,7 +896,7 @@ border-radius: 5px;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>221</y>
+         <y>250</y>
          <width>71</width>
          <height>16</height>
         </rect>
@@ -1000,24 +908,11 @@ border-radius: 5px;
         <string>QUANTITE :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="quantitePoduitMaj">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>221</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_18">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>251</y>
+         <y>280</y>
          <width>47</width>
          <height>21</height>
         </rect>
@@ -1033,36 +928,7 @@ border-radius: 5px;
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>251</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_19">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>281</y>
-         <width>47</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border: none;</string>
-       </property>
-       <property name="text">
-        <string>DLUO :</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="dluoProduitMaj">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>281</y>
+         <y>280</y>
          <width>113</width>
          <height>20</height>
         </rect>
@@ -1075,7 +941,7 @@ border-radius: 5px;
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>311</y>
+         <y>130</y>
          <width>47</width>
          <height>16</height>
         </rect>
@@ -1091,7 +957,7 @@ border-radius: 5px;
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>311</y>
+         <y>130</y>
          <width>113</width>
          <height>20</height>
         </rect>
@@ -1270,6 +1136,140 @@ border-radius: 5px;</string>
        </property>
        <property name="text">
         <string>NOM :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Malgun Gothic</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
+       </property>
+       <property name="text">
+        <string>DATE :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="dateProduitMaj">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>160</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="emplacementProduitMaj">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>190</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>101</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Malgun Gothic</family>
+         <pointsize>8</pointsize>
+         <weight>75</weight>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
+       </property>
+       <property name="text">
+        <string>EMPLACEMENT :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>220</y>
+         <width>121</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
+       </property>
+       <property name="text">
+        <string>CONDITIONNEMENT :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="quantitePoduitMaj">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>250</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="dluoProduitMaj">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>310</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_19">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>310</y>
+         <width>47</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
+       </property>
+       <property name="text">
+        <string>DLUO :</string>
        </property>
       </widget>
      </widget>

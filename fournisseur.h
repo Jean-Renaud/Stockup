@@ -6,7 +6,8 @@
 class Fournisseur
 {
 public:
-    Fournisseur(QString id, QString codeDuFournisseur, QString nomSociete, QString formeJuridique, QString adresse, QString codePostal, QString ville, QString pays, QString telephone, QString siret, QString ape);
+    Fournisseur(QString id, QString codeDuFournisseur, QString nomSociete, QString formeJuridique, QString adresse,
+                QString codePostal, QString ville, QString pays, QString telephone, QString siret, QString ape);
 
     QString getIdFournisseur();
     QString getCodeFournisseur();
