@@ -2,6 +2,7 @@
 #include "produits.h"
 #include "fournisseur.h"
 #include "qmainwindow.h"
+#include "mainwindow.h"
 #include "QtUiTools/QUiLoader"
 #include <QMainWindow>
 #include <iostream>
@@ -9,6 +10,8 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QTranslator>
+#include "ui_mainwindow.h"
+
 
 using namespace std;
 BaseDeDonnees::BaseDeDonnees()
@@ -108,10 +111,12 @@ void BaseDeDonnees::creerTableBdd()
 
 }
 
-void BaseDeDonnees::creerUneReference(Produits &produit)
+bool BaseDeDonnees::creerUneReference(Produits &produit)
 {
     QSqlQuery insererNouvelleReference(this->stockup);
-    insererNouvelleReference.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur) VALUES (:Reference, :Nom, :Lot, :Date, :Heure, :Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Code_fournisseur)");
+    insererNouvelleReference.prepare("INSERT INTO matieres_Premieres (Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, "
+                                     "Quantite, Etat, DLUO, Code_fournisseur) VALUES (:Reference, :Nom, :Lot, :Date, :Heure, "
+                                     ":Emplacement, :Emballage, :Quantite, :Etat, :DLUO, :Code_fournisseur)");
     insererNouvelleReference.bindValue(":Reference", produit.getRef());
     insererNouvelleReference.bindValue(":Nom", produit.getNom());
     insererNouvelleReference.bindValue(":Lot",produit.getLot());
@@ -124,46 +129,31 @@ void BaseDeDonnees::creerUneReference(Produits &produit)
     insererNouvelleReference.bindValue(":DLUO",produit.getDluo());
     insererNouvelleReference.bindValue(":Code_fournisseur",produit.getCodeFournisseur());
 
-   if(insererNouvelleReference.exec())
-   {
-       //QMessageBox::information(this,tr("Création réussie"),tr("La création du produit a été enregistrée avec succès."));
-   }
-   else
-   {
-      // QMessageBox::critical(this,"Création échouée", "Nope.");
-
-   }
-
+    return insererNouvelleReference.exec();
 
 }
-void BaseDeDonnees::miseAjourReference(QString rowid, QString referenceDuProduit, QString nomDuProduit,QString numeroLot , QString emplacement, QString emballage , QString quantite, QString etat, QString dluo, QString date, QString fournisseur)
+bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
 {
        QSqlQuery miseAjourProduit(this->stockup);
-       miseAjourProduit.prepare("UPDATE matieres_Premieres SET Reference = :referenceDuProduit, Nom = :nomDuProduit, Date = :date, Emplacement = :emplacement, Emballage = :emballage, Quantite = :quantite, Etat = :etat, DLUO = :dluo, Lot = :numeroLot, Code_fournisseur = :fournisseur WHERE id_Produit= :rowid");
-       miseAjourProduit.bindValue(":rowid", rowid);
-       miseAjourProduit.bindValue(":referenceDuProduit", referenceDuProduit);
-       miseAjourProduit.bindValue(":nomDuProduit", nomDuProduit);
-       miseAjourProduit.bindValue(":date", date);
-       miseAjourProduit.bindValue(":emplacement", emplacement);
-       miseAjourProduit.bindValue(":emballage", emballage);
-       miseAjourProduit.bindValue(":quantite", quantite);
-       miseAjourProduit.bindValue(":etat", etat);
-       miseAjourProduit.bindValue(":dluo", dluo);
-       miseAjourProduit.bindValue(":numeroLot", numeroLot);
-       miseAjourProduit.bindValue(":fournisseur", fournisseur);
-       if(!miseAjourProduit.exec())
-       {
-           //QMessageBox::critical(this,tr("ERREUR"),tr("ERREUR."));
+       miseAjourProduit.prepare("UPDATE matieres_Premieres SET Reference = :referenceDuProduit, Nom = :nomDuProduit, Date = :date,"
+                                " Emplacement = :emplacement, Emballage = :emballage, Quantite = :quantite, Etat = :etat, "
+                                "DLUO = :dluo, Lot = :numeroLot, Code_fournisseur = :fournisseur WHERE id_Produit= :rowid");
+       miseAjourProduit.bindValue(":rowid", MettreAjourProduit.getId());
+       miseAjourProduit.bindValue(":referenceDuProduit", MettreAjourProduit.getRef());
+       miseAjourProduit.bindValue(":nomDuProduit", MettreAjourProduit.getNom());
+       miseAjourProduit.bindValue(":date", MettreAjourProduit.getDate());
+       miseAjourProduit.bindValue(":emplacement", MettreAjourProduit.getEmplacement());
+       miseAjourProduit.bindValue(":emballage", MettreAjourProduit.getEmballage());
+       miseAjourProduit.bindValue(":quantite", MettreAjourProduit.getQuantite());
+       miseAjourProduit.bindValue(":etat", MettreAjourProduit.getEtat());
+       miseAjourProduit.bindValue(":dluo", MettreAjourProduit.getDluo());
+       miseAjourProduit.bindValue(":numeroLot", MettreAjourProduit.getLot());
+       miseAjourProduit.bindValue(":fournisseur", MettreAjourProduit.getCodeFournisseur());
 
-       }
-       else
-       {
-           //QMessageBox::information(this,tr("Succès"),tr("La modification du produit a bien été effectuée."));
-
-       }
+       return miseAjourProduit.exec();
 
 }
-void BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
+bool BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
 {
     QSqlQuery miseAjourUtilisateur;
     miseAjourUtilisateur.prepare("UPDATE utilisateurs SET Code = :code, Nom = :nom, Prenom = :prenom, Mot_de_Passe = :mdp, Groupe = :groupe WHERE id = :id");
@@ -173,22 +163,11 @@ void BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
     miseAjourUtilisateur.bindValue(":prenom", mettreAjourUtilisateur.getPrenom());
     miseAjourUtilisateur.bindValue(":mdp", mettreAjourUtilisateur.getMdp());
     miseAjourUtilisateur.bindValue(":groupe", mettreAjourUtilisateur.getGroupe());
-    if(miseAjourUtilisateur.exec())
-    {
 
-      // QMessageBox::information(this,tr("Mis à jour réussie"),tr("La mise à jour de l'utilisateur a été enregistrée avec succès."));
-
-
-    }
-    else
-    {
-      // QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour de l'utilisateur a échouée"));
-
-
-    }
+    return miseAjourUtilisateur.exec();
 }
 
-void BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
+bool BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
 {
     QSqlQuery miseAjourFournisseur(this->stockup);
     miseAjourFournisseur.prepare("UPDATE fournisseurs SET Code = :code, Nom = :nom, Forme_juridique = :forme_juridique, Adresse = :adresse, Code_postal = :code_postal, Pays = :pays, Ville = :ville, Telephone = :telephone, Siret = :siret, APE = :ape WHERE id = :id");
@@ -203,42 +182,30 @@ void BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
     miseAjourFournisseur.bindValue(":telephone", livreur2.getTelephone());
     miseAjourFournisseur.bindValue(":siret", livreur2.getSiret());
     miseAjourFournisseur.bindValue(":ape", livreur2.getApe());
-    if(miseAjourFournisseur.exec())
-    {
 
-      // QMessageBox::information(this,tr("Création réussie"),tr("La mise à jour du fournisseur a été enregistrée avec succès."));
+    return miseAjourFournisseur.exec();
 
-
-    }
-    else
-    {
-     //  QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour du fournisseur a échouée"));
-
-
-    }
 }
-void BaseDeDonnees::supprimerReference(Produits &supprimerProduit)
+bool BaseDeDonnees::supprimerReference(Produits &supprimerProduit)
 {
     QSqlQuery supprimerLeProduit(this->stockup);
     supprimerLeProduit.prepare("DELETE FROM matieres_premieres WHERE id_Produit= :idProduit");
     supprimerLeProduit.bindValue(":idProduit", supprimerProduit.getId());
-    if(!supprimerLeProduit.exec())
-    {
-      //  QMessageBox::critical(this, tr("Erreur"), tr("La suppression a échouée."));
 
-    }
+    return supprimerLeProduit.exec();
 }
-void BaseDeDonnees::chercheProduitParNom(QString chercherProduitParNom)
+/*bool BaseDeDonnees::chercheProduitParNom()
 {
-    QSqlQuery cherchProduitParNom(this->stockup);
-    cherchProduitParNom.prepare("SELECT * FROM matieres_Premieres WHERE Nom = :chercherNom LIKE '%'");
-    cherchProduitParNom.bindValue(":chercherNom", chercherProduitParNom);
-    cherchProduitParNom.exec();
-}
+
+
+
+    return listeRechercheNomProduit.exec();
+}*/
 void BaseDeDonnees::creerUnUtilisateur(Utilisateur &employe)
 {
     QSqlQuery nouvelUtilisateur(this->stockup);
-    nouvelUtilisateur.prepare("INSERT INTO Utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) VALUES (:code, :nom, :prenom, :mdp, :groupe);");
+    nouvelUtilisateur.prepare("INSERT INTO Utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) VALUES (:code, :nom, "
+                              ":prenom, :mdp, :groupe);");
     nouvelUtilisateur.bindValue(":code", employe.getCode());
     nouvelUtilisateur.bindValue(":nom", employe.getNom());
     nouvelUtilisateur.bindValue(":prenom", employe.getPrenom());
@@ -256,10 +223,12 @@ void BaseDeDonnees::creerUnUtilisateur(Utilisateur &employe)
       // QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
     }
 }
-void BaseDeDonnees::creerUnFournisseur(Fournisseur &livreur)
+bool BaseDeDonnees::creerUnFournisseur(Fournisseur &livreur)
 {
     QSqlQuery creerFournisseur(this->stockup);
-    creerFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, :telephone, :siret, :ape)");
+    creerFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone,"
+                             " Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, "
+                             ":telephone, :siret, :ape)");
     creerFournisseur.bindValue(":code", livreur.getCodeFournisseur());
     creerFournisseur.bindValue(":nom", livreur.getNomSociete());
     creerFournisseur.bindValue(":forme_juridique", livreur.getFormeJuridique());
@@ -270,19 +239,7 @@ void BaseDeDonnees::creerUnFournisseur(Fournisseur &livreur)
     creerFournisseur.bindValue(":telephone", livreur.getTelephone());
     creerFournisseur.bindValue(":siret", livreur.getSiret());
     creerFournisseur.bindValue(":ape", livreur.getApe());
-    if(creerFournisseur.exec())
-    {
-
-       //QMessageBox::information(this,tr("Création réussie"),tr("La création du fournisseur a été enregistrée avec succès."));
-
-
-    }
-    else
-    {
-      // QMessageBox::information(this,tr("Création échouée"),tr("La création du fournisseur a échouée"));
-
-
-    }
+    return creerFournisseur.exec();
 }
 
 void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
@@ -290,7 +247,7 @@ void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
     QSqlQuery rechercherFournisseur(this->stockup);
     rechercherFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
     rechercherFournisseur.bindValue(":code",trouverFournisseur);
-    if(!rechercherFournisseur.exec())
+        if(!rechercherFournisseur.exec())
     {
         qDebug() << ("Erreur");
     }

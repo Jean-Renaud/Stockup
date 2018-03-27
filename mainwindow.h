@@ -32,7 +32,6 @@ public:
     Utilisateur * modifier;
 
 
-
 public slots:
 
 
@@ -90,6 +89,9 @@ private slots:
 private:
     BaseDeDonnees *bdd;
     Ui::MainWindow *ui;
+    QSqlQueryModel *modal;
+
+
 
 };
 

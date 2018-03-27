@@ -10,6 +10,7 @@
 #include "utilisateur.h"
 #include "produits.h"
 #include "fournisseur.h"
+#include "ui_mainwindow.h"
 
 class BaseDeDonnees
 {
@@ -20,20 +21,17 @@ public:
     QSqlDatabase stockup;
     void creerTableBdd();
     void insertionBddInstallation();
-    void chercheProduitParNom(QString chercherProduitParNom);
+   // bool chercheProduitParNom();
     void chercherUnUtilisateur();
-    void supprimerReference(Produits &supprimerProduit);
+    bool supprimerReference(Produits &supprimerProduit);
     void chercherFournisseur(QString trouverFournisseur);
-    void miseAjourReference(QString rowid, QString referenceDuProduit, QString nomDuProduit, QString numeroLot, QString emplacement,
-                            QString emballage, QString quantite, QString etat, QString dluo, QString date, QString fournisseur);
-    void creerUneReference(Produits &produit);
-    void fermetureBdd();
-    bool ouvertureBdd();
+    bool miseAjourReference(Produits &MettreAjourProduit);
+    bool creerUneReference(Produits &produit);
     void creerUnUtilisateur(Utilisateur &employe);
-    void creerUnFournisseur(Fournisseur &livreur);
-    void miseAjourFournisseur(Fournisseur &livreur2);
+    bool creerUnFournisseur(Fournisseur &livreur);
+    bool miseAjourFournisseur(Fournisseur &livreur2);
     void supprimerUnFournisseur(Fournisseur &livreur3);
-    void miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur);
+    bool miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur);
     void supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur);
     void insertionEnBdd();
 
