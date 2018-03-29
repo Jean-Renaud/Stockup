@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>1671</width>
       <height>800</height>
      </rect>
@@ -504,80 +504,6 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>LOT :</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="emballageProduit">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>359</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Malgun Gothic</family>
-         <pointsize>8</pointsize>
-         <weight>75</weight>
-         <italic>false</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 5px;
-border:1px solid rgb(62, 124, 146);</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>CARTON 5 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>CARTON 10 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>CARTON 15 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>CARTON 20 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>CARTON 25 kG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SAC 5 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SAC 10 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SAC 15 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SAC 20 KG</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>SAC 25 KG</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
@@ -685,6 +611,16 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>CODE FOURNISSEUR :</string>
        </property>
       </widget>
+      <widget class="QLineEdit" name="emballageProduit">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>360</y>
+         <width>161</width>
+         <height>31</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_6">
@@ -695,14 +631,14 @@ border:1px solid rgb(62, 124, 146);</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
-        <width>1221</width>
-        <height>591</height>
+        <y>70</y>
+        <width>1302</width>
+        <height>581</height>
        </rect>
       </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>16775320</width>
         <height>16777215</height>
        </size>
       </property>
@@ -838,11 +774,17 @@ border-radius: 5px;
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>1240</x>
-        <y>60</y>
+        <x>1350</x>
+        <y>70</y>
         <width>291</width>
         <height>491</height>
        </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777000</width>
+        <height>16777215</height>
+       </size>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(233, 233, 233);
@@ -2848,7 +2790,6 @@ border-radius: 5px;</string>
   <tabstop>etatProduit</tabstop>
   <tabstop>dluoProduit</tabstop>
   <tabstop>lotProdiuit</tabstop>
-  <tabstop>emballageProduit</tabstop>
   <tabstop>codeFournisseur</tabstop>
   <tabstop>dateDeCreation</tabstop>
   <tabstop>creerReferenceBtn</tabstop>

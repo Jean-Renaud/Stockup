@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include "utilisateur.h"
 #include "basededonnees.h"
 #include "ui_mainwindow.h"
@@ -34,14 +33,27 @@ public:
 
 public slots:
 
+    void desactiverOngletsGroupeCarriste();
+
+    void on_actionQuitter_triggered();
+
+    void on_actionVider_la_bas_de_donn_es_triggered();
+
+    void desactiverOngletsGroupeQualite();
+
+    void on_listDatabase_activated(const QModelIndex &index);
+
+    void on_listProvider_activated(const QModelIndex &index);
+
+    void on_gestionUtilisateur_activated(const QModelIndex &index);
+
+
 
 private slots:
 
     void on_search_Database_clicked();
 
     void on_search_Location_clicked();
-
-    void on_listDatabase_activated(const QModelIndex &index);
 
     void on_update_row_clicked();
 
@@ -53,8 +65,6 @@ private slots:
 
     void on_creerFournisseur_clicked();
 
-    void on_listProvider_activated(const QModelIndex &index);
-
     void on_fournisseur_clicked();
 
     void on_voirStock_clicked();
@@ -65,8 +75,6 @@ private slots:
 
     void on_chercheUtilisateur_clicked();
 
-    void on_gestionUtilisateur_activated(const QModelIndex &index);
-
     void on_majUtilisateur_clicked();
 
     void on_suppUtilisateur_clicked();
@@ -75,22 +83,13 @@ private slots:
 
     void on_triAlphaFournisseur_clicked();
 
-    void desactiverOngletsGroupeCarriste();
-
-    void desactiverOngletsGroupeQualite();
-
-
     void on_creerReferenceBtn_clicked();
-
-    void on_actionQuitter_triggered();
-
-    void on_actionVider_la_bas_de_donn_es_triggered();
 
 private:
     BaseDeDonnees *bdd;
     Ui::MainWindow *ui;
     QSqlQueryModel modal;
-    QSqlQueryModel modelChercherProduitNom;
+   // QSqlQueryModel modelChercherProduitNom;
 
 
 

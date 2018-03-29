@@ -10,15 +10,16 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QTranslator>
+#include "basededonnees.h"
 #include "ui_mainwindow.h"
 
 
 using namespace std;
 BaseDeDonnees::BaseDeDonnees()
 {
+    /*
     this->stockup = QSqlDatabase::addDatabase("QSQLITE");
-
-    stockup.setDatabaseName("C:/Users/adai03/Documents/STOCKUP/stockup.db");
+    stockup.setDatabaseName("./stockup.db");
 
     this->stockup.open();
     if(this->stockup.isOpen())
@@ -26,14 +27,13 @@ BaseDeDonnees::BaseDeDonnees()
     else
         qDebug() << "Erreur ouverture bdd";
     this->creerTableBdd();
+    */
 }
-
 
 BaseDeDonnees::~BaseDeDonnees() {
     this->stockup.close();
     this->stockup.removeDatabase(QSqlDatabase::defaultConnection);
 }
-
 
 void BaseDeDonnees::insertionEnBdd()
 {
@@ -65,7 +65,12 @@ void BaseDeDonnees::creerTableBdd()
 {
     //Creation de la table
 
+    this->stockup = QSqlDatabase::addDatabase("QSQLITE");
+    stockup.setDatabaseName("./stockup.db");
+
      QSqlQuery creerTable(this->stockup);
+
+     stockup.open();
 
      creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
                                    "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -151,16 +156,20 @@ void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherP
 
 
 }
+
 void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitParNom, QString chercherProduitParnom)
 {
     QSqlQuery listeRechercheNomProduit;
-    listeRechercheNomProduit.prepare("SELECT * FROM matieres_Premieres WHERE Nom LIKE '%'");
-    listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom);
+    listeRechercheNomProduit.prepare("SELECT * FROM matieres_Premieres WHERE Nom LIKE :chercherProduitParnom");
+    listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom + '%');
     listeRechercheNomProduit.exec();
+   /* while(listeRechercheNomProduit.next()) {
+        qDebug() << "Il y a un résultat";
+        qDebug() << listeRechercheNomProduit.value(0).toInt();
+    }*/
     modelchercherProduitParNom->setQuery(listeRechercheNomProduit);
-
-
 }
+
 bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
 {
        QSqlQuery miseAjourProduit(this->stockup);
@@ -180,6 +189,7 @@ bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
        miseAjourProduit.bindValue(":fournisseur", MettreAjourProduit.getCodeFournisseur());
 
        return miseAjourProduit.exec();
+
 
 }
 bool BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
@@ -201,7 +211,7 @@ bool BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
 {
     QSqlQuery miseAjourFournisseur(this->stockup);
     miseAjourFournisseur.prepare("UPDATE fournisseurs SET Code = :code, Nom = :nom, Forme_juridique = :forme_juridique, "
-                                 "Adresse = :adresse, Code_postal = :code_postal, Pays = :pays, Ville = :ville, "
+                                 "Adresse = :adresse, Code_postal = :code_postal, Ville = :ville, Pays = :pays, "
                                  "Telephone = :telephone, Siret = :siret, APE = :ape WHERE id = :id");
     miseAjourFournisseur.bindValue(":id", livreur2.getIdFournisseur());
     miseAjourFournisseur.bindValue(":code", livreur2.getCodeFournisseur());

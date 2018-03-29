@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
 }
 
 MainWindow::~MainWindow()
@@ -73,7 +75,7 @@ void MainWindow::on_creerReferenceBtn_clicked()
                                            ui->dateDeCreation->text(),
                                            ui->heureDeCreation->text(),
                                            ui->emplacementProduit->text(),
-                                           ui->emballageProduit->currentText(),
+                                           ui->emballageProduit->text(),
                                            ui->quantiteProduit->text(),
                                            ui->etatProduit->currentText(),
                                            ui->dluoProduit->text(),
@@ -103,10 +105,10 @@ void MainWindow::on_search_Database_clicked()
 void MainWindow::on_search_Location_clicked()
 {
     QString rechercheEmplacement = ui->searchLocation->text();
-
     bdd->chercherProduitParEmplacement(&this->modal, rechercheEmplacement);
-
     ui->listDatabase->setModel(&this->modal);
+    ui->listDatabase->verticalHeader()->setVisible(false);
+
 }
 
 void MainWindow::on_searchNameProduct_clicked()
@@ -114,66 +116,10 @@ void MainWindow::on_searchNameProduct_clicked()
      QString chercherProduitParnom = ui->searchByName->text();
      bdd->chercherProduitParNom(&this->modal, chercherProduitParnom);
      ui->listDatabase->setModel(&this->modal);
-     //ui->listDatabase->verticalHeader()->setVisible(false);
+     ui->listDatabase->verticalHeader()->setVisible(false);
 }
 
-void MainWindow::on_listDatabase_activated(const QModelIndex &index)
-{
 
-    QString valeur = ui->listDatabase->model()->data(index).toString();
-    QSqlQuery cliqueSurListe;
-    cliqueSurListe.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Code_fournisseur "
-                           "FROM matieres_Premieres "
-                           "WHERE id_Produit = :idProduit or "
-                           "Reference = :reference or "
-                           "Nom = :nom or "
-                           "Date = :date or "
-                           "Emplacement = :emplacement or "
-                           "Emballage = :emballage or "
-                           "Quantite = :quantite or "
-                           "Etat = :etat or "
-                           "DLUO = :dluo or "
-                           "Lot = :lot or "
-                           "Code_fournisseur = :codeFournisseur");
-    cliqueSurListe.bindValue(":idProduit", valeur);
-    cliqueSurListe.bindValue(":reference", valeur);
-    cliqueSurListe.bindValue(":nom", valeur);
-    cliqueSurListe.bindValue(":date", valeur);
-    cliqueSurListe.bindValue(":emplacement", valeur);
-    cliqueSurListe.bindValue(":emballage", valeur);
-    cliqueSurListe.bindValue(":quantite", valeur);
-    cliqueSurListe.bindValue(":etat", valeur);
-    cliqueSurListe.bindValue(":dluo", valeur);
-    cliqueSurListe.bindValue(":lot", valeur);
-    cliqueSurListe.bindValue(":codeFournisseur", valeur);
-
-    cliqueSurListe.exec();
-    while(cliqueSurListe.next())
-    {
-
-        switch (carriste->getGroupe().toInt())
-               {
-                   case 3:
-                       this->desactiverOngletsGroupeCarriste();
-                   break;
-                   case 4:
-                   this->desactiverOngletsGroupeQualite();
-                   break;
-               }
-
-        ui->idProduit->setText(cliqueSurListe.value(0).toString());
-        ui->referenceProduitMaj->setText(cliqueSurListe.value(1).toString());
-        ui->nomProduitMaj->setText(cliqueSurListe.value(2).toString());
-        ui->dateProduitMaj->setText(cliqueSurListe.value(3).toString());
-        ui->emplacementProduitMaj->setText(cliqueSurListe.value(4).toString());
-        ui->emballageProduitMaj->setText(cliqueSurListe.value(5).toString());
-        ui->quantitePoduitMaj->setText(cliqueSurListe.value(6).toString());
-        ui->etatProduitMaj->setText(cliqueSurListe.value(7).toString());
-        ui->dluoProduitMaj->setText(cliqueSurListe.value(8).toString());
-        ui->lotProduitMaj->setText(cliqueSurListe.value(9).toString());
-        ui->codeFmajProduit->setText(cliqueSurListe.value(10).toString());
-    }
-}
 
 void MainWindow::on_update_row_clicked()
 {
@@ -260,8 +206,7 @@ void MainWindow::on_majUtilisateur_clicked()
 
 
 void MainWindow::on_deleteProduct_clicked()
-{
-
+{   
     Produits *supprimerProduit = new Produits(ui->idProduit->text(),
                                               ui->referenceProduitMaj->text(),
                                               ui->nomProduitMaj->text(),
@@ -304,6 +249,8 @@ void MainWindow::on_chercheUtilisateur_clicked()
 
     modal3->setQuery(chercherUnUtilisateur);
     ui->gestionUtilisateur->setModel(modal3);
+    ui->listDatabase->verticalHeader()->setVisible(false);
+
 }
 
 void MainWindow::on_createUser_clicked()
@@ -315,9 +262,15 @@ void MainWindow::on_createUser_clicked()
                                            ui->mdp->text(),
                                            ui->groupe->text()
                                            );
-   if(this->bdd->creerUnUtilisateur(*employe))
+    if(employe->getCode().isEmpty() || employe->getNom().isEmpty() || employe->getPrenom().isEmpty()
+       || employe->getMdp().isEmpty() || employe->getGroupe().isEmpty())
     {
-       QMessageBox::information(this, "Création réussie", "La création de l'utilisateur a été enregistrée avec succès.");
+        QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
+
+    }
+    else if(this->bdd->creerUnUtilisateur(*employe))
+    {
+        QMessageBox::information(this, "Création réussie", "Le profil de l'utilisateur a été crée avec succès.");
     }
     else
     {
@@ -355,16 +308,76 @@ void MainWindow::on_creerFournisseur_clicked()
    }
 }
 
+void MainWindow::on_listDatabase_activated(const QModelIndex &index)
+{
+
+    QString valeur = ui->listDatabase->model()->data(index).toString();
+    ui->listDatabase->verticalHeader()->setVisible(false);
+    QSqlQuery cliqueSurListe;
+    cliqueSurListe.prepare("SELECT id_Produit, Reference, Nom, Date ,Emplacement, Emballage, Quantite, Etat, DLUO, Lot, Code_fournisseur "
+                           "FROM matieres_Premieres "
+                           "WHERE id_Produit = :idProduit or "
+                           "Reference = :reference or "
+                           "Nom = :nom or "
+                           "Date = :date or "
+                           "Emplacement = :emplacement or "
+                           "Emballage = :emballage or "
+                           "Quantite = :quantite or "
+                           "Etat = :etat or "
+                           "DLUO = :dluo or "
+                           "Lot = :lot or "
+                           "Code_fournisseur = :codeFournisseur");
+    cliqueSurListe.bindValue(":idProduit", valeur);
+    cliqueSurListe.bindValue(":reference", valeur);
+    cliqueSurListe.bindValue(":nom", valeur);
+    cliqueSurListe.bindValue(":date", valeur);
+    cliqueSurListe.bindValue(":emplacement", valeur);
+    cliqueSurListe.bindValue(":emballage", valeur);
+    cliqueSurListe.bindValue(":quantite", valeur);
+    cliqueSurListe.bindValue(":etat", valeur);
+    cliqueSurListe.bindValue(":dluo", valeur);
+    cliqueSurListe.bindValue(":lot", valeur);
+    cliqueSurListe.bindValue(":codeFournisseur", valeur);
+
+    cliqueSurListe.exec();
+    while(cliqueSurListe.next())
+    {
+
+        switch (carriste->getGroupe().toInt())
+               {
+                   case 3:
+                       this->desactiverOngletsGroupeCarriste();
+                   break;
+                   case 4:
+                   this->desactiverOngletsGroupeQualite();
+                   break;
+               }
+
+        ui->idProduit->setText(cliqueSurListe.value(0).toString());
+        ui->referenceProduitMaj->setText(cliqueSurListe.value(1).toString());
+        ui->nomProduitMaj->setText(cliqueSurListe.value(2).toString());
+        ui->dateProduitMaj->setText(cliqueSurListe.value(3).toString());
+        ui->emplacementProduitMaj->setText(cliqueSurListe.value(4).toString());
+        ui->emballageProduitMaj->setText(cliqueSurListe.value(5).toString());
+        ui->quantitePoduitMaj->setText(cliqueSurListe.value(6).toString());
+        ui->etatProduitMaj->setText(cliqueSurListe.value(7).toString());
+        ui->dluoProduitMaj->setText(cliqueSurListe.value(8).toString());
+        ui->lotProduitMaj->setText(cliqueSurListe.value(9).toString());
+        ui->codeFmajProduit->setText(cliqueSurListe.value(10).toString());
+    }
+}
+
 void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 {
     QString renvoyerDansChampTexte = ui->gestionUtilisateur->model()->data(index).toString();
+    ui->listDatabase->verticalHeader()->setVisible(false);
     QSqlQuery cliqueSurListe;
     cliqueSurListe.prepare("SELECT id, Code, Nom, Prenom, Mot_de_Passe, Groupe FROM utilisateurs WHERE id = :id or "
-                           "Code= :code or "
+                           "Code = :code or "
                            "Nom = :nom or "
-                           "Prenom= :prenom or "
+                           "Prenom = :prenom or "
                            "Mot_de_Passe = :mdp or "
-                           "Groupe= :groupe");
+                           "Groupe = :groupe");
     cliqueSurListe.bindValue(":id", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":code", renvoyerDansChampTexte);
     cliqueSurListe.bindValue(":nom", renvoyerDansChampTexte);
@@ -387,31 +400,24 @@ void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 
 void MainWindow::on_listProvider_activated(const QModelIndex &index)
 {
-
-    QString renvoyerDansChampTexte = ui->listProvider->model()->data(index).toString();
+    QString majFournisseur = ui->listProvider->model()->data(index).toString();
+    ui->listDatabase->verticalHeader()->setVisible(false);
     QSqlQuery cliqueSurListe;
-    cliqueSurListe.prepare("SELECT id, Code, Nom, Forme_juridique ,Adresse, Code_postal, Pays, Ville, Telephone, Siret, APE FROM fournisseurs"
-                           "WHERE id = :id or"
-                           "Code = :code or"
-                           "Nom = :nom or"
-                           "Forme_juridique = :formeJuridique or"
-                           "Adresse = :adresse or"
-                           "Code_postal= :codePostal or"
-                           "Pays = :pays or"
-                           "Ville = :ville or"
-                           "Telephone = :telephone or"
-                           "Siret = :siret or"
-                           "APE = :ape");
-    cliqueSurListe.bindValue(":id", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":code", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":nom", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":formeJuridique", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":adresse",renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":codePostal", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":ville", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":telephone", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":siret", renvoyerDansChampTexte);
-    cliqueSurListe.bindValue(":ape", renvoyerDansChampTexte);
+    cliqueSurListe.prepare("SELECT id, Code, Nom, Forme_juridique ,Adresse, "
+                           "Code_postal, Pays, Ville, Telephone, Siret, APE FROM fournisseurs "
+                           "WHERE id = :id or Code = :code or Nom = :nom or Forme_juridique = :formeJuridique "
+                           "or Adresse = :adresse or Code_postal = :codePostal or Pays = :pays or Ville = :ville or "
+                           "Telephone = :telephone or Siret = :siret or APE = :ape");
+    cliqueSurListe.bindValue(":id", majFournisseur);
+    cliqueSurListe.bindValue(":code", majFournisseur);
+    cliqueSurListe.bindValue(":nom", majFournisseur);
+    cliqueSurListe.bindValue(":formeJuridique", majFournisseur);
+    cliqueSurListe.bindValue(":adresse",majFournisseur);
+    cliqueSurListe.bindValue(":codePostal", majFournisseur);
+    cliqueSurListe.bindValue(":ville", majFournisseur);
+    cliqueSurListe.bindValue(":telephone", majFournisseur);
+    cliqueSurListe.bindValue(":siret", majFournisseur);
+    cliqueSurListe.bindValue(":ape", majFournisseur);
 
     cliqueSurListe.exec();
     while(cliqueSurListe.next())
@@ -440,7 +446,7 @@ void MainWindow::on_fournisseur_clicked()
      listeFournisseurParCode.exec();
      modal2->setQuery(listeFournisseurParCode);
      ui->listProvider->setModel(modal2);
-
+     ui->listDatabase->verticalHeader()->setVisible(false);
  }
 
 
@@ -450,10 +456,15 @@ void MainWindow::on_voirStock_clicked()
     QSqlQueryModel * triAlphaproduits = new QSqlQueryModel();
     clearFocus();
     QSqlQuery triAlphaProduits;
-    triAlphaProduits.prepare("SELECT * FROM matieres_Premieres ORDER BY Nom");
-    triAlphaProduits.exec();
+    triAlphaProduits.exec("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, "
+                          "SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres ORDER BY Nom");
+
+    triAlphaProduits.exec("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                          " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres GROUP BY id_Produit");
+
     triAlphaproduits->setQuery(triAlphaProduits);
     ui->listDatabase->setModel(triAlphaproduits);
+    ui->listDatabase->verticalHeader()->setVisible(false);
 }
 
 
@@ -525,12 +536,14 @@ void MainWindow::on_triAlphaUtilisateur_clicked()
     triAlphaUtilisateur.prepare("SELECT * FROM utilisateurs ORDER BY Nom");
     triAlphaUtilisateur.exec();
     triAlphautilisateur->setQuery(triAlphaUtilisateur);
+    ui->gestionUtilisateur->verticalHeader()->setVisible(false);
     this->ui->gestionUtilisateur->setModel(triAlphautilisateur);
 }
 
 void MainWindow::on_triAlphaFournisseur_clicked()
 {
     QSqlQueryModel * triAlphafournisseur = new QSqlQueryModel();
+    ui->listProvider->verticalHeader()->setVisible(false);
     clearFocus();
     QSqlQuery triAlphaFournisseur(this->bdd->stockup);
     triAlphaFournisseur.prepare("SELECT * FROM fournisseurs ORDER BY Nom");
@@ -547,6 +560,7 @@ void MainWindow::disableTab(int index)
 void MainWindow::moveToTab(int index)
 {
     ui->tabGestionStock->setCurrentIndex(index);
+
 }
 
 void MainWindow::desactiverOngletsGroupeCarriste() {
@@ -560,7 +574,7 @@ void MainWindow::desactiverOngletsGroupeCarriste() {
     ui->dluoProduitMaj->setEnabled(false);
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
-    ui->deleteProduct->setEnabled(false);
+    ui->deleteProduct->hide();
 }
 
 void MainWindow::desactiverOngletsGroupeQualite()
@@ -576,7 +590,7 @@ void MainWindow::desactiverOngletsGroupeQualite()
     ui->dluoProduitMaj->setEnabled(false);
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
-    ui->deleteProduct->setEnabled(false);
+    ui->deleteProduct->hide();
 }
 
 
