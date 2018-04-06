@@ -180,6 +180,8 @@ private slots:
      */
     void on_creerReferenceBtn_clicked();
 
+    void on_exportbdd_clicked();
+
 private:
 
     /**

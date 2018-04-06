@@ -18,6 +18,7 @@
 #include <QDate>
 #include <QDateEdit>
 #include <QIcon>
+#include <QFileDialog>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -616,6 +617,7 @@ void MainWindow::desactiverOngletsGroupeCarriste()
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
     ui->deleteProduct->hide();
+    ui->exportbdd->hide();
 }
 
 /*Permission d'accès au groupe Labo qualité pour effectuer des modifications sur les produits*/
@@ -633,7 +635,34 @@ void MainWindow::desactiverOngletsGroupeQualite()
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
     ui->deleteProduct->hide();
+    ui->exportbdd->hide();
 }
 
 
 
+
+void MainWindow::on_exportbdd_clicked()
+{
+    QString donnees = "id_Produit;Reference;Nom;Lot;Date;Heure;Emplacement;Emballage;Quantite;Quantite totale;Etat;DLUO;Code_fournisseur;\n";
+        QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer", QString(), "*.csv");
+        QFile file(fichier);
+        if (file.open(QIODevice::WriteOnly))
+        {
+            QTextStream Flux(&file);
+
+            for (int i = 0; i < ui->listDatabase->model()->rowCount(); i++)
+            {
+                for(int j = 0; j < ui->listDatabase->model()->columnCount(); j++)
+                {
+                    donnees += ui->listDatabase->model()->index(i, j).data().toString();
+                    donnees += ";";
+                }
+                donnees += "\n";
+            }
+            QMessageBox::information(this, "", donnees);
+            Flux << donnees;
+
+            file.close();
+        }
+
+}

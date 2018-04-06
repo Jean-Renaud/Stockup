@@ -160,7 +160,8 @@ void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitPa
 {
     QSqlQuery listeRechercheNomProduit;
     listeRechercheNomProduit.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
-                                     " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Nom LIKE :chercherProduitParnom");
+                                     " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres "
+                                     "WHERE Nom LIKE :chercherProduitParnom");
     listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom + '%');
     listeRechercheNomProduit.exec();
    /* while(listeRechercheNomProduit.next()) {
@@ -306,5 +307,6 @@ void BaseDeDonnees::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
     supprimerUnUtilisateur.bindValue(":id", supprimerUtilisateur.getIdUtilisateur());
     supprimerUnUtilisateur.exec();
 }
+
 
 

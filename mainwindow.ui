@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
+      <y>0</y>
       <width>1671</width>
       <height>800</height>
      </rect>
@@ -1291,6 +1291,24 @@ border-radius: 5px;</string>
       </property>
       <property name="text">
        <string>Tri alphabétique</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exportbdd">
+      <property name="geometry">
+       <rect>
+        <x>1470</x>
+        <y>600</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(62, 124, 146);
+color: rgb(255, 255, 255);
+border-radius: 5px;</string>
+      </property>
+      <property name="text">
+       <string>Exporter la base de données</string>
       </property>
      </widget>
     </widget>
@@ -2746,6 +2764,7 @@ border-radius: 5px;</string>
      <string>Option</string>
     </property>
     <addaction name="actionVider_la_bas_de_donn_es"/>
+    <addaction name="actionExporter_la_base_de_donn_e"/>
    </widget>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
@@ -2781,6 +2800,11 @@ border-radius: 5px;</string>
    </property>
    <property name="text">
     <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionExporter_la_base_de_donn_e">
+   <property name="text">
+    <string>Exporter la base de donnée</string>
    </property>
   </action>
  </widget>
