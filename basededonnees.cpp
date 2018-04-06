@@ -17,17 +17,6 @@
 using namespace std;
 BaseDeDonnees::BaseDeDonnees()
 {
-    /*
-    this->stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("./stockup.db");
-
-    this->stockup.open();
-    if(this->stockup.isOpen())
-        qDebug() << "Base de données ouverte";
-    else
-        qDebug() << "Erreur ouverture bdd";
-    this->creerTableBdd();
-    */
 }
 
 BaseDeDonnees::~BaseDeDonnees() {
@@ -35,6 +24,7 @@ BaseDeDonnees::~BaseDeDonnees() {
     this->stockup.removeDatabase(QSqlDatabase::defaultConnection);
 }
 
+/*Insertion des éléments dans la base de donnée lors de l'installation de l'application*/
 void BaseDeDonnees::insertionEnBdd()
 {
     QSqlQuery insererUtilisateur(this->stockup);
@@ -61,10 +51,11 @@ void BaseDeDonnees::insertionEnBdd()
                                "VALUES (05, 'Root', 'superAdmin', 5, 5)");
     }
 }
+
+/*Création des tables lors de l'installation de l'application*/
 void BaseDeDonnees::creerTableBdd()
 {
     //Creation de la table
-
     this->stockup = QSqlDatabase::addDatabase("QSQLITE");
     stockup.setDatabaseName("./stockup.db");
 
@@ -116,6 +107,7 @@ void BaseDeDonnees::creerTableBdd()
 
 }
 
+/*Envoi et enregistrement en base de donnée d'un nouveau produit*/
 bool BaseDeDonnees::creerUneReference(Produits &produit)
 {
     QSqlQuery insererNouvelleReference(this->stockup);
@@ -137,14 +129,20 @@ bool BaseDeDonnees::creerUneReference(Produits &produit)
     return insererNouvelleReference.exec();
 
 }
+
+/*Permet d'effectuer la recherche d'un produit en stock avec sa référence*/
 void BaseDeDonnees::chercherParReference(QSqlQueryModel *modelChercherParReference, QString searchRef)
 {
     QSqlQuery listRef;
-    listRef.prepare("SELECT * FROM matieres_Premieres WHERE Reference = :reference");
+    listRef.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                    " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Reference = :reference");
+
     listRef.bindValue(":reference",searchRef);
     listRef.exec();
     modelChercherParReference->setQuery(listRef);
 }
+
+/*Permet de chercher un produit par emplacement*/
 void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherProduitEmplacement, QString rechercheEmplacement)
 {
 
@@ -157,10 +155,12 @@ void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherP
 
 }
 
+/*Permet de chercher un produit avec son nom*/
 void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitParNom, QString chercherProduitParnom)
 {
     QSqlQuery listeRechercheNomProduit;
-    listeRechercheNomProduit.prepare("SELECT * FROM matieres_Premieres WHERE Nom LIKE :chercherProduitParnom");
+    listeRechercheNomProduit.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                                     " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Nom LIKE :chercherProduitParnom");
     listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom + '%');
     listeRechercheNomProduit.exec();
    /* while(listeRechercheNomProduit.next()) {
@@ -170,6 +170,7 @@ void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitPa
     modelchercherProduitParNom->setQuery(listeRechercheNomProduit);
 }
 
+/*Envoi et enregistrement des nouvelles informations lors de la mise à jour d'un produit*/
 bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
 {
        QSqlQuery miseAjourProduit(this->stockup);
@@ -192,6 +193,8 @@ bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
 
 
 }
+
+/*Permet de mettre à jour un utilisateur*/
 bool BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
 {
     QSqlQuery miseAjourUtilisateur;
@@ -207,27 +210,30 @@ bool BaseDeDonnees::miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur)
     return miseAjourUtilisateur.exec();
 }
 
-bool BaseDeDonnees::miseAjourFournisseur(Fournisseur &livreur2)
+/*Permet de mettre à jour un fournisseur*/
+bool BaseDeDonnees::miseAjourFournisseur(Fournisseur &mettreAjourFournisseur)
 {
     QSqlQuery miseAjourFournisseur(this->stockup);
     miseAjourFournisseur.prepare("UPDATE fournisseurs SET Code = :code, Nom = :nom, Forme_juridique = :forme_juridique, "
                                  "Adresse = :adresse, Code_postal = :code_postal, Ville = :ville, Pays = :pays, "
                                  "Telephone = :telephone, Siret = :siret, APE = :ape WHERE id = :id");
-    miseAjourFournisseur.bindValue(":id", livreur2.getIdFournisseur());
-    miseAjourFournisseur.bindValue(":code", livreur2.getCodeFournisseur());
-    miseAjourFournisseur.bindValue(":nom", livreur2.getNomSociete());
-    miseAjourFournisseur.bindValue(":forme_juridique", livreur2.getFormeJuridique());
-    miseAjourFournisseur.bindValue(":adresse", livreur2.getAdresse());
-    miseAjourFournisseur.bindValue(":code_postal", livreur2.getCodePostal());
-    miseAjourFournisseur.bindValue(":pays", livreur2.getPays());
-    miseAjourFournisseur.bindValue(":ville", livreur2.getVille());
-    miseAjourFournisseur.bindValue(":telephone", livreur2.getTelephone());
-    miseAjourFournisseur.bindValue(":siret", livreur2.getSiret());
-    miseAjourFournisseur.bindValue(":ape", livreur2.getApe());
+    miseAjourFournisseur.bindValue(":id", mettreAjourFournisseur.getIdFournisseur());
+    miseAjourFournisseur.bindValue(":code", mettreAjourFournisseur.getCodeFournisseur());
+    miseAjourFournisseur.bindValue(":nom", mettreAjourFournisseur.getNomSociete());
+    miseAjourFournisseur.bindValue(":forme_juridique", mettreAjourFournisseur.getFormeJuridique());
+    miseAjourFournisseur.bindValue(":adresse", mettreAjourFournisseur.getAdresse());
+    miseAjourFournisseur.bindValue(":code_postal", mettreAjourFournisseur.getCodePostal());
+    miseAjourFournisseur.bindValue(":pays", mettreAjourFournisseur.getPays());
+    miseAjourFournisseur.bindValue(":ville", mettreAjourFournisseur.getVille());
+    miseAjourFournisseur.bindValue(":telephone", mettreAjourFournisseur.getTelephone());
+    miseAjourFournisseur.bindValue(":siret", mettreAjourFournisseur.getSiret());
+    miseAjourFournisseur.bindValue(":ape", mettreAjourFournisseur.getApe());
 
     return miseAjourFournisseur.exec();
 
 }
+
+/*Permet de supprimer une référence*/
 bool BaseDeDonnees::supprimerReference(Produits &supprimerProduit)
 {
     QSqlQuery supprimerLeProduit(this->stockup);
@@ -236,6 +242,8 @@ bool BaseDeDonnees::supprimerReference(Produits &supprimerProduit)
 
     return supprimerLeProduit.exec();
 }
+
+/*Envoi et enregistrement en base de donnée d'un nouvel utilisateur*/
 bool BaseDeDonnees::creerUnUtilisateur(Utilisateur &employe)
 {
     QSqlQuery nouvelUtilisateur(this->stockup);
@@ -248,25 +256,28 @@ bool BaseDeDonnees::creerUnUtilisateur(Utilisateur &employe)
     nouvelUtilisateur.bindValue(":groupe", employe.getGroupe());
     return nouvelUtilisateur.exec();
 }
-bool BaseDeDonnees::creerUnFournisseur(Fournisseur &livreur)
+
+/*Envoi et enregistrement en base de donnée d'un nouveau fournisseur*/
+bool BaseDeDonnees::creerUnFournisseur(Fournisseur &creerFournisseur)
 {
-    QSqlQuery creerFournisseur(this->stockup);
-    creerFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone,"
+    QSqlQuery creerUnFournisseur(this->stockup);
+    creerUnFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone,"
                              " Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, "
                              ":telephone, :siret, :ape)");
-    creerFournisseur.bindValue(":code", livreur.getCodeFournisseur());
-    creerFournisseur.bindValue(":nom", livreur.getNomSociete());
-    creerFournisseur.bindValue(":forme_juridique", livreur.getFormeJuridique());
-    creerFournisseur.bindValue(":adresse", livreur.getAdresse());
-    creerFournisseur.bindValue(":code_postal", livreur.getCodePostal());
-    creerFournisseur.bindValue(":pays", livreur.getPays());
-    creerFournisseur.bindValue(":ville", livreur.getVille());
-    creerFournisseur.bindValue(":telephone", livreur.getTelephone());
-    creerFournisseur.bindValue(":siret", livreur.getSiret());
-    creerFournisseur.bindValue(":ape", livreur.getApe());
-    return creerFournisseur.exec();
+    creerUnFournisseur.bindValue(":code", creerFournisseur.getCodeFournisseur());
+    creerUnFournisseur.bindValue(":nom", creerFournisseur.getNomSociete());
+    creerUnFournisseur.bindValue(":forme_juridique", creerFournisseur.getFormeJuridique());
+    creerUnFournisseur.bindValue(":adresse", creerFournisseur.getAdresse());
+    creerUnFournisseur.bindValue(":code_postal", creerFournisseur.getCodePostal());
+    creerUnFournisseur.bindValue(":pays", creerFournisseur.getPays());
+    creerUnFournisseur.bindValue(":ville", creerFournisseur.getVille());
+    creerUnFournisseur.bindValue(":telephone", creerFournisseur.getTelephone());
+    creerUnFournisseur.bindValue(":siret", creerFournisseur.getSiret());
+    creerUnFournisseur.bindValue(":ape", creerFournisseur.getApe());
+    return creerUnFournisseur.exec();
 }
 
+/*Permet de chercher un fournisseur avec son code*/
 void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
 {
     QSqlQuery rechercherFournisseur(this->stockup);
@@ -277,13 +288,17 @@ void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
         qDebug() << ("Erreur");
     }
 }
-bool BaseDeDonnees::supprimerUnFournisseur(Fournisseur &livreur3)
+
+/*Permet de supprimer un fournisseur*/
+bool BaseDeDonnees::supprimerUnFournisseur(Fournisseur &supprimerFournisseur)
 {
-    QSqlQuery supprimerFournisseur(this->stockup);
-    supprimerFournisseur.prepare("DELETE FROM fournisseurs WHERE id = :id");
-    supprimerFournisseur.bindValue(":id", livreur3.getIdFournisseur());
-    return supprimerFournisseur.exec();
+    QSqlQuery supprimerLeFournisseur(this->stockup);
+    supprimerLeFournisseur.prepare("DELETE FROM fournisseurs WHERE id = :id");
+    supprimerLeFournisseur.bindValue(":id", supprimerFournisseur.getIdFournisseur());
+    return supprimerLeFournisseur.exec();
 }
+
+/*Permet de supprimer un utilisateur*/
 void BaseDeDonnees::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
 {
     QSqlQuery supprimerUnUtilisateur(this->stockup);
@@ -291,3 +306,5 @@ void BaseDeDonnees::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
     supprimerUnUtilisateur.bindValue(":id", supprimerUtilisateur.getIdUtilisateur());
     supprimerUnUtilisateur.exec();
 }
+
+

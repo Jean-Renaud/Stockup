@@ -4,7 +4,6 @@
 #include "utilisateur.h"
 #include "produits.h"
 #include "fournisseur.h"
-
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QDebug>
@@ -35,14 +34,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*Permet de fermer le programme*/
 void MainWindow::on_actionQuitter_triggered()
 {
     this->close();
 }
+
 void MainWindow::setBaseDeDonnees(BaseDeDonnees *bdd) {
     this->bdd = bdd;
 }
 
+/*Permet de supprimer tous les produits ainsi que tous les comptes fournisseurs*/
 void MainWindow::on_actionVider_la_bas_de_donn_es_triggered()
 
 {
@@ -65,9 +67,12 @@ void MainWindow::on_actionVider_la_bas_de_donn_es_triggered()
     }
 }
 }
+
+/*Création d'un nouveau produit*/
 void MainWindow::on_creerReferenceBtn_clicked()
 {
-    Produits *produit = new Produits      (
+
+    produit = new Produits      (
                                            ui->idProduit->text(),
                                            ui->referenceProduit->text(),
                                            ui->nomProduit_2->text(),
@@ -79,29 +84,45 @@ void MainWindow::on_creerReferenceBtn_clicked()
                                            ui->quantiteProduit->text(),
                                            ui->etatProduit->currentText(),
                                            ui->dluoProduit->text(),
-                                           ui->codeFournisseur->text());
+                                           ui->codeFournisseur->text()
+                                           );
 
-    if(this->bdd->creerUneReference(*produit))
+    QString emplacement;
+    emplacement = produit->getEmplacement();
+    QSqlQuery verifierEmplacement(this->bdd->stockup);
+    verifierEmplacement.prepare("SELECT COUNT(Emplacement) FROM matieres_Premieres WHERE Emplacement = :emplacement");
+    verifierEmplacement.bindValue(":emplacement", emplacement);
+    verifierEmplacement.exec();
+    verifierEmplacement.next();
+    int compteur = verifierEmplacement.value(0).toInt();
+
+    if(compteur == 0)
     {
+        this->bdd->creerUneReference(*produit);
         QMessageBox::information(this,"Création réussie","La création du produit a été enregistrée avec succès.");
+
+
     }
     else
     {
-       QMessageBox::critical(this,"Création échouée", "Nope.");
+        QMessageBox::critical(this,"Création échouée", "La création du produit a échouée.");
     }
+
 }
 
+/*Permet d'effectuer la recherche d'un produit dans la base de donnée par sa référence*/
 void MainWindow::on_search_Database_clicked()
 {
 
     QString searchRef = ui->searchRef->text();
-
     bdd->chercherParReference(&this->modal, searchRef);
-
     ui->listDatabase->setModel(&this->modal);
+    ui->listDatabase->verticalHeader()->setVisible(false);
+
 
 }
 
+/*Permet d'effectuer la recherche d'un produit dans la base de donnée par son emplacement*/
 void MainWindow::on_search_Location_clicked()
 {
     QString rechercheEmplacement = ui->searchLocation->text();
@@ -111,6 +132,7 @@ void MainWindow::on_search_Location_clicked()
 
 }
 
+/*Permet d'effectuer la recherche d'un produit dans la base de donnée par son nom*/
 void MainWindow::on_searchNameProduct_clicked()
 {
      QString chercherProduitParnom = ui->searchByName->text();
@@ -119,8 +141,7 @@ void MainWindow::on_searchNameProduct_clicked()
      ui->listDatabase->verticalHeader()->setVisible(false);
 }
 
-
-
+/*Permet d'envoyer les nouvelles informations du produit grâce à une mise à jour*/
 void MainWindow::on_update_row_clicked()
 {
     Produits *mettreAjourProduit = new Produits(ui->idProduit->text(),
@@ -148,9 +169,10 @@ void MainWindow::on_update_row_clicked()
     }
 }
 
+/*Permet de faire la mise à jour d'un produit*/
 void MainWindow::on_majFournisseur_clicked()
 {
-    Fournisseur *livreur2 = new Fournisseur(   ui->idfournisseur->text(),
+    Fournisseur *mettreAjourFournisseur = new Fournisseur(   ui->idfournisseur->text(),
                                                ui->cfournisseur->text(),
                                                ui->nomsociete->text(),
                                                ui->formejuridique->text(),
@@ -162,8 +184,16 @@ void MainWindow::on_majFournisseur_clicked()
                                                ui->siretfournisseur->text(),
                                                ui->apefournisseur->text()
                                                );
+  if(mettreAjourFournisseur->getIdFournisseur().isEmpty() || mettreAjourFournisseur->getCodeFournisseur().isEmpty() || mettreAjourFournisseur->getNomSociete().isEmpty()
+          || mettreAjourFournisseur->getFormeJuridique().isEmpty() || mettreAjourFournisseur->getAdresse().isEmpty() || mettreAjourFournisseur->getCodePostal().isEmpty()
+          || mettreAjourFournisseur->getVille().isEmpty() || mettreAjourFournisseur->getPays().isEmpty() || mettreAjourFournisseur->getTelephone().isEmpty()
+          || mettreAjourFournisseur->getSiret().isEmpty() || mettreAjourFournisseur->getApe().isEmpty())
+  {
+      QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
 
-    if(this->bdd->miseAjourFournisseur(*livreur2))
+  }
+
+   else if(this->bdd->miseAjourFournisseur(*mettreAjourFournisseur))
     {
       QMessageBox::information(this,tr("Mise à jour réussie"),tr("La mise à jour du fournisseur a été enregistrée avec succès."));
     }
@@ -175,8 +205,7 @@ void MainWindow::on_majFournisseur_clicked()
 
 }
 
-
-
+/*Permet de faire la mise à jour d'un utilisateur*/
 void MainWindow::on_majUtilisateur_clicked()
 {
     Utilisateur *mettreAjourUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
@@ -188,23 +217,22 @@ void MainWindow::on_majUtilisateur_clicked()
                                                );
 
 
-    if(this->bdd->miseAJourUtilisateur(*mettreAjourUtilisateur))
+    if(mettreAjourUtilisateur->getCode().isEmpty() || mettreAjourUtilisateur->getNom().isEmpty() || mettreAjourUtilisateur->getPrenom().isEmpty()
+       || mettreAjourUtilisateur->getMdp().isEmpty() || mettreAjourUtilisateur->getGroupe().isEmpty())
     {
-
-      QMessageBox::information(this,tr("Mis à jour réussie"),tr("La mise à jour de l'utilisateur a été enregistrée avec succès."));
-
-
+        QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
+    }
+    else if(this->bdd->miseAJourUtilisateur(*mettreAjourUtilisateur))
+    {
+        QMessageBox::information(this, "Modification réussie", "Le profil de l'utilisateur a été mis à jour avec succès.");
     }
     else
     {
-       QMessageBox::critical(this,tr("Mise à jour échouée"),tr("La mise à jour de l'utilisateur a échouée"));
-
-
+      QMessageBox::information(this,tr("Modification échouée"),tr("La modification de l'utilisateur a échouée"));
     }
 }
 
-
-
+/*Permet de supprimer un produit*/
 void MainWindow::on_deleteProduct_clicked()
 {   
     Produits *supprimerProduit = new Produits(ui->idProduit->text(),
@@ -221,6 +249,7 @@ void MainWindow::on_deleteProduct_clicked()
                                               ui->codeFmajProduit->text()
                                               );
 
+
         int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du"
                                                                    " stock, cette action est irreversible. Cliquez sur Ok pour confirmer"
                                                                    " ou sur No pour annuler.", QMessageBox::Yes | QMessageBox::No);
@@ -236,6 +265,7 @@ void MainWindow::on_deleteProduct_clicked()
         }
 }
 
+/*Permet de rechercher un utilisateur dans la base de donnée avec son nom*/
 void MainWindow::on_chercheUtilisateur_clicked()
 {
     QSqlQueryModel * modal3 = new QSqlQueryModel();
@@ -253,6 +283,7 @@ void MainWindow::on_chercheUtilisateur_clicked()
 
 }
 
+/*Permet de créer un utilisateur*/
 void MainWindow::on_createUser_clicked()
 {
     Utilisateur *employe = new Utilisateur(ui->idUtilisateurEdit->text(),
@@ -278,9 +309,10 @@ void MainWindow::on_createUser_clicked()
     }
 }
 
+/*Permet de créer un nouveau fournisseur*/
 void MainWindow::on_creerFournisseur_clicked()
 {
-    Fournisseur *livreur = new Fournisseur(   ui->idfournisseur->text(),
+    Fournisseur *creerFournisseur = new Fournisseur(   ui->idfournisseur->text(),
                                                ui->codeDuFournisseur->text(),
                                                ui->nomSociete->text(),
                                                ui->formeJuridique->text(),
@@ -292,13 +324,13 @@ void MainWindow::on_creerFournisseur_clicked()
                                                ui->siret->text(),
                                                ui->ape->text()
                                                );
-    if(livreur->getCodeFournisseur().isEmpty() || livreur->getNomSociete().isEmpty() || livreur->getFormeJuridique().isEmpty()
-    || livreur->getAdresse().isEmpty() || livreur->getCodePostal().isEmpty() || livreur-> getVille().isEmpty() ||
-    livreur->getPays().isEmpty() || livreur->getTelephone().isEmpty() || livreur->getSiret().isEmpty() || livreur->getApe().isEmpty())
+    if(creerFournisseur->getCodeFournisseur().isEmpty() || creerFournisseur->getNomSociete().isEmpty() || creerFournisseur->getFormeJuridique().isEmpty()
+    || creerFournisseur->getAdresse().isEmpty() || creerFournisseur->getCodePostal().isEmpty() || creerFournisseur-> getVille().isEmpty() ||
+    creerFournisseur->getPays().isEmpty() || creerFournisseur->getTelephone().isEmpty() || creerFournisseur->getSiret().isEmpty() || creerFournisseur->getApe().isEmpty())
     {
         QMessageBox::critical(this, "Erreur", "Vous avez laissé un champ vide dans le formulaire de saisie.");
     }
-   else if(this->bdd->creerUnFournisseur(*livreur))
+   else if(this->bdd->creerUnFournisseur(*creerFournisseur))
    {
       QMessageBox::information(this, "Création réussie", "La création du fournisseur a été enregistrée avec succès.");
    }
@@ -308,8 +340,11 @@ void MainWindow::on_creerFournisseur_clicked()
    }
 }
 
+/*Permet de double-cliquer sur une ligne dans le tableau concernant les produits pour envoyer les
+ *informations dans les champs texte en vue d'une mise à jour ou d'une suppression*/
 void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 {
+
 
     QString valeur = ui->listDatabase->model()->data(index).toString();
     ui->listDatabase->verticalHeader()->setVisible(false);
@@ -340,9 +375,9 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
     cliqueSurListe.bindValue(":codeFournisseur", valeur);
 
     cliqueSurListe.exec();
+
     while(cliqueSurListe.next())
     {
-
         switch (carriste->getGroupe().toInt())
                {
                    case 3:
@@ -367,6 +402,8 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
     }
 }
 
+/*Permet de double-cliquer sur une ligne dans le tableau concernant les utilisateurs pour envoyer les informations dans les champs
+ *texte en vue d'une mise à jour ou d'une suppression*/
 void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
 {
     QString renvoyerDansChampTexte = ui->gestionUtilisateur->model()->data(index).toString();
@@ -398,6 +435,8 @@ void MainWindow::on_gestionUtilisateur_activated(const QModelIndex &index)
     }
 }
 
+/*Permet de double-cliquer sur une ligne dans le tableau concernant les fournisseurs pour envoyer les informations dans les champs texte
+en vue d'une mise à jour ou d'une suppression*/
 void MainWindow::on_listProvider_activated(const QModelIndex &index)
 {
     QString majFournisseur = ui->listProvider->model()->data(index).toString();
@@ -435,6 +474,8 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
         ui->apefournisseur->setText(cliqueSurListe.value(10).toString());
     }
 }
+
+/*Permet d'effectuer la recherche d'un fournisseur avec son code*/
 void MainWindow::on_fournisseur_clicked()
  {
      QSqlQueryModel * modal2 = new QSqlQueryModel();
@@ -449,8 +490,7 @@ void MainWindow::on_fournisseur_clicked()
      ui->listDatabase->verticalHeader()->setVisible(false);
  }
 
-
-
+/*Permet d'afficher le stock par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
 void MainWindow::on_voirStock_clicked()
 {
     QSqlQueryModel * triAlphaproduits = new QSqlQueryModel();
@@ -467,8 +507,7 @@ void MainWindow::on_voirStock_clicked()
     ui->listDatabase->verticalHeader()->setVisible(false);
 }
 
-
-
+/*Permet de supprimer un fournisseur lorsqu'on clique sur le bouton Supprimer*/
 void MainWindow::on_suppFournisseur_clicked()
 {
     int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock, "
@@ -500,8 +539,7 @@ void MainWindow::on_suppFournisseur_clicked()
     }
 }
 
-
-
+/*Permet de supprimer un utilisateur lorsqu'on clique sur le bouton Supprimer*/
 void MainWindow::on_suppUtilisateur_clicked()
 {
     int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un produit du stock,"
@@ -526,8 +564,7 @@ void MainWindow::on_suppUtilisateur_clicked()
     }
 }
 
-
-
+/*Permet d'afficher les utilisateurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
 void MainWindow::on_triAlphaUtilisateur_clicked()
 {
     QSqlQueryModel * triAlphautilisateur = new QSqlQueryModel();
@@ -540,6 +577,7 @@ void MainWindow::on_triAlphaUtilisateur_clicked()
     this->ui->gestionUtilisateur->setModel(triAlphautilisateur);
 }
 
+/*Permet d'afficher les fournisseurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
 void MainWindow::on_triAlphaFournisseur_clicked()
 {
     QSqlQueryModel * triAlphafournisseur = new QSqlQueryModel();
@@ -552,6 +590,7 @@ void MainWindow::on_triAlphaFournisseur_clicked()
     this->ui->listProvider->setModel(triAlphafournisseur);
 }
 
+/*Permet de griser les onglets de navigation*/
 void MainWindow::disableTab(int index)
 {
     ui->tabGestionStock->setTabEnabled(index, false);
@@ -563,7 +602,9 @@ void MainWindow::moveToTab(int index)
 
 }
 
-void MainWindow::desactiverOngletsGroupeCarriste() {
+/*Permission d'accès au groupe carriste pour effectuer des modifications sur les produits*/
+void MainWindow::desactiverOngletsGroupeCarriste()
+{
     ui->idProduit->setEnabled(false);
     ui->nomProduitMaj->setEnabled(false);
     ui->referenceProduitMaj->setEnabled(false);
@@ -577,6 +618,7 @@ void MainWindow::desactiverOngletsGroupeCarriste() {
     ui->deleteProduct->hide();
 }
 
+/*Permission d'accès au groupe Labo qualité pour effectuer des modifications sur les produits*/
 void MainWindow::desactiverOngletsGroupeQualite()
 {
     ui->idProduit->setEnabled(false);

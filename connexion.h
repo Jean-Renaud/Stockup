@@ -9,6 +9,9 @@ namespace Ui {
 class Connexion;
 }
 
+/**
+ * @brief Permet de gérer la connexion utilisateur
+ */
 class Connexion : public QDialog
 {
     Q_OBJECT
@@ -16,16 +19,32 @@ class Connexion : public QDialog
 public:
     explicit Connexion(QWidget *parent = 0);
     ~Connexion();
+    /**
+     * @brief carriste
+     */
     Utilisateur * carriste;
 
+    /**
+     * @brief setBaseDeDonnees
+     */
     void setBaseDeDonnees(BaseDeDonnees*);
 
 private slots:
-
+    /**
+     * @brief on_seConnecter_clicked
+     */
     void on_seConnecter_clicked();
 
 private:
+
+    /**
+     * @brief ui
+     */
     Ui::Connexion *ui;
+
+    /**
+     * @brief bdd
+     */
     BaseDeDonnees *bdd;
 };
 

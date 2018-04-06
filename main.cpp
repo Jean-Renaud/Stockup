@@ -18,12 +18,15 @@ int main(int argc, char *argv[])
     Login.setBaseDeDonnees(&bdd);
     fenetrePrincipale.setBaseDeDonnees(&bdd);
 
+
+    /*Si le code et le mot de passe correspondent alors on ouvre la fenetre principale*/
     if (Login.exec() == QDialog::Accepted)
     {
         fenetrePrincipale.carriste = Login.carriste;
 
         qDebug() << fenetrePrincipale.carriste->getGroupe() << " " << Login.carriste->getGroupe();
 
+        /*Attribution des droits d'accès aux onglets par rapport à l'appartenance au groupe*/
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 1) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.disableTab(0);

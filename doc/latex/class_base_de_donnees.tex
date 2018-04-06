@@ -1,0 +1,352 @@
+\hypertarget{class_base_de_donnees}{}\section{Référence de la classe Base\+De\+Donnees}
+\label{class_base_de_donnees}\index{Base\+De\+Donnees@{Base\+De\+Donnees}}
+
+
+Interface vers fichier de base de données S\+Qlite3.  
+
+
+
+
+{\ttfamily \#include $<$basededonnees.\+h$>$}
+
+\subsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_base_de_donnees_a888c0084f35395cc2aaae8326a27af06}\label{class_base_de_donnees_a888c0084f35395cc2aaae8326a27af06}} 
+void \mbox{\hyperlink{class_base_de_donnees_a888c0084f35395cc2aaae8326a27af06}{creer\+Table\+Bdd}} ()
+\begin{DoxyCompactList}\small\item\em creer\+Table\+Bdd \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_base_de_donnees_a635a8df387997ad54a4bcc4b8bce1a78}\label{class_base_de_donnees_a635a8df387997ad54a4bcc4b8bce1a78}} 
+void \mbox{\hyperlink{class_base_de_donnees_a635a8df387997ad54a4bcc4b8bce1a78}{insertion\+Bdd\+Installation}} ()
+\begin{DoxyCompactList}\small\item\em insertion\+Bdd\+Installation \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_aaff06392cdd1aa3e3e66f1bb8214d1fb}{chercher\+Fournisseur}} (Q\+String trouver\+Fournisseur)
+\begin{DoxyCompactList}\small\item\em chercher\+Fournisseur \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}{chercher\+Par\+Reference}} (Q\+Sql\+Query\+Model $\ast$model\+Chercher\+Par\+Reference, Q\+String search\+Ref)
+\begin{DoxyCompactList}\small\item\em chercher\+Par\+Reference \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}{chercher\+Produit\+Par\+Emplacement}} (Q\+Sql\+Query\+Model $\ast$model\+Chercher\+Produit\+Emplacement, Q\+String recherche\+Emplacement)
+\begin{DoxyCompactList}\small\item\em chercher\+Produit\+Par\+Emplacement \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}{chercher\+Produit\+Par\+Nom}} (Q\+Sql\+Query\+Model $\ast$modelchercher\+Produit\+Par\+Nom, Q\+String chercher\+Produit\+Parnom)
+\begin{DoxyCompactList}\small\item\em chercher\+Produit\+Par\+Nom \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_a48345312e89c6e8fdeec128f033566ee}{creer\+Une\+Reference}} (\mbox{\hyperlink{class_produits}{Produits}} \&produit)
+\begin{DoxyCompactList}\small\item\em creer\+Une\+Reference \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_ae68726c99e17a89342655d8b842ced96}{mise\+Ajour\+Reference}} (\mbox{\hyperlink{class_produits}{Produits}} \&Mettre\+Ajour\+Produit)
+\begin{DoxyCompactList}\small\item\em mise\+Ajour\+Reference \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_a824bea64c3ef77eff0e4334a617b36c8}{supprimer\+Reference}} (\mbox{\hyperlink{class_produits}{Produits}} \&supprimer\+Produit)
+\begin{DoxyCompactList}\small\item\em supprimer\+Reference \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_acc7f10ab9b4699eaa495fa7829c0cfbd}{creer\+Un\+Utilisateur}} (\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&employe)
+\begin{DoxyCompactList}\small\item\em creer\+Un\+Utilisateur \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_base_de_donnees_a9b8f8d9aca5ac268cba19329e3264c01}\label{class_base_de_donnees_a9b8f8d9aca5ac268cba19329e3264c01}} 
+void \mbox{\hyperlink{class_base_de_donnees_a9b8f8d9aca5ac268cba19329e3264c01}{chercher\+Un\+Utilisateur}} ()
+\begin{DoxyCompactList}\small\item\em chercher\+Un\+Utilisateur \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_a81715fc3632e6533d9c66a66c62e897b}{creer\+Un\+Fournisseur}} (\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&creer\+Fournisseur)
+\begin{DoxyCompactList}\small\item\em creer\+Un\+Fournisseur \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_ab49e6dfff0eecf616d9a7642ea358f31}{mise\+Ajour\+Fournisseur}} (\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&mettre\+Ajour\+Fournisseur)
+\begin{DoxyCompactList}\small\item\em mise\+Ajour\+Fournisseur \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_a90ac8e5f412153ce4ab5a4c7a603f5e9}{supprimer\+Un\+Fournisseur}} (\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&livreur3)
+\begin{DoxyCompactList}\small\item\em supprimer\+Un\+Fournisseur \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_base_de_donnees_a9c2bce97f39046e66b3dd3d08c2b911a}{mise\+A\+Jour\+Utilisateur}} (\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&mettre\+Ajour\+Utilisateur)
+\begin{DoxyCompactList}\small\item\em mise\+A\+Jour\+Utilisateur \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_a7ead23bc4e5d3bc897d9c6a412bbc0a6}{supprimer\+Un\+Utilisateur}} (\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&supprimer\+Utilisateur)
+\begin{DoxyCompactList}\small\item\em supprimer\+Un\+Utilisateur \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_base_de_donnees_a1aa6b997245767e4ba75973d59dcfaf6}\label{class_base_de_donnees_a1aa6b997245767e4ba75973d59dcfaf6}} 
+void \mbox{\hyperlink{class_base_de_donnees_a1aa6b997245767e4ba75973d59dcfaf6}{insertion\+En\+Bdd}} ()
+\begin{DoxyCompactList}\small\item\em insertion\+En\+Bdd \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}{chercher\+Par\+Reference}} (Q\+Sql\+Query\+Model $\ast$model\+Chercher\+Par\+Reference, Q\+String search\+Ref)
+\begin{DoxyCompactList}\small\item\em chercher\+Par\+Reference \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}{chercher\+Produit\+Par\+Emplacement}} (Q\+Sql\+Query\+Model $\ast$model\+Chercher\+Produit\+Emplacement, Q\+String recherche\+Emplacement)
+\begin{DoxyCompactList}\small\item\em chercher\+Produit\+Par\+Emplacement \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}{chercher\+Produit\+Par\+Nom}} (Q\+Sql\+Query\+Model $\ast$modelchercher\+Produit\+Par\+Nom, Q\+String chercher\+Produit\+Parnom)
+\begin{DoxyCompactList}\small\item\em chercher\+Produit\+Par\+Nom \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_base_de_donnees_a2527e35f95ca7abc94d61eabe2b8ef17}\label{class_base_de_donnees_a2527e35f95ca7abc94d61eabe2b8ef17}} 
+Q\+Sql\+Database \mbox{\hyperlink{class_base_de_donnees_a2527e35f95ca7abc94d61eabe2b8ef17}{stockup}}
+\begin{DoxyCompactList}\small\item\em stockup \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+Interface vers fichier de base de données S\+Qlite3. 
+
+\subsection{Documentation des fonctions membres}
+\mbox{\Hypertarget{class_base_de_donnees_aaff06392cdd1aa3e3e66f1bb8214d1fb}\label{class_base_de_donnees_aaff06392cdd1aa3e3e66f1bb8214d1fb}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Fournisseur@{chercher\+Fournisseur}}
+\index{chercher\+Fournisseur@{chercher\+Fournisseur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Fournisseur()}{chercherFournisseur()}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Fournisseur (\begin{DoxyParamCaption}\item[{Q\+String}]{trouver\+Fournisseur }\end{DoxyParamCaption})}
+
+
+
+chercher\+Fournisseur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em trouver\+Fournisseur} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}\label{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Par\+Reference@{chercher\+Par\+Reference}}
+\index{chercher\+Par\+Reference@{chercher\+Par\+Reference}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Par\+Reference()}{chercherParReference()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Par\+Reference (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{model\+Chercher\+Par\+Reference,  }\item[{Q\+String}]{search\+Ref }\end{DoxyParamCaption})}
+
+
+
+chercher\+Par\+Reference 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em model\+Chercher\+Par\+Reference} & \\
+\hline
+{\em search\+Ref} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}\label{class_base_de_donnees_aaa4a62ca5864ce24cb0b3d488a609811}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Par\+Reference@{chercher\+Par\+Reference}}
+\index{chercher\+Par\+Reference@{chercher\+Par\+Reference}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Par\+Reference()}{chercherParReference()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Par\+Reference (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{model\+Chercher\+Par\+Reference,  }\item[{Q\+String}]{search\+Ref }\end{DoxyParamCaption})}
+
+
+
+chercher\+Par\+Reference 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em model\+Chercher\+Par\+Reference} & \\
+\hline
+{\em search\+Ref} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}\label{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Produit\+Par\+Emplacement@{chercher\+Produit\+Par\+Emplacement}}
+\index{chercher\+Produit\+Par\+Emplacement@{chercher\+Produit\+Par\+Emplacement}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Produit\+Par\+Emplacement()}{chercherProduitParEmplacement()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Produit\+Par\+Emplacement (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{model\+Chercher\+Produit\+Emplacement,  }\item[{Q\+String}]{recherche\+Emplacement }\end{DoxyParamCaption})}
+
+
+
+chercher\+Produit\+Par\+Emplacement 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em model\+Chercher\+Produit\+Emplacement} & \\
+\hline
+{\em recherche\+Emplacement} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}\label{class_base_de_donnees_a7741ad517714e619d7f8a0f202d3b38d}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Produit\+Par\+Emplacement@{chercher\+Produit\+Par\+Emplacement}}
+\index{chercher\+Produit\+Par\+Emplacement@{chercher\+Produit\+Par\+Emplacement}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Produit\+Par\+Emplacement()}{chercherProduitParEmplacement()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Produit\+Par\+Emplacement (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{model\+Chercher\+Produit\+Emplacement,  }\item[{Q\+String}]{recherche\+Emplacement }\end{DoxyParamCaption})}
+
+
+
+chercher\+Produit\+Par\+Emplacement 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em model\+Chercher\+Produit\+Emplacement} & \\
+\hline
+{\em recherche\+Emplacement} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}\label{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Produit\+Par\+Nom@{chercher\+Produit\+Par\+Nom}}
+\index{chercher\+Produit\+Par\+Nom@{chercher\+Produit\+Par\+Nom}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Produit\+Par\+Nom()}{chercherProduitParNom()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Produit\+Par\+Nom (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{modelchercher\+Produit\+Par\+Nom,  }\item[{Q\+String}]{chercher\+Produit\+Parnom }\end{DoxyParamCaption})}
+
+
+
+chercher\+Produit\+Par\+Nom 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em modelchercher\+Produit\+Par\+Nom} & \\
+\hline
+{\em chercher\+Produit\+Parnom} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}\label{class_base_de_donnees_a49d9a59025c2342adc820849bffb5532}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!chercher\+Produit\+Par\+Nom@{chercher\+Produit\+Par\+Nom}}
+\index{chercher\+Produit\+Par\+Nom@{chercher\+Produit\+Par\+Nom}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{chercher\+Produit\+Par\+Nom()}{chercherProduitParNom()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::chercher\+Produit\+Par\+Nom (\begin{DoxyParamCaption}\item[{Q\+Sql\+Query\+Model $\ast$}]{modelchercher\+Produit\+Par\+Nom,  }\item[{Q\+String}]{chercher\+Produit\+Parnom }\end{DoxyParamCaption})}
+
+
+
+chercher\+Produit\+Par\+Nom 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em modelchercher\+Produit\+Par\+Nom} & \\
+\hline
+{\em chercher\+Produit\+Parnom} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_base_de_donnees_a48345312e89c6e8fdeec128f033566ee}\label{class_base_de_donnees_a48345312e89c6e8fdeec128f033566ee}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!creer\+Une\+Reference@{creer\+Une\+Reference}}
+\index{creer\+Une\+Reference@{creer\+Une\+Reference}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{creer\+Une\+Reference()}{creerUneReference()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::creer\+Une\+Reference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_produits}{Produits}} \&}]{produit }\end{DoxyParamCaption})}
+
+
+
+creer\+Une\+Reference 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em produit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_a81715fc3632e6533d9c66a66c62e897b}\label{class_base_de_donnees_a81715fc3632e6533d9c66a66c62e897b}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!creer\+Un\+Fournisseur@{creer\+Un\+Fournisseur}}
+\index{creer\+Un\+Fournisseur@{creer\+Un\+Fournisseur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{creer\+Un\+Fournisseur()}{creerUnFournisseur()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::creer\+Un\+Fournisseur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&}]{creer\+Fournisseur }\end{DoxyParamCaption})}
+
+
+
+creer\+Un\+Fournisseur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em creer\+Fournisseur} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_acc7f10ab9b4699eaa495fa7829c0cfbd}\label{class_base_de_donnees_acc7f10ab9b4699eaa495fa7829c0cfbd}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!creer\+Un\+Utilisateur@{creer\+Un\+Utilisateur}}
+\index{creer\+Un\+Utilisateur@{creer\+Un\+Utilisateur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{creer\+Un\+Utilisateur()}{creerUnUtilisateur()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::creer\+Un\+Utilisateur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&}]{employe }\end{DoxyParamCaption})}
+
+
+
+creer\+Un\+Utilisateur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em employe} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_ab49e6dfff0eecf616d9a7642ea358f31}\label{class_base_de_donnees_ab49e6dfff0eecf616d9a7642ea358f31}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!mise\+Ajour\+Fournisseur@{mise\+Ajour\+Fournisseur}}
+\index{mise\+Ajour\+Fournisseur@{mise\+Ajour\+Fournisseur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{mise\+Ajour\+Fournisseur()}{miseAjourFournisseur()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::mise\+Ajour\+Fournisseur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&}]{mettre\+Ajour\+Fournisseur }\end{DoxyParamCaption})}
+
+
+
+mise\+Ajour\+Fournisseur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mettre\+Ajour\+Fournisseur} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_ae68726c99e17a89342655d8b842ced96}\label{class_base_de_donnees_ae68726c99e17a89342655d8b842ced96}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!mise\+Ajour\+Reference@{mise\+Ajour\+Reference}}
+\index{mise\+Ajour\+Reference@{mise\+Ajour\+Reference}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{mise\+Ajour\+Reference()}{miseAjourReference()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::mise\+Ajour\+Reference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_produits}{Produits}} \&}]{Mettre\+Ajour\+Produit }\end{DoxyParamCaption})}
+
+
+
+mise\+Ajour\+Reference 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Mettre\+Ajour\+Produit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_a9c2bce97f39046e66b3dd3d08c2b911a}\label{class_base_de_donnees_a9c2bce97f39046e66b3dd3d08c2b911a}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!mise\+A\+Jour\+Utilisateur@{mise\+A\+Jour\+Utilisateur}}
+\index{mise\+A\+Jour\+Utilisateur@{mise\+A\+Jour\+Utilisateur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{mise\+A\+Jour\+Utilisateur()}{miseAJourUtilisateur()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::mise\+A\+Jour\+Utilisateur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&}]{mettre\+Ajour\+Utilisateur }\end{DoxyParamCaption})}
+
+
+
+mise\+A\+Jour\+Utilisateur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mettre\+Ajour\+Utilisateur} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_a824bea64c3ef77eff0e4334a617b36c8}\label{class_base_de_donnees_a824bea64c3ef77eff0e4334a617b36c8}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!supprimer\+Reference@{supprimer\+Reference}}
+\index{supprimer\+Reference@{supprimer\+Reference}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{supprimer\+Reference()}{supprimerReference()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::supprimer\+Reference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_produits}{Produits}} \&}]{supprimer\+Produit }\end{DoxyParamCaption})}
+
+
+
+supprimer\+Reference 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em supprimer\+Produit} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_a90ac8e5f412153ce4ab5a4c7a603f5e9}\label{class_base_de_donnees_a90ac8e5f412153ce4ab5a4c7a603f5e9}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!supprimer\+Un\+Fournisseur@{supprimer\+Un\+Fournisseur}}
+\index{supprimer\+Un\+Fournisseur@{supprimer\+Un\+Fournisseur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{supprimer\+Un\+Fournisseur()}{supprimerUnFournisseur()}}
+{\footnotesize\ttfamily bool Base\+De\+Donnees\+::supprimer\+Un\+Fournisseur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_fournisseur}{Fournisseur}} \&}]{livreur3 }\end{DoxyParamCaption})}
+
+
+
+supprimer\+Un\+Fournisseur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em livreur3} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+si l\textquotesingle{}opération en base de donnée s\textquotesingle{}est effectuée ou non. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_base_de_donnees_a7ead23bc4e5d3bc897d9c6a412bbc0a6}\label{class_base_de_donnees_a7ead23bc4e5d3bc897d9c6a412bbc0a6}} 
+\index{Base\+De\+Donnees@{Base\+De\+Donnees}!supprimer\+Un\+Utilisateur@{supprimer\+Un\+Utilisateur}}
+\index{supprimer\+Un\+Utilisateur@{supprimer\+Un\+Utilisateur}!Base\+De\+Donnees@{Base\+De\+Donnees}}
+\subsubsection{\texorpdfstring{supprimer\+Un\+Utilisateur()}{supprimerUnUtilisateur()}}
+{\footnotesize\ttfamily void Base\+De\+Donnees\+::supprimer\+Un\+Utilisateur (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_utilisateur}{Utilisateur}} \&}]{supprimer\+Utilisateur }\end{DoxyParamCaption})}
+
+
+
+supprimer\+Un\+Utilisateur 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em supprimer\+Utilisateur} & \\
+\hline
+\end{DoxyParams}
+
+
+La documentation de cette classe a été générée à partir des fichiers suivants \+:\begin{DoxyCompactItemize}
+\item 
+basededonnees.\+h\item 
+basededonnees.\+cpp\end{DoxyCompactItemize}

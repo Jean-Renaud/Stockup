@@ -18,6 +18,8 @@ Connexion::~Connexion()
     delete ui;
 }
 
+/*Permet d'établir la connexion lorsqu'on clique sur le bouton se connecter après une vérification de l'existence du compte utilisateur*/
+
 void Connexion::on_seConnecter_clicked()
 {
    QString codeUtilisateur;
@@ -44,9 +46,7 @@ void Connexion::on_seConnecter_clicked()
             this->carriste = new Utilisateur();
             this->carriste->setCode(connexion.value(0).toString());
             this->carriste->setGroupe(connexion.value(1).toString());
-
             this->accept();
-
             this->close();
 
         }
@@ -57,6 +57,8 @@ void Connexion::on_seConnecter_clicked()
     }
 
 }
+
+
 
 void Connexion::setBaseDeDonnees(BaseDeDonnees *bdd) {
     this->bdd = bdd;

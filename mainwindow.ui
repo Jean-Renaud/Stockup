@@ -571,21 +571,6 @@ border-radius: 5px;</string>
         <string>Créer la nouvelle référence</string>
        </property>
       </widget>
-      <widget class="QDateEdit" name="dateDeCreation">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>439</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 5px;
-border:1px solid rgb(62, 124, 146);</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_30">
        <property name="geometry">
         <rect>
@@ -616,9 +601,29 @@ border:1px solid rgb(62, 124, 146);</string>
         <rect>
          <x>190</x>
          <y>360</y>
-         <width>161</width>
+         <width>151</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 5px;
+border:1px solid rgb(62, 124, 146);</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="dateDeCreation">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>439</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 5px;
+border:1px solid rgb(62, 124, 146);</string>
        </property>
       </widget>
      </widget>
@@ -940,7 +945,7 @@ border-radius: 5px;
       <widget class="QPushButton" name="update_row">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>140</x>
          <y>380</y>
          <width>111</width>
          <height>31</height>
@@ -1018,7 +1023,7 @@ border-radius: 5px;</string>
       <widget class="QPushButton" name="deleteProduct">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>140</x>
          <y>450</y>
          <width>111</width>
          <height>31</height>
@@ -2733,7 +2738,7 @@ border-radius: 5px;</string>
      <x>0</x>
      <y>0</y>
      <width>1702</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOption">
@@ -2791,7 +2796,6 @@ border-radius: 5px;</string>
   <tabstop>dluoProduit</tabstop>
   <tabstop>lotProdiuit</tabstop>
   <tabstop>codeFournisseur</tabstop>
-  <tabstop>dateDeCreation</tabstop>
   <tabstop>creerReferenceBtn</tabstop>
   <tabstop>listDatabase</tabstop>
   <tabstop>search_Database</tabstop>
