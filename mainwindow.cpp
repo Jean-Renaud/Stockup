@@ -638,9 +638,7 @@ void MainWindow::desactiverOngletsGroupeQualite()
     ui->exportbdd->hide();
 }
 
-
-
-
+/*Permet d'exporter la base de donnée au format csv*/
 void MainWindow::on_exportbdd_clicked()
 {
     QString donnees = "id_Produit;Reference;Nom;Lot;Date;Heure;Emplacement;Emballage;Quantite;Quantite totale;Etat;DLUO;Code_fournisseur;\n";
@@ -664,5 +662,27 @@ void MainWindow::on_exportbdd_clicked()
 
             file.close();
         }
+
+}
+
+QString MainWindow::dateCreation()
+{
+    QString date = QDateTime::currentDateTime().toString("dddd dd MMMM yyyy");
+    return date;
+}
+QString MainWindow::heure()
+{
+    QString heure = QTime::currentTime().toString("hh:mm");
+    return heure;
+}
+
+
+void MainWindow::on_tabGestionStock_tabBarClicked(int index)
+{
+    ui->dateDeCreation->setText(dateCreation());
+    ui->dateDeCreation->setEnabled(false);
+    ui->heureDeCreation->setText(heure());
+    ui->heureDeCreation->setEnabled(false);
+
 
 }

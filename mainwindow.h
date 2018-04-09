@@ -49,6 +49,9 @@ public:
      */
     Utilisateur * carriste;
 
+    QString dateCreation();
+    QString heure();
+
 
 public slots:
 
@@ -181,6 +184,9 @@ private slots:
     void on_creerReferenceBtn_clicked();
 
     void on_exportbdd_clicked();
+
+    void on_tabGestionStock_tabBarClicked(int index);
+
 
 private:
 
