@@ -185,7 +185,7 @@ private slots:
 
     void on_exportbdd_clicked();
 
-    void on_tabGestionStock_tabBarClicked(int index);
+    void on_tabGestionStock_tabBarClicked();
 
 
 private:

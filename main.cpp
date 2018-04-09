@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 2) {
             fenetrePrincipale.moveToTab(1);
-            fenetrePrincipale.disableTab(2);
-            fenetrePrincipale.disableTab(3);
+            fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.disableTab(5);
 
 
         }

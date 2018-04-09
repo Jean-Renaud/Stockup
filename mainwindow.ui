@@ -44,7 +44,7 @@ font-weight: bold;
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -1189,22 +1189,17 @@ border:1px solid rgb(62, 124, 146);</string>
        </property>
        <item>
         <property name="text">
-         <string>AC</string>
+         <string>Attente conformité</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>NC</string>
+         <string>Non conforme</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>SD</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>OK</string>
+         <string>Consommable</string>
         </property>
        </item>
       </widget>
@@ -1713,19 +1708,6 @@ border-radius: 5px;
         <string>ETAT :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="etatProduitMaj">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>280</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_20">
        <property name="geometry">
         <rect>
@@ -2060,6 +2042,31 @@ border-radius: 5px;</string>
        <property name="text">
         <string>DLUO :</string>
        </property>
+      </widget>
+      <widget class="QComboBox" name="etatProduitMaj">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>280</y>
+         <width>111</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Attente conformité</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Non conforme</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Consommable</string>
+        </property>
+       </item>
       </widget>
      </widget>
      <widget class="QPushButton" name="searchNameProduct">
@@ -2827,7 +2834,6 @@ border: none;</string>
   <tabstop>emplacementProduitMaj</tabstop>
   <tabstop>emballageProduitMaj</tabstop>
   <tabstop>quantitePoduitMaj</tabstop>
-  <tabstop>etatProduitMaj</tabstop>
   <tabstop>dluoProduitMaj</tabstop>
   <tabstop>lotProduitMaj</tabstop>
   <tabstop>codeFmajProduit</tabstop>

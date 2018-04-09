@@ -154,7 +154,7 @@ void MainWindow::on_update_row_clicked()
                                                 ui->emplacementProduitMaj->text(),
                                                 ui->emballageProduitMaj->text(),
                                                 ui->quantitePoduitMaj->text(),
-                                                ui->etatProduitMaj->text(),
+                                                ui->etatProduitMaj->currentText(),
                                                 ui->dluoProduitMaj->text(),
                                                 ui->codeFmajProduit->text()
 
@@ -245,7 +245,7 @@ void MainWindow::on_deleteProduct_clicked()
                                               ui->emplacementProduitMaj->text(),
                                               ui->emballageProduitMaj->text(),
                                               ui->quantitePoduitMaj->text(),
-                                              ui->etatProduitMaj->text(),
+                                              ui->etatProduitMaj->currentText(),
                                               ui->dluoProduitMaj->text(),
                                               ui->codeFmajProduit->text()
                                               );
@@ -396,7 +396,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
         ui->emplacementProduitMaj->setText(cliqueSurListe.value(4).toString());
         ui->emballageProduitMaj->setText(cliqueSurListe.value(5).toString());
         ui->quantitePoduitMaj->setText(cliqueSurListe.value(6).toString());
-        ui->etatProduitMaj->setText(cliqueSurListe.value(7).toString());
+        ui->etatProduitMaj->setCurrentText(cliqueSurListe.value(7).toString());
         ui->dluoProduitMaj->setText(cliqueSurListe.value(8).toString());
         ui->lotProduitMaj->setText(cliqueSurListe.value(9).toString());
         ui->codeFmajProduit->setText(cliqueSurListe.value(10).toString());
@@ -677,7 +677,7 @@ QString MainWindow::heure()
 }
 
 
-void MainWindow::on_tabGestionStock_tabBarClicked(int index)
+void MainWindow::on_tabGestionStock_tabBarClicked()
 {
     ui->dateDeCreation->setText(dateCreation());
     ui->dateDeCreation->setEnabled(false);
