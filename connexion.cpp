@@ -10,7 +10,6 @@ Connexion::Connexion(QWidget *parent) :
     ui(new Ui::Connexion)
 {
     ui->setupUi(this);
-
 }
 
 Connexion::~Connexion()
@@ -19,7 +18,6 @@ Connexion::~Connexion()
 }
 
 /*Permet d'établir la connexion lorsqu'on clique sur le bouton se connecter après une vérification de l'existence du compte utilisateur*/
-
 void Connexion::on_seConnecter_clicked()
 {
    QString codeUtilisateur;
@@ -48,17 +46,13 @@ void Connexion::on_seConnecter_clicked()
             this->carriste->setGroupe(connexion.value(1).toString());
             this->accept();
             this->close();
-
         }
         if(compteur < 1)
         {
             ui->verifConnexion->setText("Le code ou le mot de passe est incorrect");
         }
     }
-
 }
-
-
 
 void Connexion::setBaseDeDonnees(BaseDeDonnees *bdd) {
     this->bdd = bdd;

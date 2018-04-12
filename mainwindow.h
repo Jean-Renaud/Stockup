@@ -37,7 +37,7 @@ public:
     /**
      * @brief disableTab
      */
-    void disableTab(int);
+    void desactiverOnglet(int);
 
     /**
      * @brief emplacementOccupe
@@ -51,7 +51,6 @@ public:
 
     QString dateCreation();
     QString heure();
-
 
 public slots:
 
@@ -97,36 +96,36 @@ public slots:
 private slots:
 
     /**
-     * @brief on_search_Database_clicked
+     * @brief on_chercherParReference_clicked
      */
-    void on_search_Database_clicked();
+    void on_chercherParReference_clicked();
 
     /**
-     * @brief on_search_Location_clicked
+     * @brief on_chercherParEmplacement_clicked
      */
-    void on_search_Location_clicked();
+    void on_chercherParEmplacement_clicked();
 
     //void on_chercherParEmplacement_clicked();
 
     /**
-     * @brief on_update_row_clicked
+     * @brief on_miseAjourProduit_clicked
      */
-    void on_update_row_clicked();
+    void on_miseAjourProduit_clicked();
 
     /**
-     * @brief on_deleteProduct_clicked
+     * @brief on_supprimerProduit_clicked
      */
-    void on_deleteProduct_clicked();
+    void on_supprimerProduit_clicked();
 
     /**
-     * @brief on_searchNameProduct_clicked
+     * @brief on_chercherParNomProduit_clicked
      */
-    void on_searchNameProduct_clicked();
+    void on_chercherParNomProduit_clicked();
 
     /**
-     * @brief on_createUser_clicked
+     * @brief on_creerUtilisateur_clicked
      */
-    void on_createUser_clicked();
+    void on_creerUtilisateur_clicked();
 
     /**
      * @brief on_creerFournisseur_clicked
@@ -134,14 +133,14 @@ private slots:
     void on_creerFournisseur_clicked();
 
     /**
-     * @brief on_fournisseur_clicked
+     * @brief on_chercherFournisseur_clicked
      */
-    void on_fournisseur_clicked();
+    void on_chercherFournisseur_clicked();
 
     /**
-     * @brief on_voirStock_clicked
+     * @brief on_triAlphabetiqueStock_clicked
      */
-    void on_voirStock_clicked();
+    void on_triAlphabetiqueStock_clicked();
 
     /**
      * @brief on_majFournisseur_clicked

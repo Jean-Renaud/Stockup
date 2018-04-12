@@ -13,21 +13,18 @@
 #include <QtSql/QtSql>
 #include <QModelIndex>
 #include <QWidget>
-#include <QSqlRecord>
+#include <QSqlTableModel>
 #include <QDateTime>
 #include <QDate>
 #include <QDateEdit>
 #include <QIcon>
 #include <QFileDialog>
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-
 }
 
 MainWindow::~MainWindow()
@@ -47,7 +44,6 @@ void MainWindow::setBaseDeDonnees(BaseDeDonnees *bdd) {
 
 /*Permet de supprimer tous les produits ainsi que tous les comptes fournisseurs*/
 void MainWindow::on_actionVider_la_bas_de_donn_es_triggered()
-
 {
     if(carriste->getGroupe().toInt() == 5)
     {
@@ -112,7 +108,7 @@ void MainWindow::on_creerReferenceBtn_clicked()
 }
 
 /*Permet d'effectuer la recherche d'un produit dans la base de donnée par sa référence*/
-void MainWindow::on_search_Database_clicked()
+void MainWindow::on_chercherParReference_clicked()
 {
 
     QString searchRef = ui->searchRef->text();
@@ -124,7 +120,7 @@ void MainWindow::on_search_Database_clicked()
 }
 
 /*Permet d'effectuer la recherche d'un produit dans la base de donnée par son emplacement*/
-void MainWindow::on_search_Location_clicked()
+void MainWindow::on_chercherParEmplacement_clicked()
 {
     QString rechercheEmplacement = ui->searchLocation->text();
     bdd->chercherProduitParEmplacement(&this->modal, rechercheEmplacement);
@@ -134,7 +130,7 @@ void MainWindow::on_search_Location_clicked()
 }
 
 /*Permet d'effectuer la recherche d'un produit dans la base de donnée par son nom*/
-void MainWindow::on_searchNameProduct_clicked()
+void MainWindow::on_chercherParNomProduit_clicked()
 {
      QString chercherProduitParnom = ui->searchByName->text();
      bdd->chercherProduitParNom(&this->modal, chercherProduitParnom);
@@ -142,8 +138,26 @@ void MainWindow::on_searchNameProduct_clicked()
      ui->listDatabase->verticalHeader()->setVisible(false);
 }
 
+/*Permet de rechercher un utilisateur dans la base de donnée avec son nom*/
+void MainWindow::on_chercheUtilisateur_clicked()
+{
+    QSqlQueryModel * modal3 = new QSqlQueryModel();
+    clearFocus();
+
+    QSqlQuery chercherUnUtilisateur ;
+    QString trouverUtilisateur = ui->chercheUtilisateurEdit->text();
+    chercherUnUtilisateur.prepare("SELECT * FROM utilisateurs WHERE Nom = :nom");
+    chercherUnUtilisateur.bindValue(":nom",trouverUtilisateur);
+    chercherUnUtilisateur.exec();
+
+    modal3->setQuery(chercherUnUtilisateur);
+    ui->gestionUtilisateur->setModel(modal3);
+    ui->listDatabase->verticalHeader()->setVisible(false);
+
+}
+
 /*Permet d'envoyer les nouvelles informations du produit grâce à une mise à jour*/
-void MainWindow::on_update_row_clicked()
+void MainWindow::on_miseAjourProduit_clicked()
 {
     Produits *mettreAjourProduit = new Produits(ui->idProduit->text(),
                                                 ui->referenceProduitMaj->text(),
@@ -234,7 +248,7 @@ void MainWindow::on_majUtilisateur_clicked()
 }
 
 /*Permet de supprimer un produit*/
-void MainWindow::on_deleteProduct_clicked()
+void MainWindow::on_supprimerProduit_clicked()
 {   
     Produits *supprimerProduit = new Produits(ui->idProduit->text(),
                                               ui->referenceProduitMaj->text(),
@@ -266,26 +280,8 @@ void MainWindow::on_deleteProduct_clicked()
         }
 }
 
-/*Permet de rechercher un utilisateur dans la base de donnée avec son nom*/
-void MainWindow::on_chercheUtilisateur_clicked()
-{
-    QSqlQueryModel * modal3 = new QSqlQueryModel();
-    clearFocus();
-
-    QSqlQuery chercherUnUtilisateur ;
-    QString trouverUtilisateur = ui->chercheUtilisateurEdit->text();
-    chercherUnUtilisateur.prepare("SELECT * FROM utilisateurs WHERE Nom = :nom");
-    chercherUnUtilisateur.bindValue(":nom",trouverUtilisateur);
-    chercherUnUtilisateur.exec();
-
-    modal3->setQuery(chercherUnUtilisateur);
-    ui->gestionUtilisateur->setModel(modal3);
-    ui->listDatabase->verticalHeader()->setVisible(false);
-
-}
-
 /*Permet de créer un utilisateur*/
-void MainWindow::on_createUser_clicked()
+void MainWindow::on_creerUtilisateur_clicked()
 {
     Utilisateur *employe = new Utilisateur(ui->idUtilisateurEdit->text(),
                                            ui->code->text(),
@@ -379,7 +375,7 @@ void MainWindow::on_listDatabase_activated(const QModelIndex &index)
 
     while(cliqueSurListe.next())
     {
-        switch (carriste->getGroupe().toInt())
+        switch (carriste->getCode().toInt())
                {
                    case 3:
                        this->desactiverOngletsGroupeCarriste();
@@ -477,7 +473,7 @@ void MainWindow::on_listProvider_activated(const QModelIndex &index)
 }
 
 /*Permet d'effectuer la recherche d'un fournisseur avec son code*/
-void MainWindow::on_fournisseur_clicked()
+void MainWindow::on_chercherFournisseur_clicked()
  {
      QSqlQueryModel * modal2 = new QSqlQueryModel();
      clearFocus();
@@ -492,7 +488,7 @@ void MainWindow::on_fournisseur_clicked()
  }
 
 /*Permet d'afficher le stock par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
-void MainWindow::on_voirStock_clicked()
+void MainWindow::on_triAlphabetiqueStock_clicked()
 {
     QSqlQueryModel * triAlphaproduits = new QSqlQueryModel();
     clearFocus();
@@ -516,7 +512,7 @@ void MainWindow::on_suppFournisseur_clicked()
                                                                " pour annuler.", QMessageBox::Yes | QMessageBox::No);
     if (reponse == QMessageBox::Yes)
     {
-        Fournisseur *livreur3 = new Fournisseur(ui->idfournisseur->text(),
+        Fournisseur *supprimerUnFournisseur = new Fournisseur(ui->idfournisseur->text(),
                                                 ui->cfournisseur->text(),
                                                 ui->nomsociete->text().toUpper(),
                                                 ui->formejuridique->text(),
@@ -529,7 +525,7 @@ void MainWindow::on_suppFournisseur_clicked()
                                                 ui->apefournisseur->text()
                                                 );
 
-        this->bdd->supprimerUnFournisseur(*livreur3);
+        this->bdd->supprimerUnFournisseur(*supprimerUnFournisseur);
 
         QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
         //this->ui->fournisseur->clicked();
@@ -557,11 +553,11 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                             );
 
         this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
-        QMessageBox::information(this,tr("Succès"),tr("La suppression du fournisseur a bien été effectuée."));
+        QMessageBox::information(this,tr("Succès"),tr("La suppression de l'utilisateur a bien été effectuée."));
     }
     else if (reponse == QMessageBox::No)
     {
-        QMessageBox::critical(this, "Confirmation", "Le fournisseur n'a pas été supprimé.");
+        QMessageBox::critical(this, "Information", "L'utilisateur n'a pas été supprimé.");
     }
 }
 
@@ -592,7 +588,7 @@ void MainWindow::on_triAlphaFournisseur_clicked()
 }
 
 /*Permet de griser les onglets de navigation*/
-void MainWindow::disableTab(int index)
+void MainWindow::desactiverOnglet(int index)
 {
     ui->tabGestionStock->setTabEnabled(index, false);
 }
@@ -600,7 +596,6 @@ void MainWindow::disableTab(int index)
 void MainWindow::moveToTab(int index)
 {
     ui->tabGestionStock->setCurrentIndex(index);
-
 }
 
 /*Permission d'accès au groupe carriste pour effectuer des modifications sur les produits*/
@@ -616,7 +611,7 @@ void MainWindow::desactiverOngletsGroupeCarriste()
     ui->dluoProduitMaj->setEnabled(false);
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
-    ui->deleteProduct->hide();
+    ui->supprimerProduit->hide();
     ui->exportbdd->hide();
 }
 
@@ -634,7 +629,7 @@ void MainWindow::desactiverOngletsGroupeQualite()
     ui->dluoProduitMaj->setEnabled(false);
     ui->lotProduitMaj->setEnabled(false);
     ui->codeFmajProduit->setEnabled(false);
-    ui->deleteProduct->hide();
+    ui->supprimerProduit->hide();
     ui->exportbdd->hide();
 }
 
@@ -662,27 +657,29 @@ void MainWindow::on_exportbdd_clicked()
 
             file.close();
         }
-
 }
 
+/*Récupère la date du système*/
 QString MainWindow::dateCreation()
 {
-    QString date = QDateTime::currentDateTime().toString("dddd dd MMMM yyyy");
+    QString date = QDateTime::currentDateTime().toString("dd/MM/yyyy");
     return date;
 }
+
+/*Récupère l'heure système*/
 QString MainWindow::heure()
 {
     QString heure = QTime::currentTime().toString("hh:mm");
     return heure;
 }
 
-
+/*Méthode qui permet de renvoyer l'heure et la date du système dans le formulaire de création de matière première lorsqu'on clique
+ * sur l'onglet Créer une matière et les rend non-modifiables.*/
 void MainWindow::on_tabGestionStock_tabBarClicked()
 {
     ui->dateDeCreation->setText(dateCreation());
     ui->dateDeCreation->setEnabled(false);
     ui->heureDeCreation->setText(heure());
     ui->heureDeCreation->setEnabled(false);
-
-
 }
+

@@ -29,37 +29,37 @@ int main(int argc, char *argv[])
         /*Attribution des droits d'accès aux onglets par rapport à l'appartenance au groupe*/
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 1) {
             fenetrePrincipale.moveToTab(1);
-            fenetrePrincipale.disableTab(0);
-            fenetrePrincipale.disableTab(1);
-            fenetrePrincipale.disableTab(4);
-            fenetrePrincipale.disableTab(5);
-            fenetrePrincipale.disableTab(6);
+            fenetrePrincipale.desactiverOnglet(0);
+            fenetrePrincipale.desactiverOnglet(1);
+            fenetrePrincipale.desactiverOnglet(4);
+            fenetrePrincipale.desactiverOnglet(5);
+            fenetrePrincipale.desactiverOnglet(6);
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 2) {
             fenetrePrincipale.moveToTab(1);
-            fenetrePrincipale.disableTab(4);
-            fenetrePrincipale.disableTab(5);
+            fenetrePrincipale.desactiverOnglet(4);
+            fenetrePrincipale.desactiverOnglet(5);
 
 
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 3) {
             fenetrePrincipale.moveToTab(1);
-            fenetrePrincipale.disableTab(0);
-            fenetrePrincipale.disableTab(2);
-            fenetrePrincipale.disableTab(3);
-            fenetrePrincipale.disableTab(4);
-            fenetrePrincipale.disableTab(5);
-            fenetrePrincipale.disableTab(6);
+            fenetrePrincipale.desactiverOnglet(0);
+            fenetrePrincipale.desactiverOnglet(2);
+            //fenetrePrincipale.disableTab(3);
+            //fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.desactiverOnglet(5);
+            fenetrePrincipale.desactiverOnglet(6);
             fenetrePrincipale.desactiverOngletsGroupeCarriste();
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 4) {
             fenetrePrincipale.moveToTab(1);
-            fenetrePrincipale.disableTab(0);
-            fenetrePrincipale.disableTab(2);
-            fenetrePrincipale.disableTab(3);
-            fenetrePrincipale.disableTab(4);
-            fenetrePrincipale.disableTab(5);
-            fenetrePrincipale.disableTab(6);
+            fenetrePrincipale.desactiverOnglet(0);
+            fenetrePrincipale.desactiverOnglet(2);
+            fenetrePrincipale.desactiverOnglet(3);
+            fenetrePrincipale.desactiverOnglet(4);
+            fenetrePrincipale.desactiverOnglet(5);
+            fenetrePrincipale.desactiverOnglet(6);
         }
         fenetrePrincipale.show();
     }

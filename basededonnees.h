@@ -107,7 +107,7 @@ public:
 
     /**
      * @brief supprimerUnFournisseur
-     * @param livreur3
+     * @param supprimerUnFournisseur
      * @return si l'opération en base de donnée s'est effectuée ou non.
      */
     bool supprimerUnFournisseur(Fournisseur &supprimerFournisseur);

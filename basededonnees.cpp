@@ -102,9 +102,6 @@ void BaseDeDonnees::creerTableBdd()
                      ");");
 
     insertionEnBdd();
-
-
-
 }
 
 /*Envoi et enregistrement en base de donnée d'un nouveau produit*/
@@ -127,7 +124,6 @@ bool BaseDeDonnees::creerUneReference(Produits &produit)
     insererNouvelleReference.bindValue(":Code_fournisseur",produit.getCodeFournisseur());
 
     return insererNouvelleReference.exec();
-
 }
 
 /*Permet d'effectuer la recherche d'un produit en stock avec sa référence*/
@@ -145,14 +141,11 @@ void BaseDeDonnees::chercherParReference(QSqlQueryModel *modelChercherParReferen
 /*Permet de chercher un produit par emplacement*/
 void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherProduitEmplacement, QString rechercheEmplacement)
 {
-
     QSqlQuery chercheParEmplacement;
     chercheParEmplacement.prepare("SELECT * FROM matieres_Premieres WHERE Emplacement = :location");
     chercheParEmplacement.bindValue(":location",rechercheEmplacement);
     chercheParEmplacement.exec();
     modelChercherProduitEmplacement->setQuery(chercheParEmplacement);
-
-
 }
 
 /*Permet de chercher un produit avec son nom*/
@@ -191,8 +184,6 @@ bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
        miseAjourProduit.bindValue(":fournisseur", MettreAjourProduit.getCodeFournisseur());
 
        return miseAjourProduit.exec();
-
-
 }
 
 /*Permet de mettre à jour un utilisateur*/
