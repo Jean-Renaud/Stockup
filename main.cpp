@@ -14,10 +14,11 @@ int main(int argc, char *argv[])
     BaseDeDonnees bdd;
     bdd.creerTableBdd();
     Connexion Login;
+    Login.setWindowTitle("Connexion à Stockup");
     MainWindow fenetrePrincipale;
+    fenetrePrincipale.setWindowTitle("Stockup (Gestion de stock)");
     Login.setBaseDeDonnees(&bdd);
     fenetrePrincipale.setBaseDeDonnees(&bdd);
-
 
     /*Si le code et le mot de passe correspondent alors on ouvre la fenetre principale*/
     if (Login.exec() == QDialog::Accepted)
@@ -61,6 +62,7 @@ int main(int argc, char *argv[])
             fenetrePrincipale.desactiverOnglet(5);
             fenetrePrincipale.desactiverOnglet(6);
         }
+
         fenetrePrincipale.show();
     }
     else

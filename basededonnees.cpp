@@ -50,6 +50,20 @@ void BaseDeDonnees::insertionEnBdd()
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
                                "VALUES (05, 'Root', 'superAdmin', 5, 5)");
     }
+    QSqlQuery insererProduits(this->stockup);
+    insererProduits.exec("SELECT COUNT (id) FROM matieres_Premieres");
+
+    insererProduits.next();
+
+    int presentEnBdd = insererProduits.value(0).toInt();
+    if(presentEnBdd == 0)
+    {
+        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
+                             "VALUES(1, 'MP01', 'POIVRE', '0001A164', '01/01/2018', '11h56', 'M1BA', 25, 100, 'Conforme', '03/2019', '01')");
+
+        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
+                             "VALUES(2, 'MP02', 'CANNELLE', '0001Z256', '12/03/2018', '15h24', 'M1AL01201', 10, 30, 'Conforme', '05/2020', '03')");
+    }
 }
 
 /*Création des tables lors de l'installation de l'application*/
