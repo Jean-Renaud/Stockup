@@ -25,6 +25,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->creerReferenceBtn->setCursor(Qt::PointingHandCursor);
+    ui->chercherFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->creerFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->creerUtilisateur->setCursor(Qt::PointingHandCursor);
+    ui->chercherParEmplacement->setCursor(Qt::PointingHandCursor);
+    ui->chercherParNomProduit->setCursor(Qt::PointingHandCursor);
+    ui->chercherParReference->setCursor(Qt::PointingHandCursor);
+    ui->chercheUtilisateurEdit->setCursor(Qt::PointingHandCursor);
+    ui->miseAjourProduit->setCursor(Qt::PointingHandCursor);
+    ui->triAlphabetiqueStock->setCursor(Qt::PointingHandCursor);
+    ui->triAlphabetiqueFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->triAlphabetiqueUtilisateur->setCursor(Qt::PointingHandCursor);
+    ui->supprimerProduit->setCursor(Qt::PointingHandCursor);
+    ui->suppFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->suppUtilisateur->setCursor(Qt::PointingHandCursor);
+    ui->majFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->majUtilisateur->setCursor(Qt::PointingHandCursor);
+    ui->miseAjourProduit->setCursor(Qt::PointingHandCursor);
+    ui->exportbdd->setCursor(Qt::PointingHandCursor);
+    ui->chercherFournisseur->setCursor(Qt::PointingHandCursor);
+    ui->nomProduit_2->text().toUpper();
 }
 
 MainWindow::~MainWindow()
@@ -68,11 +89,10 @@ void MainWindow::on_actionVider_la_bas_de_donn_es_triggered()
 /*Création d'un nouveau produit*/
 void MainWindow::on_creerReferenceBtn_clicked()
 {
-
     produit = new Produits      (
                                            ui->idProduit->text(),
                                            ui->referenceProduit->text(),
-                                           ui->nomProduit_2->text(),
+                                           ui->nomProduit_2->text().toUpper(),
                                            ui->lotProdiuit->text(),
                                            ui->dateDeCreation->text(),
                                            ui->heureDeCreation->text(),
@@ -81,30 +101,43 @@ void MainWindow::on_creerReferenceBtn_clicked()
                                            ui->quantiteProduit->text(),
                                            ui->etatProduit->currentText(),
                                            ui->dluoProduit->text(),
-                                           ui->codeFournisseur->text()
+                                           ui->codeFour->currentText()
                                            );
 
+    if(produit->getRef().isEmpty() || produit->getNom().isEmpty() || produit->getLot().isEmpty() || produit->getDate().isEmpty() || produit->getHeure().isEmpty()
+            || produit->getEmplacement().isEmpty() || produit->getEmballage().isEmpty() || produit->getQuantite().isEmpty()
+            || produit->getEtat().isEmpty() || produit->getDluo().isEmpty() || produit->getCodeFournisseur().isEmpty())
+    {
+        QMessageBox::critical(this, "Erreur", "Vous avez laissé un champ vide dans le formulaire de saisie.");
+    }
+    else{
     QString emplacement;
     emplacement = produit->getEmplacement();
     QSqlQuery verifierEmplacement(this->bdd->stockup);
     verifierEmplacement.prepare("SELECT COUNT(Emplacement) FROM matieres_Premieres WHERE Emplacement = :emplacement");
     verifierEmplacement.bindValue(":emplacement", emplacement);
-    verifierEmplacement.exec();
+   if(verifierEmplacement.exec())
+    {
     verifierEmplacement.next();
+
     int compteur = verifierEmplacement.value(0).toInt();
 
-    if(compteur == 0)
+    if(compteur < 1)
     {
         this->bdd->creerUneReference(*produit);
         QMessageBox::information(this,"Création réussie","La création du produit a été enregistrée avec succès.");
-
-
     }
+    else if(compteur > 0)
+        {
+              QMessageBox::critical(this,"Création échouée", "La création du produit a échouée car une référence est déjà enregistrée à cet emplacement.");
+        }
+}
     else
     {
-        QMessageBox::critical(this,"Création échouée", "La création du produit a échouée.");
+        QMessageBox::critical(this,"Création échouée", "La création du produit a échouée car un problème a été rencontré dans la base de données."
+                                                       "Si le problème persiste, merci de contacter le développeur à harkos67@gmail.com");
     }
-
+    }
 }
 
 /*Permet d'effectuer la recherche d'un produit dans la base de donnée par sa référence*/
@@ -177,6 +210,19 @@ void MainWindow::on_miseAjourProduit_clicked()
     if(this->bdd->miseAjourReference(*mettreAjourProduit))
     {
         QMessageBox::information(this,"Modification réussie","La modification du produit a été enregistrée avec succès.");
+        QSqlQueryModel * rafraichir = new QSqlQueryModel();
+        ui->listDatabase->verticalHeader()->setVisible(false);
+        clearFocus();
+        QSqlQuery rafraichirListe(this->bdd->stockup);
+       QString idProduit = ui->idProduit->text();
+        rafraichirListe.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                        " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE id_Produit = :ref");
+        rafraichirListe.bindValue(":ref", idProduit);
+        rafraichirListe.exec();
+            rafraichir->setQuery(rafraichirListe);
+            this->ui->listDatabase->setModel(rafraichir);
+
+
     }
     else
     {
@@ -562,20 +608,20 @@ void MainWindow::on_suppUtilisateur_clicked()
 }
 
 /*Permet d'afficher les utilisateurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
-void MainWindow::on_triAlphaUtilisateur_clicked()
+void MainWindow::on_triAlphabetiqueUtilisateur_clicked()
 {
     QSqlQueryModel * triAlphautilisateur = new QSqlQueryModel();
     clearFocus();
-    QSqlQuery triAlphaUtilisateur(this->bdd->stockup);
-    triAlphaUtilisateur.prepare("SELECT * FROM utilisateurs ORDER BY Nom");
-    triAlphaUtilisateur.exec();
+    QSqlQuery triAlphaUtilisateur;
+    triAlphaUtilisateur.exec("SELECT * FROM utilisateurs ORDER BY Nom ASC");
     triAlphautilisateur->setQuery(triAlphaUtilisateur);
-    ui->gestionUtilisateur->verticalHeader()->setVisible(false);
     this->ui->gestionUtilisateur->setModel(triAlphautilisateur);
+    ui->gestionUtilisateur->verticalHeader()->setVisible(false);
+
 }
 
 /*Permet d'afficher les fournisseurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
-void MainWindow::on_triAlphaFournisseur_clicked()
+void MainWindow::on_triAlphabetiqueFournisseur_clicked()
 {
     QSqlQueryModel * triAlphafournisseur = new QSqlQueryModel();
     ui->listProvider->verticalHeader()->setVisible(false);
@@ -683,3 +729,28 @@ void MainWindow::on_tabGestionStock_tabBarClicked()
     ui->heureDeCreation->setEnabled(false);
 }
 
+
+void MainWindow::on_triParDate_clicked()
+{
+    QSqlQueryModel * triParDate = new QSqlQueryModel();
+    ui->listDatabase->verticalHeader()->setVisible(false);
+    clearFocus();
+    QSqlQuery triDate(this->bdd->stockup);
+    triDate.exec("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                          "Etat, DLUO, Code_fournisseur FROM matieres_Premieres ORDER BY Date DESC");
+        triParDate->setQuery(triDate);
+        this->ui->listDatabase->setModel(triParDate);
+
+
+
+}
+
+void MainWindow::on_chargerFournisseurs_clicked()
+{
+    QSqlQueryModel * codeBdd = new QSqlQueryModel();
+    QSqlQuery * fournisseur = new QSqlQuery(this->bdd->stockup);
+         fournisseur->prepare("SELECT Nom FROM fournisseurs");
+         fournisseur->exec();
+         codeBdd->setQuery(*fournisseur);
+         ui->codeFour->setModel(codeBdd);
+}
