@@ -412,25 +412,47 @@ void MainWindow::on_creerUtilisateur_clicked()
     if(employe->getCode().isEmpty() || employe->getNom().isEmpty() || employe->getPrenom().isEmpty()
        || employe->getMdp().isEmpty() || employe->getGroupe().isEmpty())
     {
+
         QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
 
     }
-    else if(this->bdd->creerUnUtilisateur(*employe))
+    else{
+    //On vérifie qu'il n'y a pas d'enregistrement à cet emplacement.
+    QString codeUtilisateur;
+    codeUtilisateur = employe->getCode();
+    QSqlQuery verifierCodeUtilisateur(this->bdd->stockup);
+    verifierCodeUtilisateur.prepare("SELECT COUNT(Code) FROM Utilisateurs WHERE Code = :codeUtilisateur");
+    verifierCodeUtilisateur.bindValue(":codeUtilisateur", codeUtilisateur);
+   if(verifierCodeUtilisateur.exec())
     {
-        QMessageBox::information(this, "Création réussie", "Le profil de l'utilisateur a été crée avec succès.");
+    verifierCodeUtilisateur.next();
+
+    int compteur = verifierCodeUtilisateur.value(0).toInt();
+    //Si aucun enregistrement est présent dans la base de données on execute l'enregistrement.
+    if(compteur < 1)
+    {
+        this->bdd->creerUnUtilisateur(*employe);
+        QMessageBox::information(this,"Création réussie","La création de l'utilisateur a été enregistrée avec succès.");
+        //On réinitialise les champs de saisis.
+        ui->idUtilisateurEdit->clear();
+        ui->code->clear();
+        ui->nomUtilisateur->clear();
+        ui->prenom->clear();
+        ui->mdp->clear();
+        ui->groupe->clear();
     }
+    //Veut dire qu'il y a un enregistrement avec ce code, on affiche une erreur.
+    else if(compteur > 0)
+        {
+              QMessageBox::critical(this,"Création échouée", "La création de l'utilisateur a échouée car le code est déjà utilisé.");
+        }
+}
     else
     {
-      QMessageBox::information(this,tr("Création échouée"),tr("La création de l'utilisateur a échouée"));
+        QMessageBox::critical(this,"Création échouée", "La création de l'utilisateur a échouée car un problème a été rencontré dans la base de données."
+                                                       "Si le problème persiste, merci de contacter le développeur à harkos67@gmail.com");
     }
-
-    //On réinitialise les champs de saisis.
-    ui->idUtilisateurEdit->clear();
-    ui->code->clear();
-    ui->nomUtilisateur->clear();
-    ui->prenom->clear();
-    ui->mdp->clear();
-    ui->groupe->clear();
+    }
 }
 
 /*Permet de créer un nouveau fournisseur*/
