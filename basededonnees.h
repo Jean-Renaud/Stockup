@@ -21,7 +21,6 @@ class BaseDeDonnees
 public:
     BaseDeDonnees();
     ~BaseDeDonnees();
-
     /**
      * @brief stockup
      */

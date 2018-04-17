@@ -64,9 +64,11 @@ font-weight: bold;</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(233, 233, 233);
-border-radius: 10px;
-border:2px solid rgb(62, 124, 146);</string>
+       <string notr="true"> background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex; /* leave space at the top for the title */</string>
       </property>
       <property name="title">
        <string>Créer un nouveau fournisseur</string>
@@ -303,6 +305,12 @@ border:1px solid rgb(62, 124, 146);</string>
 border-radius: 5px;
 border:1px solid rgb(62, 124, 146);</string>
        </property>
+       <property name="inputMask">
+        <string>00000000000000000000</string>
+       </property>
+       <property name="dragEnabled">
+        <bool>false</bool>
+       </property>
       </widget>
       <widget class="QLineEdit" name="siret">
        <property name="geometry">
@@ -406,7 +414,7 @@ color: rgb(255, 255, 255);
 border-radius: 5px;</string>
        </property>
        <property name="text">
-        <string>Créer l'utilisateur</string>
+        <string>Créer le fournisseur</string>
        </property>
       </widget>
      </widget>
@@ -845,7 +853,7 @@ border-radius: 5px;
 
 </string>
       </property>
-      <widget class="QPushButton" name="triAlphaFournisseur">
+      <widget class="QPushButton" name="triAlphabetiqueFournisseur">
        <property name="geometry">
         <rect>
          <x>1240</x>
@@ -894,7 +902,7 @@ border-radius: 5px;</string>
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>Recherche par code :</string>
+        <string>Recherche par nom :</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="trouverfournisseur">
@@ -980,12 +988,15 @@ border-radius: 5px;
 border:1px solid rgb(62, 124, 146);
 font-weight: bold;</string>
        </property>
+       <property name="inputMask">
+        <string/>
+       </property>
       </widget>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>450</y>
+         <y>410</y>
          <width>47</width>
          <height>13</height>
         </rect>
@@ -1218,7 +1229,7 @@ border:1px solid rgb(62, 124, 146);</string>
        </item>
        <item>
         <property name="text">
-         <string>Consommable</string>
+         <string>Conforme</string>
         </property>
        </item>
       </widget>
@@ -1370,26 +1381,11 @@ border:1px solid rgb(62, 124, 146);</string>
         <string>EMBALLAGE :</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="codeFournisseur">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>399</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 5px;
-border:1px solid rgb(62, 124, 146);</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="creerReferenceBtn">
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>500</y>
+         <y>550</y>
          <width>151</width>
          <height>31</height>
         </rect>
@@ -1416,7 +1412,7 @@ border-radius: 5px;</string>
        <property name="geometry">
         <rect>
          <x>60</x>
-         <y>400</y>
+         <y>440</y>
          <width>121</width>
          <height>31</height>
         </rect>
@@ -1451,12 +1447,18 @@ border-radius: 5px;</string>
 border-radius: 5px;
 border:1px solid rgb(62, 124, 146);</string>
        </property>
+       <property name="inputMask">
+        <string>00000</string>
+       </property>
+       <property name="cursorPosition">
+        <number>0</number>
+       </property>
       </widget>
       <widget class="QLineEdit" name="dateDeCreation">
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>439</y>
+         <y>400</y>
          <width>151</width>
          <height>31</height>
         </rect>
@@ -1480,6 +1482,39 @@ border:1px solid rgb(62, 124, 146);</string>
         <string notr="true">background-color: rgb(255, 255, 255);
 border-radius: 5px;
 border:1px solid rgb(62, 124, 146);</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="codeFour">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>440</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 5px;
+border:1px solid rgb(62, 124, 146);</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="chargerFournisseurs">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>480</y>
+         <width>181</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(62, 124, 146);
+color: rgb(255, 255, 255);
+border-radius: 5px;</string>
+       </property>
+       <property name="text">
+        <string>Charger la liste des fournisseurs</string>
        </property>
       </widget>
      </widget>
@@ -1972,7 +2007,7 @@ border-radius: 5px;</string>
        </item>
        <item>
         <property name="text">
-         <string>Consommable</string>
+         <string>Conforme</string>
         </property>
        </item>
       </widget>
@@ -2204,6 +2239,24 @@ border-radius: 5px;</string>
        </property>
        <property name="text">
         <string>Tri alphabétique</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="triParDate">
+       <property name="geometry">
+        <rect>
+         <x>1280</x>
+         <y>10</y>
+         <width>75</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(62, 124, 146);
+color: rgb(255, 255, 255);
+border-radius: 5px;</string>
+       </property>
+       <property name="text">
+        <string>Tri par date</string>
        </property>
       </widget>
      </widget>
@@ -2765,7 +2818,7 @@ border: none;</string>
         <string>Rechercher</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="triAlphaUtilisateur">
+      <widget class="QPushButton" name="triAlphabetiqueUtilisateur">
        <property name="geometry">
         <rect>
          <x>730</x>
@@ -2835,6 +2888,7 @@ border:1px solid rgb(62, 124, 146);
     </property>
     <addaction name="actionVider_la_bas_de_donn_es"/>
     <addaction name="actionExporter_la_base_de_donn_e"/>
+    <addaction name="actionDeconnexion"/>
    </widget>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
@@ -2877,6 +2931,14 @@ border:1px solid rgb(62, 124, 146);
     <string>Exporter la base de donnée</string>
    </property>
   </action>
+  <action name="actionDeconnexion">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Deconnexion</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -2888,7 +2950,6 @@ border:1px solid rgb(62, 124, 146);
   <tabstop>etatProduit</tabstop>
   <tabstop>dluoProduit</tabstop>
   <tabstop>lotProdiuit</tabstop>
-  <tabstop>codeFournisseur</tabstop>
   <tabstop>creerReferenceBtn</tabstop>
   <tabstop>listDatabase</tabstop>
   <tabstop>dateProduitMaj</tabstop>

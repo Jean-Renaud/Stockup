@@ -36,19 +36,33 @@ void BaseDeDonnees::insertionEnBdd()
     if(presentDansLaBdd == 0)
     {
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (01, 'Admin', 'admin', 1, 1)");
+                                "VALUES (01, 'Admin', 'admin', stockup01, 1)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (02, 'ResponsableLogistique', 'responsable', 2, 2)");
+                                "VALUES (02, 'ResponsableLogistique', 'responsable', stockup02, 2)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (03, 'Carriste', 'carriste', 3, 3)");
+                                "VALUES (03, 'Carriste', 'carriste', stockup03, 3)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (04, 'LaboQualite', 'labo', 4, 4)");
+                                "VALUES (04, 'LaboQualite', 'labo', stockup04, 4)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                               "VALUES (05, 'Root', 'superAdmin', 5, 5)");
+                               "VALUES (05, 'Root', 'superAdmin', stockup05, 5)");
+    }
+    QSqlQuery insererProduits(this->stockup);
+    insererProduits.exec("SELECT COUNT (id) FROM matieres_Premieres");
+
+    insererProduits.next();
+
+    int presentEnBdd = insererProduits.value(0).toInt();
+    if(presentEnBdd == 0)
+    {
+        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
+                             "VALUES(1, 'MP01', 'POIVRE', '0001A164', '01/01/2018', '11h56', 'M1BA', 25, 100, 'Conforme', '03/2019', '01')");
+
+        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
+                             "VALUES(2, 'MP02', 'CANNELLE', '0001Z256', '12/03/2018', '15h24', 'M1AL01201', 10, 30, 'Conforme', '05/2020', '03')");
     }
 }
 
@@ -124,6 +138,7 @@ bool BaseDeDonnees::creerUneReference(Produits &produit)
     insererNouvelleReference.bindValue(":Code_fournisseur",produit.getCodeFournisseur());
 
     return insererNouvelleReference.exec();
+
 }
 
 /*Permet d'effectuer la recherche d'un produit en stock avec sa référence*/
@@ -136,14 +151,16 @@ void BaseDeDonnees::chercherParReference(QSqlQueryModel *modelChercherParReferen
     listRef.bindValue(":reference",searchRef);
     listRef.exec();
     modelChercherParReference->setQuery(listRef);
+
 }
 
 /*Permet de chercher un produit par emplacement*/
 void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherProduitEmplacement, QString rechercheEmplacement)
 {
     QSqlQuery chercheParEmplacement;
-    chercheParEmplacement.prepare("SELECT * FROM matieres_Premieres WHERE Emplacement = :location");
-    chercheParEmplacement.bindValue(":location",rechercheEmplacement);
+    chercheParEmplacement.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
+                                  " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Emplacement = :emplacement");
+    chercheParEmplacement.bindValue(":emplacement",rechercheEmplacement);
     chercheParEmplacement.exec();
     modelChercherProduitEmplacement->setQuery(chercheParEmplacement);
 }
@@ -157,10 +174,6 @@ void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitPa
                                      "WHERE Nom LIKE :chercherProduitParnom");
     listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom + '%');
     listeRechercheNomProduit.exec();
-   /* while(listeRechercheNomProduit.next()) {
-        qDebug() << "Il y a un résultat";
-        qDebug() << listeRechercheNomProduit.value(0).toInt();
-    }*/
     modelchercherProduitParNom->setQuery(listeRechercheNomProduit);
 }
 
@@ -298,6 +311,7 @@ void BaseDeDonnees::supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur)
     supprimerUnUtilisateur.bindValue(":id", supprimerUtilisateur.getIdUtilisateur());
     supprimerUnUtilisateur.exec();
 }
+
 
 
 

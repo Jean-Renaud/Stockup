@@ -40,11 +40,6 @@ public:
     void desactiverOnglet(int);
 
     /**
-     * @brief emplacementOccupe
-     */
-    void emplacementOccupe();
-
-    /**
      * @brief carriste
      */
     Utilisateur * carriste;
@@ -168,23 +163,32 @@ private slots:
     void on_suppUtilisateur_clicked();
 
     /**
-     * @brief on_triAlphaUtilisateur_clicked
+     * @brief on_triAlphabetiqueUtilisateur_clicked
      */
-    void on_triAlphaUtilisateur_clicked();
+    void on_triAlphabetiqueUtilisateur_clicked();
 
     /**
-     * @brief on_triAlphaFournisseur_clicked
+     * @brief on_triAlphabetiqueFournisseur_clicked
      */
-    void on_triAlphaFournisseur_clicked();
+    void on_triAlphabetiqueFournisseur_clicked();
 
     /**
      * @brief on_creerReferenceBtn_clicked
      */
     void on_creerReferenceBtn_clicked();
-
+    /**
+     * @brief on_exportbdd_clicked
+     */
     void on_exportbdd_clicked();
 
+    /**
+     * @brief on_tabGestionStock_tabBarClicked
+     */
     void on_tabGestionStock_tabBarClicked();
+
+    void on_triParDate_clicked();
+
+    void on_chargerFournisseurs_clicked();
 
 
 private:
@@ -208,6 +212,7 @@ private:
      * @brief produit
      */
     Produits *produit;
+
 
 };
 

@@ -10,6 +10,7 @@ Connexion::Connexion(QWidget *parent) :
     ui(new Ui::Connexion)
 {
     ui->setupUi(this);
+    ui->seConnecter->setCursor(Qt::PointingHandCursor);
 }
 
 Connexion::~Connexion()
