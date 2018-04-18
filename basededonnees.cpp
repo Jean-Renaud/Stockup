@@ -36,19 +36,19 @@ void BaseDeDonnees::insertionEnBdd()
     if(presentDansLaBdd == 0)
     {
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (01, 'Admin', 'admin', stockup01, 1)");
+                                "VALUES (01, 'Admin', 'admin', 'stockup01', 1)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (02, 'ResponsableLogistique', 'responsable', stockup02, 2)");
+                                "VALUES (02, 'ResponsableLogistique', 'responsable', 'stockup02', 2)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (03, 'Carriste', 'carriste', stockup03, 3)");
+                                "VALUES (03, 'Carriste', 'carriste', 'stockup03', 3)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                                "VALUES (04, 'LaboQualite', 'labo', stockup04, 4)");
+                                "VALUES (04, 'LaboQualite', 'labo', 'stockup04', 4)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                               "VALUES (05, 'Root', 'superAdmin', stockup05, 5)");
+                               "VALUES (05, 'Root', 'superAdmin', 'stockup05', 5)");
     }
     QSqlQuery insererProduits(this->stockup);
     insererProduits.exec("SELECT COUNT (id) FROM matieres_Premieres");
@@ -69,10 +69,9 @@ void BaseDeDonnees::insertionEnBdd()
 /*Création des tables lors de l'installation de l'application*/
 void BaseDeDonnees::creerTableBdd()
 {
-    //Creation de la table
-    this->stockup = QSqlDatabase::addDatabase("QSQLITE");
-    stockup.setDatabaseName("./stockup.db");
-
+    //Creation du fichier de base de donnée
+     this->stockup = QSqlDatabase::addDatabase("QSQLITE");
+     stockup.setDatabaseName("./stockup.db");
      QSqlQuery creerTable(this->stockup);
 
      stockup.open();

@@ -32,9 +32,8 @@ int main(int argc, char *argv[])
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.desactiverOnglet(0);
             fenetrePrincipale.desactiverOnglet(1);
-            fenetrePrincipale.desactiverOnglet(4);
-            fenetrePrincipale.desactiverOnglet(5);
-            fenetrePrincipale.desactiverOnglet(6);
+            fenetrePrincipale.desactiverOnglet(2);
+            fenetrePrincipale.desactiverOnglet(3);
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 2) {
             fenetrePrincipale.moveToTab(1);
@@ -46,12 +45,12 @@ int main(int argc, char *argv[])
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 3) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.desactiverOnglet(0);
+            fenetrePrincipale.desactiverOnglet(1);
             fenetrePrincipale.desactiverOnglet(2);
-            //fenetrePrincipale.disableTab(3);
-            //fenetrePrincipale.disableTab(4);
+            fenetrePrincipale.desactiverOnglet(4);
             fenetrePrincipale.desactiverOnglet(5);
             fenetrePrincipale.desactiverOnglet(6);
-            fenetrePrincipale.desactiverOngletsGroupeCarriste();
+            //fenetrePrincipale.desactiverOngletsGroupeCarriste();
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 4) {
             fenetrePrincipale.moveToTab(1);
@@ -62,7 +61,6 @@ int main(int argc, char *argv[])
             fenetrePrincipale.desactiverOnglet(5);
             fenetrePrincipale.desactiverOnglet(6);
         }
-
         fenetrePrincipale.show();
     }
     else

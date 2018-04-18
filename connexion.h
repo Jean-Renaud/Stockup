@@ -5,6 +5,8 @@
 #include "mainwindow.h"
 #include "utilisateur.h"
 
+
+
 namespace Ui {
 class Connexion;
 }
@@ -32,6 +34,7 @@ public:
 private slots:
     /**
      * @brief on_seConnecter_clicked
+     * Permet d'établir la connexion de l'utilisateur à l'application
      */
     void on_seConnecter_clicked();
 

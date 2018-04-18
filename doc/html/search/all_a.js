@@ -5,6 +5,6 @@ var searchData=
   ['setgroupe',['setGroupe',['../class_utilisateur.html#ad9f88d08f5bc9faed0138d92debf35fa',1,'Utilisateur']]],
   ['stockup',['stockup',['../class_base_de_donnees.html#a2527e35f95ca7abc94d61eabe2b8ef17',1,'BaseDeDonnees']]],
   ['supprimerreference',['supprimerReference',['../class_base_de_donnees.html#a824bea64c3ef77eff0e4334a617b36c8',1,'BaseDeDonnees']]],
-  ['supprimerunfournisseur',['supprimerUnFournisseur',['../class_base_de_donnees.html#a90ac8e5f412153ce4ab5a4c7a603f5e9',1,'BaseDeDonnees']]],
+  ['supprimerunfournisseur',['supprimerUnFournisseur',['../class_base_de_donnees.html#a4782a41060ec75d8343cb318b3b29a45',1,'BaseDeDonnees']]],
   ['supprimerunutilisateur',['supprimerUnUtilisateur',['../class_base_de_donnees.html#a7ead23bc4e5d3bc897d9c6a412bbc0a6',1,'BaseDeDonnees']]]
 ];

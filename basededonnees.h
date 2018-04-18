@@ -10,7 +10,7 @@
 #include "utilisateur.h"
 #include "produits.h"
 #include "fournisseur.h"
-#include "ui_mainwindow.h"
+
 
 /**
  * @class BaseDeDonnees
@@ -28,17 +28,20 @@ public:
 
     /**
      * @brief creerTableBdd
+     * Permet de créer les tables sql à l'installation de l'application
      */
     void creerTableBdd();
 
     /**
      * @brief insertionBddInstallation
+     * Permet de faire des insertion dans les tables de la base de données lors de l'installation de l'application
      */
     void insertionBddInstallation();
 
     /**
      * @brief chercherFournisseur
      * @param trouverFournisseur
+     * Permet d'effectuer la recherche d'un fournisseur
      */
     void chercherFournisseur(QString trouverFournisseur);
 
@@ -46,6 +49,7 @@ public:
      * @brief chercherProduitParEmplacement
      * @param modelChercherProduitEmplacement
      * @param rechercheEmplacement
+     * Permet de faire la recherche d'une matière première par emplacement
      */
     void chercherProduitParEmplacement(QSqlQueryModel *modelChercherProduitEmplacement, QString rechercheEmplacement);
 
@@ -53,6 +57,7 @@ public:
      * @brief chercherProduitParNom
      * @param modelchercherProduitParNom
      * @param chercherProduitParnom
+     * Permet de faire la recherche d'une matière première par nom
      */
     void chercherProduitParNom(QSqlQueryModel *modelchercherProduitParNom, QString chercherProduitParnom);
 
@@ -61,6 +66,7 @@ public:
      * @brief creerUneReference
      * @param produit
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de créer une nouvelle référence
      */
     bool creerUneReference(Produits &produit);
 
@@ -68,6 +74,7 @@ public:
      * @brief miseAjourReference
      * @param MettreAjourProduit
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de faire la mise à jour d'une référence
      */
     bool miseAjourReference(Produits &MettreAjourProduit);
 
@@ -75,6 +82,7 @@ public:
      * @brief supprimerReference
      * @param supprimerProduit
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de supprimer une référence
      */
     bool supprimerReference(Produits &supprimerProduit);
 
@@ -82,11 +90,13 @@ public:
      * @brief creerUnUtilisateur
      * @param employe
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de créer un nouvel utilisateur
      */
     bool creerUnUtilisateur(Utilisateur &employe);
 
     /**
      * @brief chercherUnUtilisateur
+     * Permet de chercher un utilisateur dans la base de données
      */
     void chercherUnUtilisateur();
 
@@ -94,6 +104,7 @@ public:
      * @brief creerUnFournisseur
      * @param creerFournisseur
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de créer un fournisseur
      */
     bool creerUnFournisseur(Fournisseur &creerFournisseur);
 
@@ -101,6 +112,7 @@ public:
      * @brief miseAjourFournisseur
      * @param mettreAjourFournisseur
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de mettre à jour un fournisseur
      */
     bool miseAjourFournisseur(Fournisseur &mettreAjourFournisseur);
 
@@ -108,6 +120,7 @@ public:
      * @brief supprimerUnFournisseur
      * @param supprimerUnFournisseur
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de supprimer un fournisseur
      */
     bool supprimerUnFournisseur(Fournisseur &supprimerFournisseur);
 
@@ -115,17 +128,20 @@ public:
      * @brief miseAJourUtilisateur
      * @param mettreAjourUtilisateur
      * @return si l'opération en base de donnée s'est effectuée ou non.
+     * Permet de mettre à jour un utilisateur
      */
     bool miseAJourUtilisateur(Utilisateur &mettreAjourUtilisateur);
 
     /**
      * @brief supprimerUnUtilisateur
      * @param supprimerUtilisateur
+     * Permet de supprimer un utilisateur
      */
     void supprimerUnUtilisateur(Utilisateur &supprimerUtilisateur);
 
     /**
      * @brief insertionEnBdd
+     * Execute la méthode qui fait l'insertion des données dans les tables lors de l'installation
      */
     void insertionEnBdd();
 
@@ -133,6 +149,7 @@ public:
      * @brief chercherParReference
      * @param modelChercherParReference
      * @param searchRef
+     * Permet de chercher une référence dans la base de donnée avec sa référence
      */
     void chercherParReference(QSqlQueryModel *modelChercherParReference, QString searchRef);
 

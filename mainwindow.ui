@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1702</width>
-    <height>736</height>
+    <height>1011</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,18 +15,21 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabGestionStock">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1671</width>
-      <height>800</height>
+      <width>1681</width>
+      <height>981</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>16777215</width>
-      <height>16777215</height>
+      <width>16760000</width>
+      <height>16770000</height>
      </size>
     </property>
     <property name="sizeIncrement">
@@ -83,7 +86,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>CODE FOURNISSEUR :</string>
@@ -99,7 +103,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>PAYS :</string>
@@ -115,7 +120,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>N° DE SIRET :</string>
@@ -131,10 +137,11 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
-        <string>TELEPHONE :</string>
+        <string>TÉLÉPHONE :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_36">
@@ -147,7 +154,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>CODE POSTAL :</string>
@@ -163,7 +171,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>FORME JURIDIQUE :</string>
@@ -179,7 +188,8 @@ font-weight: bold;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>VILLE :</string>
@@ -352,7 +362,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>ADRESSE :</string>
@@ -368,10 +379,11 @@ border:1px solid rgb(62, 124, 146);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
-        <string>NOM DE LA SOCIETE :</string>
+        <string>NOM DE LA SOCIÉTÉ :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_40">
@@ -384,7 +396,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>CODE APE :</string>
@@ -435,8 +448,12 @@ border-radius: 5px;</string>
       <property name="styleSheet">
        <string notr="true">selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,
                                  stop: 0 #FF92BB, stop: 1 orange);
+background-color: #ffffff;
 
 </string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_4">
@@ -488,7 +505,7 @@ border:1px solid rgb(62, 124, 146);
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>NOM DE LA SOCIETE :</string>
+        <string>NOM DE LA SOCIÉTÉ :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_44">
@@ -584,7 +601,7 @@ border:1px solid rgb(62, 124, 146);
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>TELEPHONE :</string>
+        <string>TÉLÉPHONE :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_50">
@@ -840,7 +857,7 @@ border:1px solid rgb(62, 124, 146);</string>
      <widget class="QWidget" name="widget_3" native="true">
       <property name="geometry">
        <rect>
-        <x>29</x>
+        <x>30</x>
         <y>30</y>
         <width>1451</width>
         <height>51</height>
@@ -874,7 +891,7 @@ border-radius: 5px;</string>
       <widget class="QPushButton" name="chercherFournisseur">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>300</x>
          <y>10</y>
          <width>75</width>
          <height>31</height>
@@ -894,7 +911,7 @@ border-radius: 5px;</string>
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>111</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -902,13 +919,13 @@ border-radius: 5px;</string>
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>Recherche par nom :</string>
+        <string>RECHERCHE PAR NOM:</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="trouverfournisseur">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>150</x>
          <y>10</y>
          <width>131</width>
          <height>31</height>
@@ -937,12 +954,11 @@ border:1px solid rgb(62, 124, 146);
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 75 8pt &quot;Malgun Gothic&quot;;
-font-weight: bold;
-background-color: rgb(233, 233, 233);
-border-radius: 10px;
-border:2px solid rgb(62, 124, 146);
-</string>
+       <string notr="true"> background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex; /* leave space at the top for the title */</string>
       </property>
       <property name="title">
        <string>Créer une nouvelle référence</string>
@@ -966,7 +982,8 @@ border:2px solid rgb(62, 124, 146);
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>HEURE :</string>
@@ -1011,7 +1028,8 @@ font-weight: bold;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>DATE :</string>
@@ -1036,7 +1054,9 @@ font-weight: bold;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;
+</string>
        </property>
        <property name="text">
         <string>NOM :</string>
@@ -1088,10 +1108,11 @@ font-weight: bold;
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
-        <string>REFERENCE :</string>
+        <string>RÉFÉRENCE :</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="emplacementProduit">
@@ -1139,7 +1160,8 @@ font-weight: bold;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>EMPLACEMENT :</string>
@@ -1188,10 +1210,11 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
-        <string>QUANTITE :</string>
+        <string>QUANTITÉ :</string>
        </property>
       </widget>
       <widget class="QComboBox" name="etatProduit">
@@ -1252,10 +1275,11 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
-        <string>ETAT :</string>
+        <string>ÉTAT :</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="dluoProduit">
@@ -1301,7 +1325,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>DLUO</string>
@@ -1350,7 +1375,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>LOT :</string>
@@ -1375,7 +1401,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>EMBALLAGE :</string>
@@ -1427,7 +1454,8 @@ border-radius: 5px;</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background: none;</string>
        </property>
        <property name="text">
         <string>CODE FOURNISSEUR :</string>
@@ -1524,6 +1552,9 @@ border-radius: 5px;</string>
       <string>Gestion du stock</string>
      </attribute>
      <widget class="QTableView" name="listDatabase">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -1550,16 +1581,20 @@ border-radius: 5px;</string>
       <property name="styleSheet">
        <string notr="true">selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,
                                  stop: 0 #FF92BB, stop: 1 orange);
+background-color:#ffffff;
 </string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>1350</x>
+        <x>1320</x>
         <y>70</y>
         <width>301</width>
-        <height>491</height>
+        <height>581</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -1600,7 +1635,7 @@ border-radius: 5px;
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>REFERENCE :</string>
+        <string>RÉFÉRENCE :</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="emballageProduitMaj">
@@ -1629,7 +1664,7 @@ border-radius: 5px;
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>QUANTITE :</string>
+        <string>QUANTITÉ :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_18">
@@ -1645,7 +1680,7 @@ border-radius: 5px;
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>ETAT :</string>
+        <string>ÉTAT :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_20">
@@ -2011,24 +2046,24 @@ border-radius: 5px;</string>
         </property>
        </item>
       </widget>
-     </widget>
-     <widget class="QPushButton" name="exportbdd">
-      <property name="geometry">
-       <rect>
-        <x>1470</x>
-        <y>600</y>
-        <width>161</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(62, 124, 146);
+      <widget class="QPushButton" name="exportbdd">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>530</y>
+         <width>161</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(62, 124, 146);
 color: rgb(255, 255, 255);
 border-radius: 5px;</string>
-      </property>
-      <property name="text">
-       <string>Exporter la base de données</string>
-      </property>
+       </property>
+       <property name="text">
+        <string>Exporter la base de données</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="widget_2" native="true">
       <property name="geometry">
@@ -2284,10 +2319,11 @@ border-radius: 5px;</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(233, 233, 233);
-border-radius: 10px;
-border:2px solid rgb(62, 124, 146);
-</string>
+       <string notr="true"> background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex; /* leave space at the top for the title */</string>
       </property>
       <property name="title">
        <string>Créer un nouvel utilisateur</string>
@@ -2353,7 +2389,7 @@ border:1px solid rgb(62, 124, 146);</string>
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>150</y>
+         <y>155</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -2383,7 +2419,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background:none;</string>
        </property>
        <property name="text">
         <string>CODE :</string>
@@ -2408,7 +2445,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background:none;</string>
        </property>
        <property name="text">
         <string>MOT DE PASSE :</string>
@@ -2433,7 +2471,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background:none;</string>
        </property>
        <property name="text">
         <string>NOM :</string>
@@ -2458,17 +2497,18 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border:none;</string>
+        <string notr="true">border:none;
+background:none;</string>
        </property>
        <property name="text">
-        <string>PRENOM :</string>
+        <string>PRÉNOM :</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="groupe">
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>270</y>
+         <y>245</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -2483,7 +2523,7 @@ border:1px solid rgb(62, 124, 146);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>275</y>
+         <y>251</y>
          <width>71</width>
          <height>21</height>
         </rect>
@@ -2498,7 +2538,8 @@ border:1px solid rgb(62, 124, 146);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: none;</string>
+        <string notr="true">border: none;
+background:none;</string>
        </property>
        <property name="text">
         <string>GROUPE :</string>
@@ -2550,7 +2591,11 @@ border: none;</string>
       <property name="styleSheet">
        <string notr="true">selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,
                                  stop: 0 #FF92BB, stop: 1 orange);
+background-color:#ffffff;
 </string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_6">
@@ -2710,7 +2755,7 @@ border-radius: 5px;
         <string notr="true">border: none;</string>
        </property>
        <property name="text">
-        <string>PRENOM :</string>
+        <string>PRÉNOM :</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_57">
@@ -2887,8 +2932,6 @@ border:1px solid rgb(62, 124, 146);
      <string>Option</string>
     </property>
     <addaction name="actionVider_la_bas_de_donn_es"/>
-    <addaction name="actionExporter_la_base_de_donn_e"/>
-    <addaction name="actionDeconnexion"/>
    </widget>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
@@ -2924,19 +2967,6 @@ border:1px solid rgb(62, 124, 146);
    </property>
    <property name="text">
     <string>Quitter</string>
-   </property>
-  </action>
-  <action name="actionExporter_la_base_de_donn_e">
-   <property name="text">
-    <string>Exporter la base de donnée</string>
-   </property>
-  </action>
-  <action name="actionDeconnexion">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Deconnexion</string>
    </property>
   </action>
  </widget>

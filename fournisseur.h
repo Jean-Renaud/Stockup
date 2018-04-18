@@ -2,6 +2,8 @@
 #define FOURNISSEUR_H
 #include <QString>
 
+
+
 /**
  * @brief Permet de gèrer les fournisseurs
  */

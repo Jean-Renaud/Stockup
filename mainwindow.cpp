@@ -16,7 +16,6 @@
 #include <QSqlTableModel>
 #include <QDateTime>
 #include <QTime>
-#include <QIcon>
 #include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -24,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //Curseurs à afficher sur les boutons
     ui->creerReferenceBtn->setCursor(Qt::PointingHandCursor);
     ui->chercherFournisseur->setCursor(Qt::PointingHandCursor);
     ui->creerFournisseur->setCursor(Qt::PointingHandCursor);
@@ -92,7 +92,7 @@ void MainWindow::on_creerReferenceBtn_clicked()
                                            ui->idProduit->text(),
                                            ui->referenceProduit->text(),
                                            ui->nomProduit_2->text().toUpper(),
-                                           ui->lotProdiuit->text(),
+                                           ui->lotProdiuit->text().toUpper(),
                                            ui->dateDeCreation->text(),
                                            ui->heureDeCreation->text(),
                                            ui->emplacementProduit->text().toUpper(),
@@ -121,12 +121,14 @@ void MainWindow::on_creerReferenceBtn_clicked()
     verifierEmplacement.next();
 
     int compteur = verifierEmplacement.value(0).toInt();
+
     //Si aucun enregistrement est présent on execute l'enregistrement.
     if(compteur < 1)
     {
         this->bdd->creerUneReference(*produit);
         QMessageBox::information(this,"Création réussie","La création du produit a été enregistrée avec succès.");
     }
+
     //Veut dire qu'il y a un enregistrement à l'emplacement, on affiche une erreur.
     else if(compteur > 0)
         {
@@ -198,7 +200,7 @@ void MainWindow::on_chercheUtilisateur_clicked()
     clearFocus();
 
     QSqlQuery chercherUnUtilisateur ;
-    QString trouverUtilisateur = ui->chercheUtilisateurEdit->text();
+    QString trouverUtilisateur = ui->chercheUtilisateurEdit->text().toUpper();
     chercherUnUtilisateur.prepare("SELECT * FROM utilisateurs WHERE Nom = :nom");
     chercherUnUtilisateur.bindValue(":nom",trouverUtilisateur);
     if(!chercherUnUtilisateur.exec()){
@@ -300,7 +302,7 @@ void MainWindow::on_majFournisseur_clicked()
 
   }
 
-      if(this->bdd->miseAjourFournisseur(*mettreAjourFournisseur))
+   else if(this->bdd->miseAjourFournisseur(*mettreAjourFournisseur))
     {
       QMessageBox::information(this,tr("Mise à jour réussie"),tr("La mise à jour du fournisseur a été enregistrée avec succès."));
       QSqlQueryModel * rafraichirListeMajFournisseur = new QSqlQueryModel();
@@ -326,8 +328,8 @@ void MainWindow::on_majUtilisateur_clicked()
 {
     Utilisateur *mettreAjourUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
                                                ui->codeUtilisateurEdit->text(),
-                                               ui->nomUtilisateurEdit->text().toUpper(),
-                                               ui->prenomUtilisateurEdit->text().toUpper(),
+                                               ui->nomUtilisateurEdit->text(),
+                                               ui->prenomUtilisateurEdit->text(),
                                                ui->mdpUtilisateurEdit->text(),
                                                ui->groupeUtilisateurEdit->text()
                                                );
@@ -720,8 +722,17 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                             ui->mdp->text(),
                                                             ui->groupe->text()
                                                             );
-
         this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
+        QSqlQueryModel * actualiserListe = new QSqlQueryModel();
+        QSqlQuery actualiser(this->bdd->stockup);
+        actualiser.exec("SELECT * FROM utilisateurs");
+        actualiserListe->setQuery(actualiser);
+        this->ui->gestionUtilisateur->setModel(actualiserListe);
+        QMessageBox::information(this, "Information", "L'utilisateur a correctement été supprimé.");
+
+
+
+
     }
     else if (reponse == QMessageBox::No)
     {
@@ -739,7 +750,6 @@ void MainWindow::on_triAlphabetiqueUtilisateur_clicked()
     triAlphautilisateur->setQuery(triAlphaUtilisateur);
     this->ui->gestionUtilisateur->setModel(triAlphautilisateur);
     ui->gestionUtilisateur->verticalHeader()->setVisible(false);
-
 }
 
 /*Permet d'afficher les fournisseurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
@@ -769,7 +779,6 @@ void MainWindow::moveToTab(int index)
 /*Permission d'accès au groupe carriste pour effectuer des modifications sur les produits*/
 void MainWindow::desactiverOngletsGroupeCarriste()
 {
-    ui->idProduit->setEnabled(false);
     ui->nomProduitMaj->setEnabled(false);
     ui->referenceProduitMaj->setEnabled(false);
     ui->nomProduitMaj->setEnabled(false);
@@ -801,30 +810,41 @@ void MainWindow::desactiverOngletsGroupeQualite()
     ui->exportbdd->hide();
 }
 
-/*Permet d'exporter la base de donnée au format csv*/
+/*Permet d'exporter la liste du stock au format csv*/
 void MainWindow::on_exportbdd_clicked()
 {
-    QString donnees = "id_Produit;Reference;Nom;Lot;Date;Heure;Emplacement;Emballage;Quantite;Quantite totale;Etat;DLUO;Code_fournisseur;\n";
-        QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer", QString(), "*.csv");
-        QFile file(fichier);
-        if (file.open(QIODevice::WriteOnly))
-        {
-            QTextStream Flux(&file);
+    QSqlQueryModel * exportStock = new QSqlQueryModel();
+    clearFocus();
+    QSqlQuery exporterCSV;
+    exporterCSV.prepare("SELECT * FROM matieres_Premieres");
+    exporterCSV.exec();
+    exportStock->setQuery(exporterCSV);
+    this->ui->listDatabase->setModel(exportStock);
+    ui->listDatabase->verticalHeader()->setVisible(false);
 
-            for (int i = 0; i < ui->listDatabase->model()->rowCount(); i++)
+  QString donnees = "id_Produit;Reference;Nom;Lot;Date;Heure;Emplacement;Emballage;Quantite;Quantite totale;Etat;DLUO;Code_fournisseur;\n";
+            QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer", QString(), "*.csv");
+            QFile file(fichier);
+            if (file.open(QIODevice::WriteOnly))
             {
-                for(int j = 0; j < ui->listDatabase->model()->columnCount(); j++)
-                {
-                    donnees += ui->listDatabase->model()->index(i, j).data().toString();
-                    donnees += ";";
-                }
-                donnees += "\n";
-            }
-            QMessageBox::information(this, "", donnees);
-            Flux << donnees;
+                QTextStream Flux(&file);
 
-            file.close();
-        }
+                for (int i = 0; i < ui->listDatabase->model()->rowCount(); i++)
+                {
+                    for(int j = 0; j < ui->listDatabase->model()->columnCount(); j++)
+                    {
+                        donnees += ui->listDatabase->model()->index(i, j).data().toString();
+                        donnees += ";";
+                    }
+                    donnees += "\n";
+                }
+
+                QMessageBox::information(this, "", donnees);
+                Flux << donnees;
+
+                file.close();
+            }
+
 }
 
 /*Récupère la date du système*/
@@ -851,6 +871,7 @@ void MainWindow::on_tabGestionStock_tabBarClicked()
     ui->heureDeCreation->setEnabled(false);
 }
 
+/*Permet de trier le stock par date*/
 void MainWindow::on_triParDate_clicked()
 {
     QSqlQueryModel * triParDate = new QSqlQueryModel();
@@ -863,6 +884,7 @@ void MainWindow::on_triParDate_clicked()
     this->ui->listDatabase->setModel(triParDate);
 }
 
+/*Permet de charger la liste des fournisseur dans une combobox*/
 void MainWindow::on_chargerFournisseurs_clicked()
 {
     QSqlQueryModel * codeBdd = new QSqlQueryModel();
@@ -876,5 +898,4 @@ void MainWindow::on_chargerFournisseurs_clicked()
     ui->codeFour->setModel(codeBdd);
     }
 }
-
 
