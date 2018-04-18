@@ -813,6 +813,7 @@ void MainWindow::desactiverOngletsGroupeQualite()
 /*Permet d'exporter la liste du stock au format csv*/
 void MainWindow::on_exportbdd_clicked()
 {
+    //On remplis le model pour pouvoir télécharger un contenu.
     QSqlQueryModel * exportStock = new QSqlQueryModel();
     clearFocus();
     QSqlQuery exporterCSV;
@@ -821,6 +822,8 @@ void MainWindow::on_exportbdd_clicked()
     exportStock->setQuery(exporterCSV);
     this->ui->listDatabase->setModel(exportStock);
     ui->listDatabase->verticalHeader()->setVisible(false);
+
+    //Permet de récupèrer le contenu de la table et de générer le fichier .csv
 
   QString donnees = "id_Produit;Reference;Nom;Lot;Date;Heure;Emplacement;Emballage;Quantite;Quantite totale;Etat;DLUO;Code_fournisseur;\n";
             QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer", QString(), "*.csv");
@@ -844,7 +847,6 @@ void MainWindow::on_exportbdd_clicked()
 
                 file.close();
             }
-
 }
 
 /*Récupère la date du système*/
