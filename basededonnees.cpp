@@ -48,21 +48,7 @@ void BaseDeDonnees::insertionEnBdd()
                                 "VALUES (04, 'LaboQualite', 'labo', 'stockup04', 4)");
 
         insererUtilisateur.exec("INSERT INTO utilisateurs (Code, Nom, Prenom, Mot_de_Passe, Groupe) "
-                               "VALUES (05, 'Root', 'superAdmin', 'stockup05', 5)");
-    }
-    QSqlQuery insererProduits(this->stockup);
-    insererProduits.exec("SELECT COUNT (id) FROM matieres_Premieres");
-
-    insererProduits.next();
-
-    int presentEnBdd = insererProduits.value(0).toInt();
-    if(presentEnBdd == 0)
-    {
-        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
-                             "VALUES(1, 'MP01', 'POIVRE', '0001A164', '01/01/2018', '11h56', 'M1BA', 25, 100, 'Conforme', '03/2019', '01')");
-
-        insererProduits.exec("INSERT INTO matieres_Premieres (id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite, Etat, DLUO, Code_fournisseur)"
-                             "VALUES(2, 'MP02', 'CANNELLE', '0001Z256', '12/03/2018', '15h24', 'M1AL01201', 10, 30, 'Conforme', '05/2020', '03')");
+                                "VALUES (05, 'Root', 'superAdmin', 'stockup05', 5)");
     }
 }
 
@@ -70,49 +56,49 @@ void BaseDeDonnees::insertionEnBdd()
 void BaseDeDonnees::creerTableBdd()
 {
     //Creation du fichier de base de donnée
-     this->stockup = QSqlDatabase::addDatabase("QSQLITE");
-     stockup.setDatabaseName("./stockup.db");
-     QSqlQuery creerTable(this->stockup);
+    this->stockup = QSqlDatabase::addDatabase("QSQLITE");
+    stockup.setDatabaseName("./stockup.db");
+    QSqlQuery creerTable(this->stockup);
 
-     stockup.open();
+    stockup.open();
 
-     creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
-                                   "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                   "'Code' INTEGER NOT NULL,"
-                                   "'Nom' TEXT NOT NULL,"
-                                   "'Prenom' TEXT NOT NULL,"
-                                   "'Mot_de_Passe' INTEGER NOT NULL,"
-                                   "'Groupe' INTEGER NOT NULL"
-                                   ");");
+    creerTable.exec("CREATE TABLE IF NOT EXISTS utilisateurs ("
+                    "'id' INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    "'Code' INTEGER NOT NULL,"
+                    "'Nom' TEXT NOT NULL,"
+                    "'Prenom' TEXT NOT NULL,"
+                    "'Mot_de_Passe' INTEGER NOT NULL,"
+                    "'Groupe' INTEGER NOT NULL"
+                    ");");
 
     creerTable.exec("CREATE TABLE IF NOT EXISTS matieres_Premieres ("
-                     "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
-                     "Reference TEXT NOT NULL,"
-                     "Nom TEXT NOT NULL,"
-                     "Lot TEXT NOT NULL,"
-                     "Date TEXT NOT NULL,"
-                     "Heure TEXT NOT NULL,"
-                     "Emplacement TEXT NOT NULL,"
-                     "Emballage TEXT NOT NULL,"
-                     "Quantite TEXT NOT NULL,"
-                     "Etat TEXT NOT NULL,"
-                     "DLUO TEXT NOT NULL,"
-                     "Code_fournisseur TEXT NOT NULL"
-                     ");");
+                    "id_Produit INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    "Reference TEXT NOT NULL,"
+                    "Nom TEXT NOT NULL,"
+                    "Lot TEXT NOT NULL,"
+                    "Date TEXT NOT NULL,"
+                    "Heure TEXT NOT NULL,"
+                    "Emplacement TEXT NOT NULL,"
+                    "Emballage TEXT NOT NULL,"
+                    "Quantite TEXT NOT NULL,"
+                    "Etat TEXT NOT NULL,"
+                    "DLUO TEXT NOT NULL,"
+                    "Code_fournisseur TEXT NOT NULL"
+                    ");");
 
     creerTable.exec("CREATE TABLE IF NOT EXISTS fournisseurs ("
-                     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                     "Code INTEGER NOT NULL,"
-                     "Nom TEXT NOT NULL,"
-                     "Forme_juridique TEXT NOT NULL,"
-                     "Adresse TEXT NOT NULL,"
-                     "Code_postal TEXT NOT NULL,"
-                     "Pays TEXT NOT NULL,"
-                     "Ville TEXT NOT NULL,"
-                     "Telephone TEXT NOT NULL,"
-                     "Siret TEXT NOT NULL,"
-                     "APE TEXT NOT NULL"
-                     ");");
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    "Code INTEGER NOT NULL,"
+                    "Nom TEXT NOT NULL,"
+                    "Forme_juridique TEXT NOT NULL,"
+                    "Adresse TEXT NOT NULL,"
+                    "Code_postal TEXT NOT NULL,"
+                    "Pays TEXT NOT NULL,"
+                    "Ville TEXT NOT NULL,"
+                    "Telephone TEXT NOT NULL,"
+                    "Siret TEXT NOT NULL,"
+                    "APE TEXT NOT NULL"
+                    ");");
 
     insertionEnBdd();
 }
@@ -145,7 +131,7 @@ void BaseDeDonnees::chercherParReference(QSqlQueryModel *modelChercherParReferen
 {
     QSqlQuery listRef;
     listRef.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
-                    " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Reference = :reference");
+                    "Emballage * Quantite AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Reference = :reference");
 
     listRef.bindValue(":reference",searchRef);
     listRef.exec();
@@ -158,7 +144,7 @@ void BaseDeDonnees::chercherProduitParEmplacement(QSqlQueryModel *modelChercherP
 {
     QSqlQuery chercheParEmplacement;
     chercheParEmplacement.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
-                                  " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Emplacement = :emplacement");
+                                  "Emballage * Quantite AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres WHERE Emplacement = :emplacement");
     chercheParEmplacement.bindValue(":emplacement",rechercheEmplacement);
     chercheParEmplacement.exec();
     modelChercherProduitEmplacement->setQuery(chercheParEmplacement);
@@ -169,7 +155,7 @@ void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitPa
 {
     QSqlQuery listeRechercheNomProduit;
     listeRechercheNomProduit.prepare("SELECT id_Produit, Reference, Nom, Lot, Date, Heure, Emplacement, Emballage, Quantite,"
-                                     " SUM(Emballage * Quantite) AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres "
+                                     "Emballage * Quantite AS 'Quantite Totale', Etat, DLUO, Code_fournisseur FROM matieres_Premieres "
                                      "WHERE Nom LIKE :chercherProduitParnom");
     listeRechercheNomProduit.bindValue(":chercherProduitParnom", chercherProduitParnom + '%');
     listeRechercheNomProduit.exec();
@@ -179,23 +165,23 @@ void BaseDeDonnees::chercherProduitParNom(QSqlQueryModel *modelchercherProduitPa
 /*Envoi et enregistrement des nouvelles informations lors de la mise à jour d'un produit*/
 bool BaseDeDonnees::miseAjourReference(Produits &MettreAjourProduit)
 {
-       QSqlQuery miseAjourProduit(this->stockup);
-       miseAjourProduit.prepare("UPDATE matieres_Premieres SET id_Produit = :rowid, Reference = :referenceDuProduit, Nom = :nomDuProduit, Date = :date,"
-                                "Emplacement = :emplacement, Emballage = :emballage, Quantite = :quantite, Etat = :etat, "
-                                "DLUO = :dluo, Lot = :numeroLot, Code_fournisseur = :fournisseur WHERE id_Produit= :rowid");
-       miseAjourProduit.bindValue(":rowid", MettreAjourProduit.getId());
-       miseAjourProduit.bindValue(":referenceDuProduit", MettreAjourProduit.getRef());
-       miseAjourProduit.bindValue(":nomDuProduit", MettreAjourProduit.getNom());
-       miseAjourProduit.bindValue(":numeroLot", MettreAjourProduit.getLot());
-       miseAjourProduit.bindValue(":date", MettreAjourProduit.getDate());
-       miseAjourProduit.bindValue(":emplacement", MettreAjourProduit.getEmplacement());
-       miseAjourProduit.bindValue(":emballage", MettreAjourProduit.getEmballage());
-       miseAjourProduit.bindValue(":quantite", MettreAjourProduit.getQuantite());
-       miseAjourProduit.bindValue(":etat", MettreAjourProduit.getEtat());
-       miseAjourProduit.bindValue(":dluo", MettreAjourProduit.getDluo());
-       miseAjourProduit.bindValue(":fournisseur", MettreAjourProduit.getCodeFournisseur());
+    QSqlQuery miseAjourProduit(this->stockup);
+    miseAjourProduit.prepare("UPDATE matieres_Premieres SET id_Produit = :rowid, Reference = :referenceDuProduit, Nom = :nomDuProduit, Date = :date,"
+                             "Emplacement = :emplacement, Emballage = :emballage, Quantite = :quantite, Etat = :etat, "
+                             "DLUO = :dluo, Lot = :numeroLot, Code_fournisseur = :fournisseur WHERE id_Produit= :rowid");
+    miseAjourProduit.bindValue(":rowid", MettreAjourProduit.getId());
+    miseAjourProduit.bindValue(":referenceDuProduit", MettreAjourProduit.getRef());
+    miseAjourProduit.bindValue(":nomDuProduit", MettreAjourProduit.getNom());
+    miseAjourProduit.bindValue(":numeroLot", MettreAjourProduit.getLot());
+    miseAjourProduit.bindValue(":date", MettreAjourProduit.getDate());
+    miseAjourProduit.bindValue(":emplacement", MettreAjourProduit.getEmplacement());
+    miseAjourProduit.bindValue(":emballage", MettreAjourProduit.getEmballage());
+    miseAjourProduit.bindValue(":quantite", MettreAjourProduit.getQuantite());
+    miseAjourProduit.bindValue(":etat", MettreAjourProduit.getEtat());
+    miseAjourProduit.bindValue(":dluo", MettreAjourProduit.getDluo());
+    miseAjourProduit.bindValue(":fournisseur", MettreAjourProduit.getCodeFournisseur());
 
-       return miseAjourProduit.exec();
+    return miseAjourProduit.exec();
 }
 
 /*Permet de mettre à jour un utilisateur*/
@@ -266,8 +252,8 @@ bool BaseDeDonnees::creerUnFournisseur(Fournisseur &creerFournisseur)
 {
     QSqlQuery creerUnFournisseur(this->stockup);
     creerUnFournisseur.prepare("INSERT INTO fournisseurs (Code, Nom, Forme_juridique, Adresse, Code_postal, Pays, Ville, Telephone,"
-                             " Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, "
-                             ":telephone, :siret, :ape)");
+                               " Siret, APE) VALUES (:code, :nom, :forme_juridique, :adresse, :code_postal, :pays, :ville, "
+                               ":telephone, :siret, :ape)");
     creerUnFournisseur.bindValue(":code", creerFournisseur.getCodeFournisseur());
     creerUnFournisseur.bindValue(":nom", creerFournisseur.getNomSociete());
     creerUnFournisseur.bindValue(":forme_juridique", creerFournisseur.getFormeJuridique());
@@ -287,7 +273,7 @@ void BaseDeDonnees::chercherFournisseur(QString trouverFournisseur)
     QSqlQuery rechercherFournisseur(this->stockup);
     rechercherFournisseur.prepare("SELECT * FROM fournisseurs WHERE Code = :code");
     rechercherFournisseur.bindValue(":code",trouverFournisseur);
-        if(!rechercherFournisseur.exec())
+    if(!rechercherFournisseur.exec())
     {
         qDebug() << ("Erreur");
     }

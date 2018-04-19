@@ -43,9 +43,9 @@ QString Utilisateur::getGroupe()
 }
 void Utilisateur::setGroupe(QString groupe)
 {
-   this->groupe = groupe;
+    this->groupe = groupe;
 }
 void Utilisateur::setCode(QString code)
 {
-   this->code = code;
+    this->code = code;
 }

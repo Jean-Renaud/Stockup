@@ -50,13 +50,12 @@ int main(int argc, char *argv[])
             fenetrePrincipale.desactiverOnglet(4);
             fenetrePrincipale.desactiverOnglet(5);
             fenetrePrincipale.desactiverOnglet(6);
-            //fenetrePrincipale.desactiverOngletsGroupeCarriste();
         }
         if(fenetrePrincipale.carriste->getGroupe().toInt() == 4) {
             fenetrePrincipale.moveToTab(1);
             fenetrePrincipale.desactiverOnglet(0);
+            fenetrePrincipale.desactiverOnglet(1);
             fenetrePrincipale.desactiverOnglet(2);
-            fenetrePrincipale.desactiverOnglet(3);
             fenetrePrincipale.desactiverOnglet(4);
             fenetrePrincipale.desactiverOnglet(5);
             fenetrePrincipale.desactiverOnglet(6);

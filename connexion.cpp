@@ -21,10 +21,10 @@ Connexion::~Connexion()
 /*Permet d'établir la connexion lorsqu'on clique sur le bouton se connecter après une vérification de l'existence du compte utilisateur*/
 void Connexion::on_seConnecter_clicked()
 {
-   QString codeUtilisateur;
-   QString motDePasse;
-   codeUtilisateur = ui->codeConnexion->text();
-   motDePasse = ui->motDePasseConnexion->text();
+    QString codeUtilisateur;
+    QString motDePasse;
+    codeUtilisateur = ui->codeConnexion->text();
+    motDePasse = ui->motDePasseConnexion->text();
 
     QSqlQuery connexion(this->bdd->stockup);
     connexion.prepare("SELECT Code, Groupe FROM utilisateurs WHERE Code = :code AND Mot_de_Passe = :mdp");
@@ -35,7 +35,7 @@ void Connexion::on_seConnecter_clicked()
         int compteur = 0;
         while (connexion.next())
         {
-          compteur++;
+            compteur++;
         }
         if(compteur == 1)
         {

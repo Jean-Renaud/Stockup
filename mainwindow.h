@@ -257,8 +257,6 @@ private:
      * @brief produit
      */
     Produits *produit;
-
-
 };
 
 #endif // MAINWINDOW_H

@@ -98,57 +98,57 @@ private:
     /**
       * @brief id
       */
-     QString id;
+    QString id;
 
-     /**
+    /**
       * @brief codeDuFournisseur
       */
-     QString codeDuFournisseur;
+    QString codeDuFournisseur;
 
-     /**
+    /**
       * @brief nomSociete
       */
-     QString nomSociete;
+    QString nomSociete;
 
-     /**
+    /**
       * @brief formeJuridique
       */
-     QString formeJuridique;
+    QString formeJuridique;
 
-     /**
+    /**
       * @brief adresse
       */
-     QString adresse;
+    QString adresse;
 
-     /**
+    /**
       * @brief codePostal
       */
-     QString codePostal;
+    QString codePostal;
 
-     /**
+    /**
       * @brief ville
       */
-     QString ville;
+    QString ville;
 
-     /**
+    /**
       * @brief pays
       */
-     QString pays;
+    QString pays;
 
-     /**
+    /**
       * @brief telephone
       */
-     QString telephone;
+    QString telephone;
 
-     /**
+    /**
       * @brief siret
       */
-     QString siret;
+    QString siret;
 
-     /**
+    /**
       * @brief ape
       */
-     QString ape;
+    QString ape;
 };
 
 #endif // FOURNISSEUR_H
