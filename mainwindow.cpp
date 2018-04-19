@@ -807,23 +807,23 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                                        " cette action est irreversible. Cliquez sur OUI pour confirmer ou"
                                                                        " sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
 
-        if (reponse == QMessageBox::Yes)
-        {
-        this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
-        QSqlQueryModel * actualiserListe = new QSqlQueryModel();
-        QSqlQuery actualiser(this->bdd->stockup);
-        actualiser.exec("SELECT * FROM utilisateurs");
-        actualiserListe->setQuery(actualiser);
-        this->ui->gestionUtilisateur->setModel(actualiserListe);
-        QMessageBox::information(this, "Information", "L'utilisateur a correctement été supprimé.");
-        actualiser.exec("DELETE FROM sqlite_sequence WHERE name='utilisateurs'");
+            if (reponse == QMessageBox::Yes)
+            {
+                this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
+                QSqlQueryModel * actualiserListe = new QSqlQueryModel();
+                QSqlQuery actualiser(this->bdd->stockup);
+                actualiser.exec("SELECT * FROM utilisateurs");
+                actualiserListe->setQuery(actualiser);
+                this->ui->gestionUtilisateur->setModel(actualiserListe);
+                QMessageBox::information(this, "Information", "L'utilisateur a correctement été supprimé.");
+                actualiser.exec("DELETE FROM sqlite_sequence WHERE name='utilisateurs'");
+            }
+            else if (reponse == QMessageBox::No)
+            {
+                QMessageBox::warning(this, "Information", "L'utilisateur n'a pas été supprimé.");
+            }
+        }
     }
-    else if (reponse == QMessageBox::No)
-    {
-        QMessageBox::warning(this, "Information", "L'utilisateur n'a pas été supprimé.");
-    }
-    }
-}
 }
 
 /*Permet d'afficher les utilisateurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/

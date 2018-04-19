@@ -45,7 +45,7 @@ font: 75 8pt &quot;Malgun Gothic&quot;;
 font-weight: bold;</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -418,7 +418,7 @@ background: none;</string>
          <x>224</x>
          <y>460</y>
          <width>141</width>
-         <height>23</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="font">
@@ -2091,7 +2091,7 @@ border-radius: 5px;</string>
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>1641</width>
+        <width>1611</width>
         <height>51</height>
        </rect>
       </property>
@@ -3005,43 +3005,37 @@ border:1px solid rgb(62, 124, 146);
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>tabGestionStock</tabstop>
-  <tabstop>nomProduit_2</tabstop>
-  <tabstop>referenceProduit</tabstop>
-  <tabstop>emplacementProduit</tabstop>
-  <tabstop>quantiteProduit</tabstop>
-  <tabstop>etatProduit</tabstop>
-  <tabstop>dluoProduit</tabstop>
-  <tabstop>lotProdiuit</tabstop>
-  <tabstop>creerReferenceBtn</tabstop>
-  <tabstop>listDatabase</tabstop>
-  <tabstop>dateProduitMaj</tabstop>
-  <tabstop>emplacementProduitMaj</tabstop>
-  <tabstop>emballageProduitMaj</tabstop>
-  <tabstop>quantitePoduitMaj</tabstop>
-  <tabstop>dluoProduitMaj</tabstop>
-  <tabstop>lotProduitMaj</tabstop>
-  <tabstop>codeFmajProduit</tabstop>
-  <tabstop>miseAjourProduit</tabstop>
-  <tabstop>idProduit</tabstop>
-  <tabstop>referenceProduitMaj</tabstop>
-  <tabstop>supprimerProduit</tabstop>
-  <tabstop>nomProduitMaj</tabstop>
-  <tabstop>code</tabstop>
-  <tabstop>mdp</tabstop>
-  <tabstop>nomUtilisateur</tabstop>
-  <tabstop>prenom</tabstop>
-  <tabstop>groupe</tabstop>
-  <tabstop>creerUtilisateur</tabstop>
-  <tabstop>gestionUtilisateur</tabstop>
-  <tabstop>idUtilisateurEdit</tabstop>
-  <tabstop>codeUtilisateurEdit</tabstop>
   <tabstop>nomUtilisateurEdit</tabstop>
   <tabstop>prenomUtilisateurEdit</tabstop>
   <tabstop>mdpUtilisateurEdit</tabstop>
   <tabstop>groupeUtilisateurEdit</tabstop>
   <tabstop>majUtilisateur</tabstop>
   <tabstop>suppUtilisateur</tabstop>
+  <tabstop>tabGestionStock</tabstop>
+  <tabstop>nomProduit_2</tabstop>
+  <tabstop>referenceProduit</tabstop>
+  <tabstop>emplacementProduit</tabstop>
+  <tabstop>quantiteProduit</tabstop>
+  <tabstop>trouverfournisseur</tabstop>
+  <tabstop>chercherFournisseur</tabstop>
+  <tabstop>listProvider</tabstop>
+  <tabstop>triAlphabetiqueFournisseur</tabstop>
+  <tabstop>idfournisseur</tabstop>
+  <tabstop>cfournisseur</tabstop>
+  <tabstop>nomsociete</tabstop>
+  <tabstop>formejuridique</tabstop>
+  <tabstop>adresseedit</tabstop>
+  <tabstop>codepostal</tabstop>
+  <tabstop>villefournisseur</tabstop>
+  <tabstop>paysfournisseur</tabstop>
+  <tabstop>telephonefournisseur</tabstop>
+  <tabstop>siretfournisseur</tabstop>
+  <tabstop>apefournisseur</tabstop>
+  <tabstop>majFournisseur</tabstop>
+  <tabstop>suppFournisseur</tabstop>
+  <tabstop>heureDeCreation</tabstop>
+  <tabstop>creerReferenceBtn</tabstop>
+  <tabstop>exportbdd</tabstop>
   <tabstop>codeDuFournisseur</tabstop>
   <tabstop>nomSociete</tabstop>
   <tabstop>formeJuridique</tabstop>
@@ -3053,20 +3047,47 @@ border:1px solid rgb(62, 124, 146);
   <tabstop>siret</tabstop>
   <tabstop>ape</tabstop>
   <tabstop>creerFournisseur</tabstop>
-  <tabstop>listProvider</tabstop>
-  <tabstop>majFournisseur</tabstop>
-  <tabstop>suppFournisseur</tabstop>
-  <tabstop>cfournisseur</tabstop>
-  <tabstop>nomsociete</tabstop>
-  <tabstop>formejuridique</tabstop>
-  <tabstop>adresseedit</tabstop>
-  <tabstop>codepostal</tabstop>
-  <tabstop>villefournisseur</tabstop>
-  <tabstop>paysfournisseur</tabstop>
-  <tabstop>telephonefournisseur</tabstop>
-  <tabstop>siretfournisseur</tabstop>
-  <tabstop>apefournisseur</tabstop>
-  <tabstop>idfournisseur</tabstop>
+  <tabstop>etatProduit</tabstop>
+  <tabstop>dluoProduit</tabstop>
+  <tabstop>lotProdiuit</tabstop>
+  <tabstop>emballageProduit</tabstop>
+  <tabstop>dateDeCreation</tabstop>
+  <tabstop>codeFour</tabstop>
+  <tabstop>chargerFournisseurs</tabstop>
+  <tabstop>searchRef</tabstop>
+  <tabstop>chercherParReference</tabstop>
+  <tabstop>searchLocation</tabstop>
+  <tabstop>chercherParEmplacement</tabstop>
+  <tabstop>searchByName</tabstop>
+  <tabstop>chercherParNomProduit</tabstop>
+  <tabstop>triParDate</tabstop>
+  <tabstop>triAlphabetiqueStock</tabstop>
+  <tabstop>listDatabase</tabstop>
+  <tabstop>idProduit</tabstop>
+  <tabstop>referenceProduitMaj</tabstop>
+  <tabstop>nomProduitMaj</tabstop>
+  <tabstop>lotProduitMaj</tabstop>
+  <tabstop>dateProduitMaj</tabstop>
+  <tabstop>emplacementProduitMaj</tabstop>
+  <tabstop>emballageProduitMaj</tabstop>
+  <tabstop>quantitePoduitMaj</tabstop>
+  <tabstop>etatProduitMaj</tabstop>
+  <tabstop>dluoProduitMaj</tabstop>
+  <tabstop>codeFmajProduit</tabstop>
+  <tabstop>miseAjourProduit</tabstop>
+  <tabstop>supprimerProduit</tabstop>
+  <tabstop>code</tabstop>
+  <tabstop>nomUtilisateur</tabstop>
+  <tabstop>prenom</tabstop>
+  <tabstop>mdp</tabstop>
+  <tabstop>groupe</tabstop>
+  <tabstop>creerUtilisateur</tabstop>
+  <tabstop>chercheUtilisateurEdit</tabstop>
+  <tabstop>chercheUtilisateur</tabstop>
+  <tabstop>triAlphabetiqueUtilisateur</tabstop>
+  <tabstop>gestionUtilisateur</tabstop>
+  <tabstop>idUtilisateurEdit</tabstop>
+  <tabstop>codeUtilisateurEdit</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>
