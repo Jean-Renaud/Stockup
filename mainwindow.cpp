@@ -242,9 +242,15 @@ void MainWindow::on_miseAjourProduit_clicked()
                                                 ui->codeFmajProduit->text()
 
                                                 );
-    if(mettreAjourProduit->getRef().isEmpty() || mettreAjourProduit->getLot().isEmpty() || mettreAjourProduit->getDate().isEmpty()
-            || mettreAjourProduit->getEmplacement().isEmpty() || mettreAjourProduit->getEmballage().isEmpty() || mettreAjourProduit->getQuantite().isEmpty()
-            || mettreAjourProduit->getEtat().isEmpty() || mettreAjourProduit->getDluo().isEmpty() || mettreAjourProduit->getCodeFournisseur().isEmpty())
+    if(mettreAjourProduit->getRef().isEmpty() ||
+            mettreAjourProduit->getLot().isEmpty() ||
+            mettreAjourProduit->getDate().isEmpty() ||
+            mettreAjourProduit->getEmplacement().isEmpty() ||
+            mettreAjourProduit->getEmballage().isEmpty() ||
+            mettreAjourProduit->getQuantite().isEmpty() ||
+            mettreAjourProduit->getEtat().isEmpty() ||
+            mettreAjourProduit->getDluo().isEmpty() ||
+            mettreAjourProduit->getCodeFournisseur().isEmpty())
     {
         QMessageBox::critical(this, "Erreur", "Vous avez laissé un champ vide dans le formulaire de saisie.");
     }
@@ -357,8 +363,11 @@ void MainWindow::on_majUtilisateur_clicked()
                                                           ui->groupeUtilisateurEdit->text()
                                                           );
 
-    if(mettreAjourUtilisateur->getCode().isEmpty() || mettreAjourUtilisateur->getNom().isEmpty() || mettreAjourUtilisateur->getPrenom().isEmpty()
-            || mettreAjourUtilisateur->getMdp().isEmpty() || mettreAjourUtilisateur->getGroupe().isEmpty())
+    if(mettreAjourUtilisateur->getCode().isEmpty() ||
+            mettreAjourUtilisateur->getNom().isEmpty() ||
+            mettreAjourUtilisateur->getPrenom().isEmpty() ||
+            mettreAjourUtilisateur->getMdp().isEmpty() ||
+            mettreAjourUtilisateur->getGroupe().isEmpty())
     {
         QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
     }
@@ -406,18 +415,7 @@ void MainWindow::on_supprimerProduit_clicked()
                                               ui->dluoProduitMaj->text(),
                                               ui->codeFmajProduit->text()
                                               );
-    if(supprimerProduit->getId().isEmpty() ||
-            supprimerProduit->getRef().isEmpty() ||
-            supprimerProduit->getNom().isEmpty() ||
-            supprimerProduit->getLot().isEmpty() ||
-            supprimerProduit->getDate().isEmpty() ||
-            supprimerProduit->getHeure().isEmpty() ||
-            supprimerProduit->getEmplacement().isEmpty() ||
-            supprimerProduit->getEmballage().isEmpty() ||
-            supprimerProduit->getQuantite().isEmpty() ||
-            supprimerProduit->getEtat().isEmpty() ||
-            supprimerProduit->getDluo().isEmpty() ||
-            supprimerProduit->getCodeFournisseur().isEmpty())
+    if(ui->idProduit->text().isEmpty())
     {
         QMessageBox::warning(this,tr("Erreur"),tr("Vous devez selectionner un produit à supprimer."));
 
@@ -462,8 +460,11 @@ void MainWindow::on_creerUtilisateur_clicked()
                                            ui->mdp->text(),
                                            ui->groupe->text()
                                            );
-    if(employe->getCode().isEmpty() || employe->getNom().isEmpty() || employe->getPrenom().isEmpty()
-            || employe->getMdp().isEmpty() || employe->getGroupe().isEmpty())
+    if(employe->getCode().isEmpty() ||
+            employe->getNom().isEmpty() ||
+            employe->getPrenom().isEmpty() ||
+            employe->getMdp().isEmpty() ||
+            employe->getGroupe().isEmpty())
     {
 
         QMessageBox::critical(this, "Erreur", "Un champ texte est resté vide, vous devez obligatoirement remplir tous les champs.");
@@ -754,17 +755,7 @@ void MainWindow::on_suppFournisseur_clicked()
                                                           ui->siretfournisseur->text(),
                                                           ui->apefournisseur->text()
                                                           );
-    if(supprimerUnFournisseur->getIdFournisseur().isEmpty() ||
-            supprimerUnFournisseur->getCodeFournisseur().isEmpty() ||
-            supprimerUnFournisseur->getNomSociete().isEmpty() ||
-            supprimerUnFournisseur->getFormeJuridique().isEmpty() ||
-            supprimerUnFournisseur->getAdresse().isEmpty() ||
-            supprimerUnFournisseur->getCodePostal().isEmpty() ||
-            supprimerUnFournisseur->getVille().isEmpty() ||
-            supprimerUnFournisseur->getPays().isEmpty() ||
-            supprimerUnFournisseur->getTelephone().isEmpty() ||
-            supprimerUnFournisseur->getSiret().isEmpty() ||
-            supprimerUnFournisseur->getApe().isEmpty())
+    if(ui->idfournisseur->text().isEmpty())
     {
         QMessageBox::warning(this,tr("Erreur"),tr("Vous devez selectionner un produit à supprimer."));
 
@@ -798,10 +789,6 @@ void MainWindow::on_suppFournisseur_clicked()
 /*Permet de supprimer un utilisateur lorsqu'on clique sur le bouton Supprimer*/
 void MainWindow::on_suppUtilisateur_clicked()
 {
-    int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un profil utilisateur,"
-                                                               " cette action est irreversible. Cliquez sur OUI pour confirmer ou"
-                                                               " sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
-    if (reponse == QMessageBox::Yes)
     {
         Utilisateur *supprimerUtilisateur = new Utilisateur(ui->idUtilisateurEdit->text(),
                                                             ui->code->text(),
@@ -810,6 +797,18 @@ void MainWindow::on_suppUtilisateur_clicked()
                                                             ui->mdp->text(),
                                                             ui->groupe->text()
                                                             );
+        if(ui->idUtilisateurEdit->text().isEmpty())
+        {
+            QMessageBox::critical(this, "Information", "Vous devez selectionner un utilisateur à supprimer.");
+
+        }
+        else{
+            int reponse = QMessageBox::question(this, "Avertissement", "ATTENTION! Vous êtes sur le point de supprimer un profil utilisateur,"
+                                                                       " cette action est irreversible. Cliquez sur OUI pour confirmer ou"
+                                                                       " sur NON pour annuler.", QMessageBox::Yes | QMessageBox::No);
+
+        if (reponse == QMessageBox::Yes)
+        {
         this->bdd->supprimerUnUtilisateur(*supprimerUtilisateur);
         QSqlQueryModel * actualiserListe = new QSqlQueryModel();
         QSqlQuery actualiser(this->bdd->stockup);
@@ -821,8 +820,10 @@ void MainWindow::on_suppUtilisateur_clicked()
     }
     else if (reponse == QMessageBox::No)
     {
-        QMessageBox::critical(this, "Information", "L'utilisateur n'a pas été supprimé.");
+        QMessageBox::warning(this, "Information", "L'utilisateur n'a pas été supprimé.");
     }
+    }
+}
 }
 
 /*Permet d'afficher les utilisateurs par ordre alphabétique lorsqu'on clique sur le bouton Tri alphabétique*/
